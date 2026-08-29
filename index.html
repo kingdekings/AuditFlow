@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generador de Informe Ejecutivo SPA</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <main class="app">
+    <!-- Editor / Sidebar -->
+    <aside class="editor">
+      <h1>Generador de Informes</h1>
+      <p>Plantilla ejecutiva A4 horizontal en formato SPA. Personaliza y descarga tu informe de 2 páginas con dimensiones exactas.</p>
+      
+      <!-- General Customization -->
+      <section class="group">
+        <h2 class="group-title">Estilo Semanal</h2>
+        <div class="field">
+        <label for="pageBackgroundStyle">Diseño Gráfico (Estilo Diapositiva)</label>
+        <select id="pageBackgroundStyle">
+          <option value="bg-geometric-blocks">Bloques Geométricos Angulares (Nuevo)</option>
+          <option value="bg-swiss-diagonal">Corte Diagonal Estilo Suizo</option>
+          <option value="bg-asymmetric-bars">Franjas Asimétricas de Autor</option>
+          <option value="bg-modern">Abstracto Fluido Clásico</option>
+        </select>
+      </div>
+        <div class="field">
+          <label for="theme">Tema</label>
+          <select id="theme">
+            <option value="theme-boardroom">Azul Ejecutivo</option>
+            <option value="theme-mineral">Verde Institucional</option>
+            <option value="theme-copper">Contraste Directivo</option>
+          </select>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="pageBg">Fondo</label>
+            <input id="pageBg" type="color" value="#f8fafc">
+          </div>
+          <div class="field">
+            <label for="accent">Color principal</label>
+            <input id="accent" type="color" value="#1d4ed8">
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="accent2">Color secundario</label>
+            <input id="accent2" type="color" value="#0f766e">
+          </div>
+          <div class="field">
+            <label for="soft">Color suave</label>
+            <input id="soft" type="color" value="#dbeafe">
+          </div>
+        </div>
+        <div class="field">
+          <label for="fontChoice">Fuente de textos</label>
+          <select id="fontChoice">
+            <option value="Inter, 'Segoe UI', Arial, sans-serif">Inter / Segoe UI</option>
+            <option value="Arial, Helvetica, sans-serif">Arial</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="Verdana, Geneva, sans-serif">Verdana</option>
+            <option value="'Trebuchet MS', Arial, sans-serif">Trebuchet</option>
+            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+          </select>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="kpiBgStart">KPI Fondo 1</label>
+            <input id="kpiBgStart" type="color" value="#0b4290">
+          </div>
+          <div class="field">
+            <label for="kpiBgEnd">KPI Fondo 2</label>
+            <input id="kpiBgEnd" type="color" value="#052b68">
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="kpiBorder">KPI Borde</label>
+            <input id="kpiBorder" type="color" value="#050075">
+          </div>
+          <div class="field">
+            <label for="kpiNumberBg">KPI Número</label>
+            <input id="kpiNumberBg" type="color" value="#ffe169">
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="kpiNumberText">Texto Número</label>
+            <input id="kpiNumberText" type="color" value="#ffffff">
+          </div>
+          <div class="field">
+            <label for="kpiTitleColor">Títulos destacados</label>
+            <input id="kpiTitleColor" type="color" value="#06135f">
+          </div>
+        </div>
+        <div class="field">
+          <label for="logoUpload">Logo de la empresa</label>
+          <input id="logoUpload" type="file" accept="image/*">
+        </div>
+        <div class="field">
+        <label for="bgImageUpload">Fondo personalizado (Imagen/Plantilla)</label>
+        <input id="bgImageUpload" type="file" accept="image/*">
+      </div>
+      </section>
+
+      <!-- Cover Page Data -->
+      <section class="group">
+        <h2 class="group-title">Portada</h2>
+        <div class="field">
+          <label for="reportTitle">Título</label>
+          <input id="reportTitle" value="Informe ejecutivo semanal">
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="reportDate">Fecha</label>
+            <input id="reportDate" value="28 de agosto de 2026">
+          </div>
+          <div class="field">
+            <label for="reportNumber">Número</label>
+            <input id="reportNumber" value="Informe No. 034">
+          </div>
+        </div>
+        <div class="field">
+          <label for="processes">Procesos evaluados</label>
+          <textarea id="processes">Contratación y compras&#10;Supervisión operativa&#10;Gestión documental</textarea>
+        </div>
+        <div class="field">
+          <label for="directors">Directores</label>
+          <textarea id="directors">Dirección de Operaciones&#10;Dirección Administrativa</textarea>
+        </div>
+        <div class="field">
+          <label for="objective">Objetivo</label>
+          <textarea id="objective">Presentar los resultados semanales de la evaluación realizada, resaltando avances, novedades y asuntos que requieren gestión directiva.</textarea>
+        </div>
+        <div class="field">
+          <label for="scope">Alcance</label>
+          <textarea id="scope">La revisión comprende las visitas, soportes, procesos y novedades identificadas durante la semana reportada.</textarea>
+        </div>
+      </section>
+
+      <!-- Evaluated Aspects Data -->
+      <section class="group">
+        <h2 class="group-title">Aspectos Evaluados</h2>
+        <div id="aspectEditors"></div>
+        <button class="btn btn-secondary" id="addAspect" type="button">Agregar aspecto</button>
+      </section>
+
+      <!-- Evaluation Summary -->
+      <section class="group">
+        <h2 class="group-title">Resumen de Evaluación</h2>
+        <div class="field">
+          <label for="visits">Visitas realizadas</label>
+          <input id="visits" value="8 visitas">
+        </div>
+        <div class="field">
+          <label for="amount">Monto evaluado</label>
+          <input id="amount" value="$ 1.250 millones">
+        </div>
+        <div class="field">
+          <label for="novelty">Detalle de la novedad</label>
+          <textarea id="novelty">Se evidenció oportunidad de mejora en la consistencia de los soportes y en la documentación de cierres parciales.</textarea>
+        </div>
+      </section>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button class="btn btn-secondary" id="sample" type="button">Cargar ejemplo</button>
+        <button class="btn btn-primary" id="print" type="button">Generar PDF</button>
+      </div>
+    </aside>
+
+    <!-- Report Preview Stage -->
+    <section class="stage" aria-label="Vista previa">
+      <div class="deck theme-boardroom" id="deck">
+        
+        <!-- Page 1: Cover -->
+        <article class="page cover-page" id="coverPage">
+          <header class="topline">
+            <div class="brand-block">
+              <img class="logo" id="previewLogo" alt="Logo de la empresa">
+              <div class="brand-fallback">Logo empresa</div>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem; color: #555;">
+              <strong id="previewReportNumber"></strong> | <span id="previewReportDate"></span>
+            </p>
+          </header>
+          <h2 class="cover-title" id="previewReportTitle"></h2>
+
+        <div class="cover-grid">
+          <div class="card polaroid-kpi">
+            <h3>Procesos</h3>
+            <p class="card-value" id="previewProcesses"></p>
+          </div>
+          <div class="card polaroid-kpi">
+            <h3>Directores</h3>
+            <p class="card-value" id="previewDirectors"></p>
+          </div>
+          <div class="card polaroid-kpi">
+            <h3>Objetivo</h3>
+            <p class="card-value" id="previewObjective"></p>
+          </div>
+          <div class="card polaroid-kpi">
+            <h3>Alcance</h3>
+            <p class="card-value" id="previewScope"></p>
+          </div>
+        </div>
+
+          <span class="page-label">Página 1 / Portada</span>
+        </article>
+
+<!-- Page 2: Aspects -->
+        <article class="page">
+          <header class="section-head">
+            <div>
+              <h2 class="section-title">Aspectos evaluados</h2>
+            </div>
+          </header>
+          
+          <!-- Las tarjetas de aspectos (ahora solo con título h3) -->
+          <div class="aspect-grid" id="aspectPreview"></div>
+
+          <!-- Título intermedio nuevo -->
+          <div class="intermediate-title-container">
+            <h3 class="intermediate-title">Detalle Operativo y Métricas Globales</h3>
+          </div>
+
+          <!-- Mini tarjetas inferiores -->
+          <div class="mini-grid">
+            <div class="mini-card">
+              <h3>Visitas realizadas</h3>
+              <strong id="previewVisits"></strong>
+            </div>
+            <div class="mini-card">
+              <h3>Monto evaluado</h3>
+              <strong id="previewAmount"></strong>
+            </div>
+            <div class="mini-card">
+              <h3>Detalle de la novedad</h3>
+              <p id="previewNovelty"></p>
+            </div>
+          </div>
+          <span class="page-label">Página 2 / Aspectos evaluados</span>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
