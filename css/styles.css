@@ -800,3 +800,59 @@ input:focus, textarea:focus, select:focus {
   font-weight: bold;
   cursor: pointer;
 }
+
+/* --- ESTILOS DEL ACORDEÓN DE CONFIGURACIÓN --- */
+.style-accordion {
+  margin-bottom: 12px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.style-accordion summary {
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #334155;
+  background: #f8fafc;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none; /* Elimina la flecha estándar */
+}
+
+/* Soporte para ocultar la flecha en navegadores WebKit (Chrome/Safari) */
+.style-accordion summary::-webkit-details-marker {
+  display: none; 
+}
+
+.style-accordion summary:hover {
+  background: #f1f5f9;
+}
+
+/* Crea un indicador de + y - personalizado */
+.style-accordion summary::after {
+  content: '+';
+  font-size: 16px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.style-accordion[open] summary::after {
+  content: '−';
+  color: var(--accent);
+}
+
+.style-accordion[open] summary {
+  border-bottom: 1px solid var(--line);
+  color: var(--accent);
+}
+
+.accordion-content {
+  padding: 14px 14px 2px 14px;
+  background: #ffffff;
+}

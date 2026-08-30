@@ -15,52 +15,104 @@
 <aside class="editor">
   <h1>AuditFlow</h1>
   
-  <!-- ================= SECCIÓN GENERAL ================= -->
+<!-- ================= SECCIÓN GENERAL (ESTILOS) ================= -->
   <section class="group">
-    <h2 class="group-title" style="border-bottom: 2px solid var(--accent); padding-bottom: 5px;">Estilo General y Apariencia</h2>
+    <h2 class="group-title" style="border-bottom: 2px solid var(--accent); padding-bottom: 5px;">Personalización Visual</h2>
     
-    <div class="field">
-      <label for="pageBackgroundStyle">Diseño Gráfico (Estilo Diapositiva)</label>
-      <select id="pageBackgroundStyle">
-        
-        <option value="bg-swiss-diagonal">Corte Diagonal Estilo Suizo</option>
-        <option value="bg-asymmetric-bars">Franjas Asimétricas de Autor</option>
-        <option value="bg-modern">Abstracto Fluido Clásico</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="theme">Tema</label>
-      <select id="theme">
-        <option value="theme-boardroom">Azul Ejecutivo</option>
-        <option value="theme-mineral">Verde Institucional</option>
-        <option value="theme-copper">Contraste Directivo</option>
-      </select>
-    </div>
-    <div class="split">
-      <div class="field">
-        <label for="pageBg">Fondo</label>
-        <input id="pageBg" type="color" value="#f8fafc">
+    <!-- Acordeón 1: Fondos y Temas -->
+    <details class="style-accordion" open>
+      <summary>Temas y Fondos Base</summary>
+      <div class="accordion-content">
+        <div class="field">
+          <label for="pageBackgroundStyle">Diseño Gráfico (Estilo Diapositiva)</label>
+          <select id="pageBackgroundStyle">
+            <option value="bg-swiss-diagonal">Corte Diagonal Estilo Suizo</option>
+            <option value="bg-asymmetric-bars">Franjas Asimétricas de Autor</option>
+            <option value="bg-modern">Abstracto Fluido Clásico</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="theme">Esquema de Colores Rápido</label>
+          <select id="theme">
+            <option value="theme-boardroom">Azul Ejecutivo</option>
+            <option value="theme-mineral">Verde Institucional</option>
+            <option value="theme-copper">Contraste Directivo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="pageBg">Color de fondo del papel</label>
+          <input id="pageBg" type="color" value="#f8fafc">
+        </div>
       </div>
-      <div class="field">
-        <label for="accent">Color principal</label>
-        <input id="accent" type="color" value="#1d4ed8">
+    </details>
+
+    <!-- Acordeón 2: Colores Generales -->
+    <details class="style-accordion">
+      <summary>Colores Principales (Líneas y Botones)</summary>
+      <div class="accordion-content">
+        <div class="split">
+          <div class="field">
+            <label for="accent">Principal (Líneas/Íconos)</label>
+            <input id="accent" type="color" value="#1d4ed8">
+          </div>
+          <div class="field">
+            <label for="accent2">Secundario (Detalles)</label>
+            <input id="accent2" type="color" value="#0f766e">
+          </div>
+        </div>
+        <div class="field">
+          <label for="soft">Color suave (Rellenos claros)</label>
+          <input id="soft" type="color" value="#dbeafe">
+        </div>
       </div>
-    </div>
-    <div class="split">
-      <div class="field">
-        <label for="accent2">Color secundario</label>
-        <input id="accent2" type="color" value="#0f766e">
+    </details>
+
+    <!-- Acordeón 3: Tarjetas y Métricas -->
+    <details class="style-accordion">
+      <summary>Tarjetas de Métricas (Aspectos)</summary>
+      <div class="accordion-content">
+        <div class="split">
+          <div class="field">
+            <label for="kpiBgStart">Fondo (Arriba)</label>
+            <input id="kpiBgStart" type="color" value="#0b4290">
+          </div>
+          <div class="field">
+            <label for="kpiBgEnd">Fondo (Abajo)</label>
+            <input id="kpiBgEnd" type="color" value="#052b68">
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="kpiBorder">Borde de tarjeta</label>
+            <input id="kpiBorder" type="color" value="#050075">
+          </div>
+          <div class="field">
+            <label for="kpiTitleColor">Títulos de sección</label>
+            <input id="kpiTitleColor" type="color" value="#06135f">
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="kpiNumberBg">Cinta decorativa</label>
+            <input id="kpiNumberBg" type="color" value="#ffe169">
+          </div>
+          <div class="field">
+            <label for="kpiNumberText">Texto de números</label>
+            <input id="kpiNumberText" type="color" value="#ffffff">
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label for="soft">Color suave</label>
-        <input id="soft" type="color" value="#dbeafe">
-      </div>
-    </div>
-<div class="field">
-  <label for="fontChoice">Fuente de textos</label>
-  <select id="fontChoice">
-    <!-- Sans-Serif Modernas y UI -->
-    <option value="Inter, 'Segoe UI', Arial, sans-serif">Inter</option>
+    </details>
+
+    <!-- Acordeón 4: Tipografía e Imágenes -->
+    <details class="style-accordion">
+      <summary>Tipografía y Logos</summary>
+      <div class="accordion-content">
+        <div class="field">
+          <label for="fontChoice">Tipo de letra principal</label>
+          <!-- (Deja aquí tu lista actual de fuentes) -->
+          <select id="fontChoice">
+<option value="Inter, 'Segoe UI', Arial, sans-serif">Inter</option>
     <option value="'Roboto', sans-serif">Roboto</option>
     <option value="'Open Sans', sans-serif">Open Sans</option>
     <option value="'Montserrat', sans-serif">Montserrat</option>
@@ -88,42 +140,14 @@
     <!-- Tradicionales -->
     <option value="Verdana, Geneva, sans-serif">Verdana</option>
     <option value="'Trebuchet MS', Arial, sans-serif">Trebuchet MS</option>
-  </select>
-</div>
-    <div class="split">
-      <div class="field">
-        <label for="kpiBgStart">KPI Fondo 1</label>
-        <input id="kpiBgStart" type="color" value="#0b4290">
+          </select>
+        </div>
+        <div class="field">
+          <label for="bgImageUpload">Cargar imagen de fondo</label>
+          <input id="bgImageUpload" type="file" accept="image/*">
+        </div>
       </div>
-      <div class="field">
-        <label for="kpiBgEnd">KPI Fondo 2</label>
-        <input id="kpiBgEnd" type="color" value="#052b68">
-      </div>
-    </div>
-    <div class="split">
-      <div class="field">
-        <label for="kpiBorder">KPI Borde</label>
-        <input id="kpiBorder" type="color" value="#050075">
-      </div>
-      <div class="field">
-        <label for="kpiNumberBg">KPI Número</label>
-        <input id="kpiNumberBg" type="color" value="#ffe169">
-      </div>
-    </div>
-    <div class="split">
-      <div class="field">
-        <label for="kpiNumberText">Texto Número</label>
-        <input id="kpiNumberText" type="color" value="#ffffff">
-      </div>
-      <div class="field">
-        <label for="kpiTitleColor">Títulos destacados</label>
-        <input id="kpiTitleColor" type="color" value="#06135f">
-      </div>
-    </div>
-    <div class="field">
-      <label for="bgImageUpload">Fondo personalizado (Imagen/Plantilla)</label>
-      <input id="bgImageUpload" type="file" accept="image/*">
-    </div>
+    </details>
   </section>
 
   <!-- ================= SECCIÓN PÁGINA 1 ================= -->
