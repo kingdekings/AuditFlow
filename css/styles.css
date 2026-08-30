@@ -19,6 +19,24 @@
   --card: rgba(255, 255, 255, 0.88);
   --card-line: rgba(100, 116, 139, 0.24);
   --shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+
+  /* --- Tipografía general del reporte --- */
+  --title-scale: 1;
+  --paragraph-color: #1f2937;
+  --paragraph-size: 13px;
+  --span-color: #64748b;
+  --span-size: 13px;
+
+  /* --- Tarjeta de aspecto (Página 2), fondo/texto sólidos --- */
+  --aspect-bg: #0b4290;
+  --aspect-text: #ffffff;
+
+  /* --- Tabla de contenido --- */
+  --table-header-bg: #1d4ed8;
+  --table-header-text: #ffffff;
+  --table-cell-bg: #ffffff;
+  --table-cell-text: #111827;
+  --table-font-size: 13px;
 }
 
 *, *::before, *::after {
@@ -121,6 +139,26 @@ textarea {
 input[type="color"] {
   min-height: 42px;
   padding: 4px;
+}
+
+input[type="range"] {
+  padding: 0;
+  height: 20px;
+  accent-color: var(--accent);
+}
+
+.range-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.range-field output {
+  min-width: 42px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: right;
 }
 
 input:focus, textarea:focus, select:focus {
@@ -260,7 +298,7 @@ input:focus, textarea:focus, select:focus {
   padding: 6px 14px;
   border-radius: 999px;
   color: var(--kpi-title);
-  font-size: 25px;
+  font-size: calc(25px * var(--title-scale));
   font-weight: 950;
   text-transform: uppercase;
   text-align: center;
@@ -314,7 +352,7 @@ input:focus, textarea:focus, select:focus {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-left: 5px solid var(--kpi-number-bg);
   border-radius: 12px;
-  background: linear-gradient(135deg, var(--kpi-bg-start), var(--kpi-bg-end));
+  background: var(--aspect-bg);
   box-shadow: 0 10px 25px rgba(5, 0, 117, 0.15);
   overflow: hidden;
 }
@@ -324,7 +362,8 @@ input:focus, textarea:focus, select:focus {
   position: absolute;
   right: 12px;
   top: -8px; 
-  color: rgba(255, 255, 255, 0.12);
+  color: var(--aspect-text);
+  opacity: 0.15;
   font-size: 48px;
   font-weight: 950;
   pointer-events: none;
@@ -332,8 +371,8 @@ input:focus, textarea:focus, select:focus {
 
 .aspect-card h3 {
   margin: 0;
-  color: #fff;
-  font-size: 15px; 
+  color: var(--aspect-text);
+  font-size: calc(15px * var(--title-scale)); 
   font-weight: 900;
   letter-spacing: .04em;
   text-transform: uppercase;
@@ -362,7 +401,7 @@ input:focus, textarea:focus, select:focus {
 .intermediate-title {
   margin: 0;
   color: var(--kpi-title);
-  font-size: 16px;
+  font-size: calc(16px * var(--title-scale));
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -405,7 +444,7 @@ input:focus, textarea:focus, select:focus {
 
 .mini-header h3 {
   color: var(--kpi-title);
-  font-size: 13px;
+  font-size: calc(13px * var(--title-scale));
   font-weight: 800;
   text-transform: uppercase;
   margin: 0;
@@ -423,17 +462,17 @@ input:focus, textarea:focus, select:focus {
 
 
 .mini-subtext {
-  font-size: 13px;
+  font-size: var(--span-size);
   font-weight: 600;
-  color: #64748b; 
+  color: var(--span-color); 
   line-height: 1.2;
 }
 
 
 .mini-text {
-  font-size: 13px;
+  font-size: var(--paragraph-size);
   font-weight: 600;
-  color: #1f2937;
+  color: var(--paragraph-color);
   line-height: 1.4;
   margin: 0;
 }
@@ -472,7 +511,7 @@ input:focus, textarea:focus, select:focus {
   max-width: 1920px;
   margin: 18px 0 24px;
   color: var(--kpi-title);
-  font-size: 48px;
+  font-size: calc(48px * var(--title-scale));
   font-weight: 950;
   text-transform: uppercase;
   text-align: center;
@@ -522,7 +561,7 @@ input:focus, textarea:focus, select:focus {
 
 
 .cover-grid .card.polaroid-kpi h3 {
-  font-size: 14px;
+  font-size: calc(14px * var(--title-scale));
   color: var(--kpi-title);
   margin: 0;
   padding: 0;
@@ -533,9 +572,9 @@ input:focus, textarea:focus, select:focus {
 
 
 .cover-grid .card.polaroid-kpi p.card-value {
-  font-size: 13px;
+  font-size: var(--paragraph-size);
   font-weight: 700;
-  color: var(--page-ink);
+  color: var(--paragraph-color);
   line-height: 1.35;
   margin: 0;
   display: flex;
@@ -567,6 +606,17 @@ input:focus, textarea:focus, select:focus {
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
+}
+
+/* --- Tipografía genérica de contenido del reporte (aplica salvo que una clase más específica la sobreescriba) --- */
+.page p {
+  color: var(--paragraph-color);
+  font-size: var(--paragraph-size);
+}
+
+.page span {
+  color: var(--span-color);
+  font-size: var(--span-size);
 }
 
 .page {
@@ -827,7 +877,7 @@ input:focus, textarea:focus, select:focus {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  background: #ffffff;
+  background: var(--table-cell-bg);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
@@ -836,21 +886,22 @@ input:focus, textarea:focus, select:focus {
   border: 1px solid var(--line);
   padding: 12px 16px;
   text-align: left;
-  font-size: 13px;
-  color: var(--page-ink);
+  font-size: var(--table-font-size);
+  color: var(--table-cell-text);
+  background: var(--table-cell-bg);
   overflow-wrap: break-word;
   word-break: break-word;
 }
 .report-table th {
-  background: var(--accent);
-  color: #ffffff;
+  background: var(--table-header-bg);
+  color: var(--table-header-text);
   font-weight: 800;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: calc(var(--table-font-size) - 1px);
   letter-spacing: 0.05em;
 }
 .report-table tr:nth-child(even) td {
-  background: rgba(248, 250, 252, 0.6); 
+  background: rgba(0, 0, 0, 0.035); 
 }
 
 /* --- EVIDENCIAS (Página 4) --- */
@@ -986,22 +1037,24 @@ input:focus, textarea:focus, select:focus {
 .dynamic-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 10px;
+  font-size: calc(var(--table-font-size) - 3px);
+  background: var(--table-cell-bg);
+  color: var(--table-cell-text);
 }
 
 .dynamic-table th {
-  background: var(--soft);
-  color: var(--kpi-title);
+  background: var(--table-header-bg);
+  color: var(--table-header-text);
   padding: 6px;
   text-align: left;
-  border-bottom: 1px solid #cbd5e1;
+  border-bottom: 1px solid var(--line);
   font-weight: bold;
 }
 
 .dynamic-table td {
   padding: 6px;
-  border-bottom: 1px solid #f1f5f9;
-  color: #334155;
+  border-bottom: 1px solid var(--line);
+  color: var(--table-cell-text);
 }
 
 .dynamic-page-editor {

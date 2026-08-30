@@ -120,6 +120,23 @@
       </div>
     </details>
 
+    <!-- Acordeón 3b: Tarjetas de Aspecto (fondo/texto sólido, sin degradado) -->
+    <details class="style-accordion">
+      <summary>Tarjeta de Aspectos (Página 2)</summary>
+      <div class="accordion-content">
+        <div class="split">
+          <div class="field">
+            <label for="aspectCardBg">Color de fondo</label>
+            <input id="aspectCardBg" type="color" value="#0b4290">
+          </div>
+          <div class="field">
+            <label for="aspectCardText">Color de letra</label>
+            <input id="aspectCardText" type="color" value="#ffffff">
+          </div>
+        </div>
+      </div>
+    </details>
+
     <!-- Acordeón 4: Tipografía e Imágenes -->
     <details class="style-accordion">
       <summary>Tipografía y Logos</summary>
@@ -160,6 +177,82 @@
         <div class="field">
           <label for="bgImageUpload">Cargar imagen de fondo</label>
           <input id="bgImageUpload" type="file" accept="image/*">
+        </div>
+      </div>
+    </details>
+
+    <!-- Acordeón 5: Títulos, párrafos y span -->
+    <details class="style-accordion">
+      <summary>Títulos, Párrafos y Span</summary>
+      <div class="accordion-content">
+        <div class="field">
+          <label for="titleScale">Tamaño de títulos</label>
+          <div class="range-field">
+            <input id="titleScale" type="range" min="0.7" max="1.5" step="0.05" value="1">
+            <output id="titleScaleValue">100%</output>
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="paragraphColor">Color de párrafos</label>
+            <input id="paragraphColor" type="color" value="#1f2937">
+          </div>
+          <div class="field">
+            <label for="paragraphSize">Tamaño de párrafos (px)</label>
+            <input id="paragraphSize" type="number" min="10" max="24" step="1" value="13">
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="spanColor">Color de span</label>
+            <input id="spanColor" type="color" value="#64748b">
+          </div>
+          <div class="field">
+            <label for="spanSize">Tamaño de span (px)</label>
+            <input id="spanSize" type="number" min="9" max="22" step="1" value="13">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Acordeón 6: Bordes -->
+    <details class="style-accordion">
+      <summary>Color de Bordes</summary>
+      <div class="accordion-content">
+        <div class="field">
+          <label for="lineColor">Color de borde general (tablas y divisores)</label>
+          <input id="lineColor" type="color" value="#d8e0e8">
+        </div>
+      </div>
+    </details>
+
+    <!-- Acordeón 7: Estilo de Tablas -->
+    <details class="style-accordion">
+      <summary>Estilo de Tablas</summary>
+      <div class="accordion-content">
+        <div class="split">
+          <div class="field">
+            <label for="tableHeaderBg">Fondo de encabezado</label>
+            <input id="tableHeaderBg" type="color" value="#1d4ed8">
+          </div>
+          <div class="field">
+            <label for="tableHeaderText">Texto de encabezado</label>
+            <input id="tableHeaderText" type="color" value="#ffffff">
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="tableCellBg">Fondo de celdas</label>
+            <input id="tableCellBg" type="color" value="#ffffff">
+          </div>
+          <div class="field">
+            <label for="tableCellText">Texto de celdas</label>
+            <input id="tableCellText" type="color" value="#111827">
+          </div>
+        </div>
+        <div class="field">
+          <label for="tableFontSize">Tamaño de letra (px)</label>
+          <input id="tableFontSize" type="number" min="9" max="20" step="1" value="13">
         </div>
       </div>
     </details>

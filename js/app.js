@@ -262,6 +262,33 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById("kpiNumberText").addEventListener("input", event => setReportVar("--kpi-number-text", event.target.value));
   document.getElementById("kpiTitleColor").addEventListener("input", event => setReportVar("--kpi-title", event.target.value));
 
+  // --- Tarjeta de aspecto: fondo/texto sólidos ---
+  document.getElementById("aspectCardBg").addEventListener("input", event => setReportVar("--aspect-bg", event.target.value));
+  document.getElementById("aspectCardText").addEventListener("input", event => setReportVar("--aspect-text", event.target.value));
+
+  // --- Títulos, párrafos y span ---
+  const titleScaleInput = document.getElementById("titleScale");
+  const titleScaleValue = document.getElementById("titleScaleValue");
+  titleScaleInput.addEventListener("input", event => {
+    setReportVar("--title-scale", event.target.value);
+    titleScaleValue.textContent = Math.round(event.target.value * 100) + "%";
+  });
+
+  document.getElementById("paragraphColor").addEventListener("input", event => setReportVar("--paragraph-color", event.target.value));
+  document.getElementById("paragraphSize").addEventListener("input", event => setReportVar("--paragraph-size", event.target.value + "px"));
+  document.getElementById("spanColor").addEventListener("input", event => setReportVar("--span-color", event.target.value));
+  document.getElementById("spanSize").addEventListener("input", event => setReportVar("--span-size", event.target.value + "px"));
+
+  // --- Color de borde general ---
+  document.getElementById("lineColor").addEventListener("input", event => setReportVar("--line", event.target.value));
+
+  // --- Estilo de tablas ---
+  document.getElementById("tableHeaderBg").addEventListener("input", event => setReportVar("--table-header-bg", event.target.value));
+  document.getElementById("tableHeaderText").addEventListener("input", event => setReportVar("--table-header-text", event.target.value));
+  document.getElementById("tableCellBg").addEventListener("input", event => setReportVar("--table-cell-bg", event.target.value));
+  document.getElementById("tableCellText").addEventListener("input", event => setReportVar("--table-cell-text", event.target.value));
+  document.getElementById("tableFontSize").addEventListener("input", event => setReportVar("--table-font-size", event.target.value + "px"));
+
 document.getElementById("fontChoice").addEventListener("change", event => {
   const selectedFont = event.target.value;
   // Aplica la fuente a la variable global y de forma directa al contenedor y páginas
