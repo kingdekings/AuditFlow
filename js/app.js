@@ -1162,4 +1162,22 @@ function renderDynSidebar() {
   // Iniciar el renderizado
   renderDynamicPages();
 
+
+// --- LÓGICA DE LAS PESTAÑAS (TABS) EN LA SIDEBAR ---
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // 1. Quitar la clase 'active' de todos los botones y ocultar secciones
+      tabButtons.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active-tab'));
+      
+      // 2. Activar el botón clicado y mostrar su sección correspondiente
+      btn.classList.add('active');
+      const targetId = btn.getAttribute('data-target');
+      document.getElementById(targetId).classList.add('active-tab');
+    });
+  });
+
 });

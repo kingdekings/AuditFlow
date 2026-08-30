@@ -264,6 +264,7 @@ input:focus, textarea:focus, select:focus {
   font-size: 32px;
   font-weight: 950;
   text-transform: uppercase;
+  text-align: center;
 }
 
 /* --- NUEVO DISEÑO LIMPIO PARA LAS ASPECT CARDS --- */
@@ -1061,3 +1062,54 @@ input:focus, textarea:focus, select:focus {
   gap: 5px;
   margin-top: 10px;
 }
+
+/* --- ESTILOS DE LAS PESTAÑAS (TABS) --- */
+.sidebar-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tab-btn {
+  flex: 1 1 calc(33.333% - 6px); /* Para que queden 3 botones por fila */
+  padding: 8px 4px;
+  font-size: 12px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #475569;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  background: #e2e8f0;
+}
+
+/* Estado activo del botón */
+.tab-btn.active {
+  background: #1d4ed8;
+  color: white;
+  border-color: #1d4ed8;
+}
+
+/* Ocultar todas las secciones por defecto */
+.tab-content {
+  display: none;
+}
+
+/* Mostrar solo la sección activa */
+.tab-content.active-tab {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

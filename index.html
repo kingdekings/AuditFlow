@@ -15,8 +15,18 @@
 <aside class="editor">
   <h1>AuditFlow</h1>
   
-<!-- ================= SECCIÓN GENERAL (ESTILOS) ================= -->
-  <section class="group">
+  <!-- NUEVO: Menú de navegación por pestañas -->
+  <nav class="sidebar-tabs">
+    <button class="tab-btn active" data-target="sec-estilos">Estilos</button>
+    <button class="tab-btn" data-target="sec-pag1">Pág 1</button>
+    <button class="tab-btn" data-target="sec-pag2">Pág 2</button>
+    <button class="tab-btn" data-target="sec-pag3">Pág 3</button>
+    <button class="tab-btn" data-target="sec-pag4">Pág 4</button>
+    <button class="tab-btn" data-target="sec-pag5">Pág 5</button>
+  </nav>
+
+  <!-- ================= SECCIÓN GENERAL (ESTILOS) ================= -->
+  <section id="sec-estilos" class="group tab-content active-tab">
     <h2 class="group-title" style="border-bottom: 2px solid var(--accent); padding-bottom: 5px;">Personalización Visual</h2>
     
     <!-- Acordeón 1: Fondos y Temas -->
@@ -36,6 +46,7 @@
           <option value="media/fondo7.png">Diseño RSNS 7</option>
           <option value="media/fondo8.png">Diseño RSNS 8</option>
           <option value="media/fondo9.png">Diseño astro</option>
+          <option value="media/fondo10.png">Diseño RSNS 9</option>
 
         </select>
       </div>
@@ -159,7 +170,7 @@
   </section>
 
   <!-- ================= SECCIÓN PÁGINA 1 ================= -->
-  <section class="group" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #1d4ed8;">
+  <section id="sec-pag1" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #1d4ed8;">
     <h2 class="group-title" style="color: #1d4ed8;">Página 1: Portada</h2>
     <div class="field">
       <label for="reportTitle">Título</label>
@@ -194,7 +205,7 @@
   </section>
 
   <!-- ================= SECCIÓN PÁGINA 2 ================= -->
-  <section class="group" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #0f766e; margin-top: 15px;">
+  <section id="sec-pag2" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #0f766e; margin-top: 15px;">
     <h2 class="group-title" style="color: #0f766e;">Página 2: Aspectos Evaluados</h2>
     
     <!-- Evaluated Aspects Data -->
@@ -275,8 +286,8 @@
     </div>
   </section>
 
-<!-- ================= SECCIÓN PÁGINA 3 ================= -->
-  <section class="group" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #8a3ffc; margin-top: 15px;">
+  <!-- ================= SECCIÓN PÁGINA 3 ================= -->
+  <section id="sec-pag3" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #8a3ffc; margin-top: 15px;">
     <h2 class="group-title" style="color: #8a3ffc;">Página 3: Detalles y Tabla</h2>
 
     <!-- Controles de la Tabla -->
@@ -302,7 +313,7 @@
   </section>
 
   <!-- ================= SECCIÓN PÁGINA 4 ================= -->
-  <section class="group" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 15px;">
+  <section id="sec-pag4" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 15px;">
     <h2 class="group-title" style="color: #ef4444;">Página 4: Evidencias</h2>
     
     <div style="margin-bottom: 12px;">
@@ -313,15 +324,16 @@
     <div id="evidenceSidebarGrid" style="display: grid; gap: 16px;"></div>
   </section>
 
-    <section class="group" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #cde403; margin-top: 15px;">
-      <div class="panel-section">
-      <h2 class="group-title" style="color: #cde403;">Página 5: Tablas de Novedades</h2>
-      <div id="dynamicPagesSidebarContainer"></div>
-      <button class="btn" id="addDynamicPageBtn" type="button" style="width: 100%; margin-top: 10px;">
-        + Agregar Nueva Página de Tablas
-      </button>
-      </div>
-    </section>
+  <!-- ================= SECCIÓN PÁGINA 5 ================= -->
+  <section id="sec-pag5" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #cde403; margin-top: 15px;">
+    <div class="panel-section">
+    <h2 class="group-title" style="color: #cde403;">Página 5: Tablas de Novedades</h2>
+    <div id="dynamicPagesSidebarContainer"></div>
+    <button class="btn" id="addDynamicPageBtn" type="button" style="width: 100%; margin-top: 10px;">
+      + Agregar Nueva Página de Tablas
+    </button>
+    </div>
+  </section>
 
 
 
