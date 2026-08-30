@@ -394,6 +394,7 @@ document.getElementById("fontChoice").addEventListener("change", event => {
 const bgImageSelect = document.getElementById("pageBackgroundImage");
   if (bgImageSelect) {
     bgImageSelect.addEventListener("change", event => {
+      currentCustomBg = null;
       const imagePath = event.target.value;
       const pages = document.querySelectorAll(".page");
       
@@ -410,21 +411,39 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     });
   }
 
-function applyCustomBackground(src) {
-    if (!src) return;
-    const pages = document.querySelectorAll(".page");
-    pages.forEach(page => {
-      page.style.backgroundImage = `url(${src})`;
-      page.style.backgroundSize = 'cover';
-      page.style.backgroundPosition = 'center';
-      page.style.backgroundRepeat = 'no-repeat';
-    });
+  // 1. Variable global para recordar la imagen subida
+  let currentCustomBg = null;
+
+  // 2. Nueva función que sí procesa el archivo de imagen
+  function applyCustomBackground(file) {
+    if (!file) return;
     
-    // Si el usuario sube una imagen, reiniciamos el selector de la carpeta media
-    const bgImageSelect = document.getElementById("pageBackgroundImage");
-    if (bgImageSelect) {
-      bgImageSelect.value = ""; 
-    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      currentCustomBg = ev.target.result; // Se guarda en Base64
+      const pages = document.querySelectorAll(".page");
+      pages.forEach(page => {
+        page.style.backgroundImage = `url('${currentCustomBg}')`;
+        page.style.backgroundSize = 'cover';
+        page.style.backgroundPosition = 'center';
+        page.style.backgroundRepeat = 'no-repeat';
+      });
+      
+      // Reiniciamos el selector desplegable si el usuario sube una imagen
+      const bgImageSelect = document.getElementById("pageBackgroundImage");
+      if (bgImageSelect) {
+        bgImageSelect.value = ""; 
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // 3. Conectamos la función con tu botón HTML usando el ID correcto
+  const bgImageUpload = document.getElementById("bgImageUpload");
+  if (bgImageUpload) {
+    bgImageUpload.addEventListener("change", (event) => {
+      applyCustomBackground(event.target.files[0]);
+    });
   }
 
   setTheme("theme-boardroom");
@@ -760,6 +779,7 @@ function applyCustomBackground(src) {
   let dynamicPagesData = [
     {
       id: "page_0",
+      title: "Tablas de Novedades",
       tables: [
         {
           title: "PUNTOS SIN AVISO",
@@ -785,7 +805,6 @@ function renderDynSidebar() {
     dynamicPagesData.forEach((page, pageIndex) => {
       // 1. Contenedor principal de la página (Línea roja lateral)
       const pageWrapper = document.createElement("div");
-      pageWrapper.style.borderLeft = "3px solid #e11d48"; // Línea roja estilo Evidencias
       pageWrapper.style.paddingLeft = "15px";
       pageWrapper.style.marginBottom = "30px";
 
@@ -797,8 +816,8 @@ function renderDynSidebar() {
       pageHeader.style.marginBottom = "15px";
 
       const titleH3 = document.createElement("h3");
-      titleH3.textContent = `Tablas`; // +4 asumiendo que es la pag 5 en adelante
-      titleH3.style.color = "#e11d48";
+      titleH3.textContent = `Tablas`; 
+      titleH3.style.color = "#471de1";
       titleH3.style.fontSize = "14px";
       titleH3.style.fontWeight = "bold";
       titleH3.style.margin = "0";
@@ -806,7 +825,7 @@ function renderDynSidebar() {
       const delPageBtn = document.createElement("button");
       delPageBtn.textContent = "Eliminar Página";
       delPageBtn.style.background = "#fee2e2";
-      delPageBtn.style.color = "#ef4444";
+      delPageBtn.style.color = "#e91717";
       delPageBtn.style.border = "none";
       delPageBtn.style.padding = "4px 8px";
       delPageBtn.style.borderRadius = "4px";
@@ -816,6 +835,35 @@ function renderDynSidebar() {
 
       pageHeader.append(titleH3, delPageBtn);
       pageWrapper.appendChild(pageHeader);
+      // --- NUEVO: Input para el título de la página (Header) ---
+      const pageTitleWrap = document.createElement("div");
+      pageTitleWrap.style.marginBottom = "15px";
+      
+      const pageTitleLabel = document.createElement("label");
+      pageTitleLabel.textContent = "Título de la Página (Header)";
+      pageTitleLabel.style.fontSize = "13px";
+      pageTitleLabel.style.color = "#334155";
+      pageTitleLabel.style.fontWeight = "bold";
+      pageTitleLabel.style.display = "block";
+      pageTitleLabel.style.marginBottom = "5px";
+      
+      const pageTitleInput = document.createElement("input");
+      pageTitleInput.value = page.title || "Tablas de Novedades";
+      pageTitleInput.style.width = "100%";
+      pageTitleInput.style.padding = "10px";
+      pageTitleInput.style.border = "1px solid #cbd5e1";
+      pageTitleInput.style.borderRadius = "6px";
+      pageTitleInput.style.boxSizing = "border-box";
+      
+      // Al escribir, actualiza el objeto y refresca la vista previa
+      pageTitleInput.oninput = (e) => { 
+        page.title = e.target.value; 
+        renderDynPreview(); 
+      };
+      
+      pageTitleWrap.append(pageTitleLabel, pageTitleInput);
+      pageWrapper.appendChild(pageTitleWrap);
+      // ---------------------------------------------------------
 
       // 3. Botón estilo "+ Agregar Nueva Evidencia"
       const addTableBtn = document.createElement("button");
@@ -988,6 +1036,20 @@ function renderDynSidebar() {
       // Crear una nueva hoja (.page)
       const pageDiv = document.createElement("div");
       pageDiv.className = "page";
+
+      // --- NUEVO: Crear el header visual en la hoja de papel ---
+      const pageHeaderEl = document.createElement("header");
+      pageHeaderEl.className = "section-head";
+      
+      const pageHeaderDiv = document.createElement("div");
+      const pageHeaderTitle = document.createElement("h2");
+      pageHeaderTitle.className = "section-title";
+      pageHeaderTitle.textContent = page.title || "Tablas de Novedades";
+      
+      pageHeaderDiv.appendChild(pageHeaderTitle);
+      pageHeaderEl.appendChild(pageHeaderDiv);
+      pageDiv.appendChild(pageHeaderEl);
+      // ---------------------------------------------------------
       
       const gridContainer = document.createElement("div");
       gridContainer.className = "grid-page-container";
@@ -1038,9 +1100,19 @@ function renderDynSidebar() {
       dynDeckContainer.appendChild(pageDiv);
     });
     
-    // Al regenerar páginas, volvemos a aplicar las imágenes de fondo si existen
+// Al regenerar páginas, volvemos a aplicar las imágenes de fondo si existen
     const bgImageSelect = document.getElementById("pageBackgroundImage");
-    if (bgImageSelect && bgImageSelect.value) {
+    
+    if (currentCustomBg) {
+      // Prioriza la imagen que el usuario acaba de subir
+      dynDeckContainer.querySelectorAll(".page").forEach(p => {
+         p.style.backgroundImage = `url('${currentCustomBg}')`;
+         p.style.backgroundSize = 'cover';
+         p.style.backgroundPosition = 'center';
+         p.style.backgroundRepeat = 'no-repeat';
+      });
+    } else if (bgImageSelect && bgImageSelect.value) {
+      // Si no ha subido ninguna, usa la del menú desplegable
       dynDeckContainer.querySelectorAll(".page").forEach(p => {
          p.style.backgroundImage = `url('${bgImageSelect.value}')`;
          p.style.backgroundSize = 'cover';
@@ -1080,6 +1152,7 @@ function renderDynSidebar() {
     addDynamicPageBtn.addEventListener("click", () => {
       dynamicPagesData.push({
         id: "page_" + Date.now(),
+        title: "Nueva Página de Tablas",
         tables: []
       });
       renderDynamicPages();
