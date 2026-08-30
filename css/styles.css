@@ -987,3 +987,77 @@ input:focus, textarea:focus, select:focus {
     radial-gradient(circle at 15% 90%, var(--soft) 0%, transparent 35%),
     radial-gradient(circle at 25% 100%, var(--mix-accent-16-transparent) 0%, transparent 30%);
 }
+
+/* --- ESTILOS PARA PÁGINAS DINÁMICAS DE TABLAS --- */
+.grid-page-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas como en tu imagen */
+  gap: 20px;
+  padding: 40px;
+  align-content: start;
+}
+
+.dynamic-table-card {
+  border: 1px solid var(--kpi-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: white;
+}
+
+.dynamic-table-header {
+  background: var(--kpi-bg-start);
+  color: white;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dynamic-table-header svg {
+  width: 14px;
+  height: 14px;
+}
+
+.dynamic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+
+.dynamic-table th {
+  background: var(--soft);
+  color: var(--kpi-title);
+  padding: 6px;
+  text-align: left;
+  border-bottom: 1px solid #cbd5e1;
+  font-weight: bold;
+}
+
+.dynamic-table td {
+  padding: 6px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+/* Estilos para el panel lateral de estas tablas */
+.dynamic-page-editor {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+.dynamic-table-editor {
+  background: white;
+  border: 1px dashed #cbd5e1;
+  padding: 10px;
+  margin-top: 10px;
+  position: relative;
+}
+.table-data-grid {
+  display: grid;
+  gap: 5px;
+  margin-top: 10px;
+}

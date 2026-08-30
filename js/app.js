@@ -13,33 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
     ["directors", "previewDirectors"],
     ["objective", "previewObjective"],
     ["scope", "previewScope"],
-// --- NUEVOS CAMPOS DE LAS MINI CARDS ---
     ["visitsTitle", "previewVisitsTitle"],
     ["visits", "previewVisits"],
-    ["visitsSub", "previewVisitsSub"],
-    
+    ["visitsSub", "previewVisitsSub"],   
     ["amountTitle", "previewAmountTitle"],
     ["amount", "previewAmount"],
-    ["amountSub", "previewAmountSub"],
-    
+    ["amountSub", "previewAmountSub"],  
     ["noveltyTitle", "previewNoveltyTitle"],
     ["novelty", "previewNovelty"],
-    // ---------------------------------------
     ["intermediateTitleInput", "previewIntermediateTitle"],
     ["alertTitle", "previewAlertTitle"],
     ["alertSubtitle", "previewAlertSubtitle"],
     ["alertAmount", "previewAlertAmount"],
     ["userRole", "previewUserRole"],
     ["userName", "previewUserName"],
-    ["userId", "previewUserId"],
-    ["b3PuntoNum", "prevB3PuntoNum"],
-    ["b3PuntoName", "prevB3PuntoName"],
-    ["b3UserRole", "prevB3UserRole"],
-    ["b3UserName", "prevB3UserName"],
-    ["b3UserId", "prevB3UserId"],
-    ["b3FaltanteNum", "prevB3FaltanteNum"],
-    ["b3FaltanteType", "prevB3FaltanteType"],
-    ["b3Valor", "prevB3Valor"]
+    ["userId", "previewUserId"]
   ];
 
   const themes = {
@@ -403,52 +391,40 @@ document.getElementById("fontChoice").addEventListener("change", event => {
     }
   });
 
-function setPageBackgroundStyle(bgClass) {
-    const pages = document.querySelectorAll(".page");
-    const allBgClasses = [
-      "bg-swiss-diagonal", "bg-asymmetric-bars", "bg-modern", "bg-editorial", "bg-dynamic",
-      "bg-soft-orbs", "bg-corporate-arch", "bg-diagonal-swoosh", "bg-floating-shapes",
-      "bg-modern-split", "bg-angled-corners", "bg-elegant-curve", "bg-side-accent",
-      "bg-spotlight", "bg-glass-spheres"
-    ];
-
-    pages.forEach(page => {
-      // Remover todas las clases de fondo posibles
-      page.classList.remove(...allBgClasses);
-      // Agregar la nueva si existe
-      if (bgClass) page.classList.add(bgClass);
+const bgImageSelect = document.getElementById("pageBackgroundImage");
+  if (bgImageSelect) {
+    bgImageSelect.addEventListener("change", event => {
+      const imagePath = event.target.value;
+      const pages = document.querySelectorAll(".page");
+      
+      pages.forEach(page => {
+        if (imagePath) {
+          page.style.backgroundImage = `url('${imagePath}')`;
+          page.style.backgroundSize = 'cover'; // Asegura que la imagen cubra toda la hoja
+          page.style.backgroundPosition = 'center';
+          page.style.backgroundRepeat = 'no-repeat';
+        } else {
+          page.style.backgroundImage = 'none'; // Quita la imagen si elige "Sin fondo"
+        }
+      });
     });
   }
 
-  const bgStyleSelect = document.getElementById("pageBackgroundStyle");
-  if (bgStyleSelect) {
-    bgStyleSelect.addEventListener("change", event => {
-      setPageBackgroundStyle(event.target.value);
-    });
-  }
-
-  function applyCustomBackground(src) {
+function applyCustomBackground(src) {
     if (!src) return;
     const pages = document.querySelectorAll(".page");
     pages.forEach(page => {
       page.style.backgroundImage = `url(${src})`;
+      page.style.backgroundSize = 'cover';
+      page.style.backgroundPosition = 'center';
+      page.style.backgroundRepeat = 'no-repeat';
     });
     
-    if (bgStyleSelect) {
-      bgStyleSelect.disabled = true;
-      setPageBackgroundStyle(""); 
+    // Si el usuario sube una imagen, reiniciamos el selector de la carpeta media
+    const bgImageSelect = document.getElementById("pageBackgroundImage");
+    if (bgImageSelect) {
+      bgImageSelect.value = ""; 
     }
-  }
-
-  const bgImageUpload = document.getElementById("bgImageUpload");
-  if (bgImageUpload) {
-    bgImageUpload.addEventListener("change", event => {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => applyCustomBackground(reader.result);
-      reader.readAsDataURL(file);
-    });
   }
 
   setTheme("theme-boardroom");
@@ -648,6 +624,469 @@ function setPageBackgroundStyle(bgClass) {
 
   // Iniciar la tabla de evidencias
   renderEvidenceData();
+
+// --- CONTROL DE VISIBILIDAD DEL ALERT-BANNER ---
+  const toggleAlertBanner = document.getElementById("toggleAlertBanner");
+  const alertBannerPreview = document.getElementById("alertBannerPreview");
   
+  if(toggleAlertBanner && alertBannerPreview) {
+    toggleAlertBanner.addEventListener("change", (e) => {
+      // El banner originalmente usa flexbox, si lo ocultamos usamos 'none'
+      alertBannerPreview.style.display = e.target.checked ? "flex" : "none";
+    });
+  }
+
+  // --- LÓGICA DE BANNERS DINÁMICOS (Página 3) ---
+  let bannerData = [
+    {
+      puntoNum: "8570", puntoName: "LAS DELICIAS COMUNEROS",
+      userRole: "ASESORA DE COMISIÓN", userName: "ANDREA CASTELLANOS", userId: "CC 1092385256",
+      faltanteNum: "67", faltanteType: "RASPAS", valor: "$155.000"
+    }
+  ];
+
+  const bannerSidebarGrid = document.getElementById("bannerSidebarGrid");
+  const bannerPreviewContainer = document.getElementById("bannerPreviewContainer");
+
+  function renderBannerData() {
+    bannerSidebarGrid.innerHTML = "";
+    bannerData.forEach((row, index) => {
+      const editor = document.createElement("div");
+      editor.className = "evidence-row-editor";
+      editor.style.border = "1px solid #d1d5db";
+      editor.style.padding = "10px";
+      editor.style.borderRadius = "6px";
+      
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Eliminar Banner";
+      removeBtn.className = "remove-btn";
+      removeBtn.style.marginBottom = "10px";
+      removeBtn.onclick = () => { bannerData.splice(index, 1); renderBannerData(); };
+
+      // Helper para crear inputs rápidamente
+      const createField = (labelTxt, key) => {
+         const wrap = document.createElement("div"); wrap.className = "field";
+         wrap.innerHTML = `<label>${labelTxt}</label>`;
+         const inp = document.createElement("input");
+         inp.value = row[key];
+         inp.oninput = (e) => { row[key] = e.target.value; renderBannerPreview(); };
+         wrap.appendChild(inp);
+         return wrap;
+      };
+
+      const split1 = document.createElement("div"); split1.className = "split";
+      split1.append(createField("Punto (Num)", "puntoNum"), createField("Punto (Nombre)", "puntoName"));
+      
+      const fCargo = createField("Cargo", "userRole");
+
+      const split2 = document.createElement("div"); split2.className = "split";
+      split2.append(createField("Nombre", "userName"), createField("Documento", "userId"));
+
+      const split3 = document.createElement("div"); split3.className = "split";
+      split3.append(createField("Faltante (Num)", "faltanteNum"), createField("Faltante (Tipo)", "faltanteType"));
+
+      const fValor = createField("Valor Total", "valor");
+
+      editor.append(removeBtn, split1, fCargo, split2, split3, fValor);
+      bannerSidebarGrid.appendChild(editor);
+    });
+    renderBannerPreview();
+  }
+
+  function renderBannerPreview() {
+    bannerPreviewContainer.innerHTML = "";
+    bannerData.forEach(row => {
+      const bannerHtml = `
+        <div class="banner-cuatro">
+          <div class="b4-seccion">
+            <div class="b4-icono" style="color: #003380;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            </div>
+            <div class="b4-textos">
+              <span class="b4-label">PUNTO</span>
+              <strong class="b4-val b4-dark">${row.puntoNum}</strong>
+              <span class="b4-sub">${row.puntoName}</span>
+            </div>
+          </div>
+          <div class="b4-divisor"></div>
+          <div class="b4-seccion">
+            <div class="b4-icono" style="color: #003380;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="b4-textos">
+              <span class="b4-label">${row.userRole}</span>
+              <strong class="b4-val b4-dark" style="font-size: 15px;">${row.userName}</strong>
+              <span class="b4-sub" style="font-weight: normal;">${row.userId}</span>
+            </div>
+          </div>
+          <div class="b4-divisor"></div>
+          <div class="b4-seccion">
+            <div class="b4-icono" style="color: #a81c1c;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M8 6h8M8 10h8M8 14h4" stroke="#fff" stroke-width="2"/></svg>
+            </div>
+            <div class="b4-textos">
+              <span class="b4-label">FALTANTE FÍSICO</span>
+              <strong class="b4-val" style="color: #a81c1c; font-size: 32px;">${row.faltanteNum}</strong>
+              <span class="b4-sub">${row.faltanteType}</span>
+            </div>
+          </div>
+          <div class="b4-divisor"></div>
+          <div class="b4-seccion">
+            <div class="b4-icono" style="color: #1b5e20;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 5H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H3V7h18v10zm-9-1.5c-2.21 0-4-1.57-4-3.5s1.79-3.5 4-3.5 4 1.57 4 3.5-1.79 3.5-4 3.5zm0-5c-1.1 0-2 .67-2 1.5s.9 1.5 2 1.5 2-.67 2-1.5-.9-1.5-2-1.5z"/></svg>
+            </div>
+            <div class="b4-textos">
+              <span class="b4-label">VALOR TOTAL</span>
+              <strong class="b4-val" style="color: #1b5e20; font-size: 26px;">${row.valor}</strong>
+            </div>
+          </div>
+        </div>
+      `;
+      bannerPreviewContainer.insertAdjacentHTML('beforeend', bannerHtml);
+    });
+  }
+
+  document.getElementById("addBannerBtn").addEventListener("click", () => {
+    bannerData.push({ puntoNum: "0", puntoName: "NUEVO", userRole: "CARGO", userName: "NOMBRE", userId: "CC", faltanteNum: "0", faltanteType: "TIPO", valor: "$0" });
+    renderBannerData();
+  });
+
+  // Inicializar al cargar
+  renderBannerData();
+
+  // --- LÓGICA DE PÁGINAS DINÁMICAS (MÚLTIPLES TABLAS) ---
+  
+  // Estructura inicial: 1 página con 1 tabla de ejemplo
+  let dynamicPagesData = [
+    {
+      id: "page_0",
+      tables: [
+        {
+          title: "PUNTOS SIN AVISO",
+          columns: ["Código PDV", "Nombre de PDV", "Zona"],
+          rows: [["12345", "CENTRO PRINCIPAL", "CENTRO"]]
+        }
+      ]
+    }
+  ];
+
+  const dynSidebarContainer = document.getElementById("dynamicPagesSidebarContainer");
+  const dynDeckContainer = document.getElementById("dynamicPagesDeckContainer");
+
+  function renderDynamicPages() {
+    renderDynSidebar();
+    renderDynPreview();
+  }
+
+function renderDynSidebar() {
+    if (!dynSidebarContainer) return;
+    dynSidebarContainer.innerHTML = "";
+
+    dynamicPagesData.forEach((page, pageIndex) => {
+      // 1. Contenedor principal de la página (Línea roja lateral)
+      const pageWrapper = document.createElement("div");
+      pageWrapper.style.borderLeft = "3px solid #e11d48"; // Línea roja estilo Evidencias
+      pageWrapper.style.paddingLeft = "15px";
+      pageWrapper.style.marginBottom = "30px";
+
+      // 2. Encabezado de la página (Título rojo y botón eliminar)
+      const pageHeader = document.createElement("div");
+      pageHeader.style.display = "flex";
+      pageHeader.style.justifyContent = "space-between";
+      pageHeader.style.alignItems = "center";
+      pageHeader.style.marginBottom = "15px";
+
+      const titleH3 = document.createElement("h3");
+      titleH3.textContent = `Tablas`; // +4 asumiendo que es la pag 5 en adelante
+      titleH3.style.color = "#e11d48";
+      titleH3.style.fontSize = "14px";
+      titleH3.style.fontWeight = "bold";
+      titleH3.style.margin = "0";
+
+      const delPageBtn = document.createElement("button");
+      delPageBtn.textContent = "Eliminar Página";
+      delPageBtn.style.background = "#fee2e2";
+      delPageBtn.style.color = "#ef4444";
+      delPageBtn.style.border = "none";
+      delPageBtn.style.padding = "4px 8px";
+      delPageBtn.style.borderRadius = "4px";
+      delPageBtn.style.fontSize = "12px";
+      delPageBtn.style.cursor = "pointer";
+      delPageBtn.onclick = () => { dynamicPagesData.splice(pageIndex, 1); renderDynamicPages(); };
+
+      pageHeader.append(titleH3, delPageBtn);
+      pageWrapper.appendChild(pageHeader);
+
+      // 3. Botón estilo "+ Agregar Nueva Evidencia"
+      const addTableBtn = document.createElement("button");
+      addTableBtn.textContent = "+ Agregar Nueva Tabla";
+      addTableBtn.style.width = "100%";
+      addTableBtn.style.padding = "12px";
+      addTableBtn.style.background = "#f1f5f9";
+      addTableBtn.style.color = "#0f172a";
+      addTableBtn.style.border = "none";
+      addTableBtn.style.borderRadius = "6px";
+      addTableBtn.style.fontWeight = "bold";
+      addTableBtn.style.marginBottom = "20px";
+      addTableBtn.style.cursor = "pointer";
+      addTableBtn.onclick = () => {
+        page.tables.push({ title: "NUEVA TABLA", columns: ["Col 1", "Col 2"], rows: [["", ""]] });
+        renderDynamicPages();
+      };
+      pageWrapper.appendChild(addTableBtn);
+
+      // 4. Tarjetas individuales de cada tabla (Las tarjetas blancas limpias)
+      page.tables.forEach((table, tableIndex) => {
+        const tableCard = document.createElement("div");
+        tableCard.style.background = "white";
+        tableCard.style.border = "1px solid #e2e8f0";
+        tableCard.style.borderRadius = "8px";
+        tableCard.style.padding = "15px";
+        tableCard.style.marginBottom = "15px";
+
+        // Fila: Etiqueta del título y botón eliminar
+        const headerRow = document.createElement("div");
+        headerRow.style.display = "flex";
+        headerRow.style.justifyContent = "space-between";
+        headerRow.style.alignItems = "center";
+        headerRow.style.marginBottom = "8px";
+
+        const titleLabel = document.createElement("label");
+        titleLabel.textContent = "Título de la Tabla";
+        titleLabel.style.fontSize = "13px";
+        titleLabel.style.color = "#334155";
+        titleLabel.style.fontWeight = "bold";
+
+        const delTableBtn = document.createElement("button");
+        delTableBtn.textContent = "Eliminar";
+        delTableBtn.style.background = "#fee2e2";
+        delTableBtn.style.color = "#ef4444";
+        delTableBtn.style.border = "none";
+        delTableBtn.style.padding = "4px 8px";
+        delTableBtn.style.borderRadius = "4px";
+        delTableBtn.style.fontSize = "11px";
+        delTableBtn.style.cursor = "pointer";
+        delTableBtn.onclick = () => { page.tables.splice(tableIndex, 1); renderDynamicPages(); };
+
+        headerRow.append(titleLabel, delTableBtn);
+        tableCard.appendChild(headerRow);
+
+        // Input del título
+        const titleInput = document.createElement("input");
+        titleInput.value = table.title;
+        titleInput.style.width = "100%";
+        titleInput.style.padding = "10px";
+        titleInput.style.border = "1px solid #cbd5e1";
+        titleInput.style.borderRadius = "6px";
+        titleInput.style.marginBottom = "15px";
+        titleInput.style.boxSizing = "border-box";
+        titleInput.style.fontSize = "14px";
+        titleInput.oninput = (e) => { table.title = e.target.value; renderDynPreview(); };
+        tableCard.appendChild(titleInput);
+
+        // Controles de Filas y Columnas (Estilizados)
+        const controlsRow = document.createElement("div");
+        controlsRow.style.display = "grid";
+        controlsRow.style.gridTemplateColumns = "1fr 1fr";
+        controlsRow.style.gap = "10px";
+        controlsRow.style.marginBottom = "15px";
+
+        const createBtn = (text, onClick, isDanger) => {
+          const btn = document.createElement("button");
+          btn.textContent = text;
+          btn.type = "button";
+          btn.style.padding = "8px";
+          btn.style.fontSize = "12px";
+          btn.style.borderRadius = "6px";
+          btn.style.border = "none";
+          btn.style.cursor = "pointer";
+          btn.style.fontWeight = "bold";
+          if (isDanger) {
+            btn.style.background = "#fff1f2";
+            btn.style.color = "#be123c";
+          } else {
+            btn.style.background = "#f0fdf4";
+            btn.style.color = "#15803d";
+          }
+          btn.onclick = onClick;
+          return btn;
+        };
+
+        const colGroup = document.createElement("div");
+        colGroup.style.display = "flex"; colGroup.style.gap = "5px";
+        colGroup.append(
+           createBtn("+ Columna", () => addDynCol(pageIndex, tableIndex), false),
+           createBtn("- Columna", () => remDynCol(pageIndex, tableIndex), true)
+        );
+        colGroup.childNodes.forEach(c => c.style.flex = "1");
+
+        const rowGroup = document.createElement("div");
+        rowGroup.style.display = "flex"; rowGroup.style.gap = "5px";
+        rowGroup.append(
+           createBtn("+ Fila", () => addDynRow(pageIndex, tableIndex), false),
+           createBtn("- Fila", () => remDynRow(pageIndex, tableIndex), true)
+        );
+        rowGroup.childNodes.forEach(c => c.style.flex = "1");
+
+        controlsRow.append(colGroup, rowGroup);
+        tableCard.appendChild(controlsRow);
+
+        // Etiqueta para la cuadrícula
+        const gridLabel = document.createElement("label");
+        gridLabel.textContent = "Datos de la Tabla";
+        gridLabel.style.fontSize = "13px";
+        gridLabel.style.color = "#334155";
+        gridLabel.style.fontWeight = "bold";
+        gridLabel.style.display = "block";
+        gridLabel.style.marginBottom = "10px";
+        tableCard.appendChild(gridLabel);
+
+        // Cuadrícula de inputs
+        const grid = document.createElement("div");
+        grid.style.display = "grid";
+        grid.style.gap = "6px";
+        grid.style.gridTemplateColumns = `repeat(${table.columns.length}, 1fr)`;
+        
+        const baseInputStyle = `width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; box-sizing: border-box; outline: none;`;
+
+        // Inputs de cabeceras de tabla
+        table.columns.forEach((col, colIdx) => {
+          const colInput = document.createElement("input");
+          colInput.value = col;
+          colInput.style.cssText = baseInputStyle + " background: #f8fafc; font-weight: bold; color: #0f172a;";
+          colInput.oninput = (e) => { table.columns[colIdx] = e.target.value; renderDynPreview(); };
+          grid.appendChild(colInput);
+        });
+
+        // Inputs de celdas
+        table.rows.forEach((row, rowIdx) => {
+          row.forEach((cell, colIdx) => {
+            const cellInput = document.createElement("input");
+            cellInput.value = cell;
+            cellInput.style.cssText = baseInputStyle;
+            cellInput.oninput = (e) => { table.rows[rowIdx][colIdx] = e.target.value; renderDynPreview(); };
+            grid.appendChild(cellInput);
+          });
+        });
+
+        tableCard.appendChild(grid);
+        pageWrapper.appendChild(tableCard);
+      });
+
+      dynSidebarContainer.appendChild(pageWrapper);
+    });
+  }
+
+  function renderDynPreview() {
+    if (!dynDeckContainer) return;
+    dynDeckContainer.innerHTML = "";
+    
+    // Icono genérico en SVG para el título de las tablas
+    const defaultIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
+
+    dynamicPagesData.forEach(page => {
+      // Crear una nueva hoja (.page)
+      const pageDiv = document.createElement("div");
+      pageDiv.className = "page";
+      
+      const gridContainer = document.createElement("div");
+      gridContainer.className = "grid-page-container";
+
+      page.tables.forEach(table => {
+        const card = document.createElement("div");
+        card.className = "dynamic-table-card";
+        
+        // Cabecera de la tarjeta
+        const header = document.createElement("div");
+        header.className = "dynamic-table-header";
+        header.innerHTML = `${defaultIcon} <span>${table.title}</span>`;
+        
+        // Tabla HTML
+        const tableEl = document.createElement("table");
+        tableEl.className = "dynamic-table";
+        
+        // Thead
+        const thead = document.createElement("thead");
+        const theadTr = document.createElement("tr");
+        table.columns.forEach(col => {
+          const th = document.createElement("th");
+          th.textContent = col;
+          theadTr.appendChild(th);
+        });
+        thead.appendChild(theadTr);
+        
+        // Tbody
+        const tbody = document.createElement("tbody");
+        table.rows.forEach(row => {
+          const tr = document.createElement("tr");
+          row.forEach(cell => {
+            const td = document.createElement("td");
+            td.textContent = cell;
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+
+        tableEl.appendChild(thead);
+        tableEl.appendChild(tbody);
+        card.appendChild(header);
+        card.appendChild(tableEl);
+        gridContainer.appendChild(card);
+      });
+
+      pageDiv.appendChild(gridContainer);
+      dynDeckContainer.appendChild(pageDiv);
+    });
+    
+    // Al regenerar páginas, volvemos a aplicar las imágenes de fondo si existen
+    const bgImageSelect = document.getElementById("pageBackgroundImage");
+    if (bgImageSelect && bgImageSelect.value) {
+      dynDeckContainer.querySelectorAll(".page").forEach(p => {
+         p.style.backgroundImage = `url('${bgImageSelect.value}')`;
+         p.style.backgroundSize = 'cover';
+         p.style.backgroundPosition = 'center';
+         p.style.backgroundRepeat = 'no-repeat';
+      });
+    }
+  }
+
+  // Funciones globales para manipular columnas y filas en los botones
+  window.addDynCol = function(pageIdx, tableIdx) {
+    dynamicPagesData[pageIdx].tables[tableIdx].columns.push("Nueva Col");
+    dynamicPagesData[pageIdx].tables[tableIdx].rows.forEach(r => r.push(""));
+    renderDynamicPages();
+  };
+  window.remDynCol = function(pageIdx, tableIdx) {
+    if (dynamicPagesData[pageIdx].tables[tableIdx].columns.length > 1) {
+      dynamicPagesData[pageIdx].tables[tableIdx].columns.pop();
+      dynamicPagesData[pageIdx].tables[tableIdx].rows.forEach(r => r.pop());
+      renderDynamicPages();
+    }
+  };
+  window.addDynRow = function(pageIdx, tableIdx) {
+    const colCount = dynamicPagesData[pageIdx].tables[tableIdx].columns.length;
+    dynamicPagesData[pageIdx].tables[tableIdx].rows.push(new Array(colCount).fill(""));
+    renderDynamicPages();
+  };
+  window.remDynRow = function(pageIdx, tableIdx) {
+    if (dynamicPagesData[pageIdx].tables[tableIdx].rows.length > 1) {
+      dynamicPagesData[pageIdx].tables[tableIdx].rows.pop();
+      renderDynamicPages();
+    }
+  };
+
+  const addDynamicPageBtn = document.getElementById("addDynamicPageBtn");
+  if(addDynamicPageBtn) {
+    addDynamicPageBtn.addEventListener("click", () => {
+      dynamicPagesData.push({
+        id: "page_" + Date.now(),
+        tables: []
+      });
+      renderDynamicPages();
+    });
+  }
+
+  // Iniciar el renderizado
+  renderDynamicPages();
 
 });
