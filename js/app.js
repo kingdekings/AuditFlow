@@ -21,13 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ["amountSub", "previewAmountSub"],  
     ["noveltyTitle", "previewNoveltyTitle"],
     ["novelty", "previewNovelty"],
-    ["intermediateTitleInput", "previewIntermediateTitle"],
-    ["alertTitle", "previewAlertTitle"],
-    ["alertSubtitle", "previewAlertSubtitle"],
-    ["alertAmount", "previewAlertAmount"],
-    ["userRole", "previewUserRole"],
-    ["userName", "previewUserName"],
-    ["userId", "previewUserId"]
+    ["intermediateTitleInput", "previewIntermediateTitle"]
   ];
 
   const themes = {
@@ -560,7 +554,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
       // Input: Hallazgo
       const titleDiv = document.createElement("div");
       titleDiv.className = "field";
-      titleDiv.innerHTML = `<label>Hallazgo / Ítem</label>`;
+      titleDiv.innerHTML = `<label>Punto de Venta</label>`;
       const titleInput = document.createElement("input");
       titleInput.value = row.title;
       titleInput.oninput = (e) => { row.title = e.target.value; renderEvidencePreview(); };
@@ -569,7 +563,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
       // Input: Descripción
       const descDiv = document.createElement("div");
       descDiv.className = "field";
-      descDiv.innerHTML = `<label>Descripción</label>`;
+      descDiv.innerHTML = `<label>Novedad</label>`;
       const descInput = document.createElement("textarea");
       descInput.value = row.desc;
       descInput.style.minHeight = "60px";
@@ -644,16 +638,136 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   // Iniciar la tabla de evidencias
   renderEvidenceData();
 
-// --- CONTROL DE VISIBILIDAD DEL ALERT-BANNER ---
-  const toggleAlertBanner = document.getElementById("toggleAlertBanner");
-  const alertBannerPreview = document.getElementById("alertBannerPreview");
-  
-  if(toggleAlertBanner && alertBannerPreview) {
-    toggleAlertBanner.addEventListener("change", (e) => {
-      // El banner originalmente usa flexbox, si lo ocultamos usamos 'none'
-      alertBannerPreview.style.display = e.target.checked ? "flex" : "none";
+  // --- LÓGICA DE ALERT BANNERS DINÁMICOS (Página 2) ---
+  let alertsData = [
+    {
+      alertTitle: "NOVEDAD IDENTIFICADA",
+      alertSubtitle: "Sobrante por",
+      alertAmount: "$11.599.470",
+      userRole: "ASESORA DE COMISIÓN",
+      userName: "MARIA ALEJANDRA SUESCUN",
+      userId: "CC 1004826055"
+    }
+  ];
+
+  const alertsSidebarGrid = document.getElementById("alertsSidebarGrid");
+  const alertsPreviewContainer = document.getElementById("alertsPreviewContainer");
+
+  function renderAlertsData() {
+    if (!alertsSidebarGrid) return;
+    alertsSidebarGrid.innerHTML = "";
+    
+    alertsData.forEach((alert, index) => {
+      const editor = document.createElement("div");
+      editor.className = "evidence-row-editor";
+      editor.style.border = "1px solid #d1d5db";
+      editor.style.padding = "10px";
+      editor.style.borderRadius = "6px";
+      
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Eliminar Alerta";
+      removeBtn.className = "remove-btn";
+      removeBtn.style.marginBottom = "10px";
+      removeBtn.onclick = () => { alertsData.splice(index, 1); renderAlertsData(); };
+
+      // Helper para crear inputs rápidamente
+      const createField = (labelTxt, key) => {
+         const wrap = document.createElement("div"); wrap.className = "field";
+         wrap.innerHTML = `<label>${labelTxt}</label>`;
+         const inp = document.createElement("input");
+         inp.value = alert[key];
+         inp.oninput = (e) => { alert[key] = e.target.value; renderAlertsPreview(); };
+         wrap.appendChild(inp);
+         return wrap;
+      };
+
+      const split1 = document.createElement("div"); split1.className = "split";
+      split1.append(createField("Título", "alertTitle"), createField("Subtítulo", "alertSubtitle"));
+      
+      const fAmount = createField("Monto", "alertAmount");
+
+      const split2 = document.createElement("div"); split2.className = "split";
+      split2.append(createField("Cargo", "userRole"), createField("Nombre", "userName"));
+      
+      const fId = createField("Documento", "userId");
+
+      editor.append(removeBtn, split1, fAmount, split2, fId);
+      alertsSidebarGrid.appendChild(editor);
+    });
+
+    // NUEVO: Ocultar el botón si ya hay 2 alertas
+    const addBtn = document.getElementById("addAlertBtn");
+    if (addBtn) {
+      if (alertsData.length >= 2) {
+        addBtn.style.display = "none";
+      } else {
+        addBtn.style.display = "block";
+      }
+    }
+
+    renderAlertsPreview();
+  }
+
+  // Y actualizamos el evento del botón para mayor seguridad
+  const addAlertBtn = document.getElementById("addAlertBtn");
+  if(addAlertBtn) {
+    addAlertBtn.addEventListener("click", () => {
+      if (alertsData.length < 2) {
+        alertsData.push({ 
+          alertTitle: "NUEVA ALERTA", 
+          alertSubtitle: "Motivo", 
+          alertAmount: "$0", 
+          userRole: "CARGO", 
+          userName: "NOMBRE", 
+          userId: "ID" 
+        });
+        renderAlertsData();
+      }
     });
   }
+
+  function renderAlertsPreview() {
+    if (!alertsPreviewContainer) return;
+    alertsPreviewContainer.innerHTML = "";
+    alertsData.forEach(alert => {
+      const bannerHtml = `
+        <div class="alert-banner">
+          <div class="alert-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#a81c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <div class="alert-details">
+            <h4 class="alert-title">${alert.alertTitle}</h4>
+            <p class="alert-subtitle">${alert.alertSubtitle}</p>
+            <strong class="alert-amount">${alert.alertAmount}</strong>
+          </div>
+          <div class="alert-divider"></div>
+          <div class="alert-user">
+            <div class="user-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00205b" stroke-width="1.5">
+                <circle cx="12" cy="12" r="11" fill="#fff"></circle>
+                <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#00205b"></path>
+              </svg>
+            </div>
+            <div class="user-info">
+              <h4 class="user-role">${alert.userRole}</h4>
+              <strong class="user-name">${alert.userName}</strong>
+              <p class="user-id">${alert.userId}</p>
+            </div>
+          </div>
+        </div>
+      `;
+      alertsPreviewContainer.insertAdjacentHTML('beforeend', bannerHtml);
+    });
+  }
+
+
+
+  // Inicializar al cargar
+  renderAlertsData();
 
   // --- LÓGICA DE BANNERS DINÁMICOS (Página 3) ---
   let bannerData = [
@@ -1179,5 +1293,16 @@ function renderDynSidebar() {
       document.getElementById(targetId).classList.add('active-tab');
     });
   });
+
+// --- EDICIÓN DEL TÍTULO DE LA PÁGINA 4 ---
+const page4TitleInput = document.getElementById("page4TitleInput");
+const page4TitlePreview = document.getElementById("page4TitlePreview");
+
+if (page4TitleInput && page4TitlePreview) {
+  page4TitleInput.addEventListener("input", (e) => {
+    // Reemplaza el texto de la vista previa con lo que escribas en el input
+    page4TitlePreview.textContent = e.target.value;
+  });
+}
 
 });

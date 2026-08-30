@@ -219,7 +219,7 @@
   <input id="intermediateTitleInput" value="Novedades de efectivo. R. Alto. P-Comercial">
     </div>
 
-<!-- Evaluation Summary (Mini Cards) -->
+    <!-- Evaluation Summary (Mini Cards) -->
     <div style="display: grid; gap: 16px; margin-bottom: 20px;">
       
       <!-- Campos Tarjeta 1: Visitas -->
@@ -247,43 +247,15 @@
       </div>
     </div>
 
-    <!-- Controles de la Alerta -->
+    <!-- Controles de la Alerta (DINÁMICO) -->
     <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3);">
-
-      <div class="field" style="margin-bottom: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3); padding-top: 15px;">
-        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-          <input type="checkbox" id="toggleAlertBanner" checked> 
-          <strong>Mostrar Alerta / Novedad en la hoja</strong>
-        </label>
-      </div>
-      <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Detalles de la Alerta / Novedad</h3>
-      <div class="split">
-        <div class="field">
-          <label for="alertTitle">Título</label>
-          <input id="alertTitle" value="NOVEDAD IDENTIFICADA">
-        </div>
-        <div class="field">
-          <label for="alertSubtitle">Subtítulo</label>
-          <input id="alertSubtitle" value="Sobrante por">
-        </div>
-      </div>
-      <div class="field">
-        <label for="alertAmount">Monto de la novedad</label>
-        <input id="alertAmount" value="$11.599.470">
-      </div>
-      <div class="field">
-        <label for="userRole">Cargo del funcionario</label>
-        <input id="userRole" value="ASESORA DE COMISIÓN">
-      </div>
-      <div class="field">
-        <label for="userName">Nombre del funcionario</label>
-        <input id="userName" value="MARIA ALEJANDRA SUESCUN">
-      </div>
-      <div class="field">
-        <label for="userId">Documento de identidad</label>
-        <input id="userId" value="CC 1004826055">
-      </div>
+      <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Detalles de las Alertas / Novedades</h3>
+      <button class="btn btn-secondary" id="addAlertBtn" type="button" style="width: 100%; padding: 8px; margin-bottom: 12px; font-size: 13px;">+ Agregar Nueva Alerta</button>
+      
+      <!-- Aquí se generarán los inputs de las alertas dinámicamente -->
+      <div id="alertsSidebarGrid" style="display: grid; gap: 16px;"></div>
     </div>
+
   </section>
 
   <!-- ================= SECCIÓN PÁGINA 3 ================= -->
@@ -315,6 +287,11 @@
   <!-- ================= SECCIÓN PÁGINA 4 ================= -->
   <section id="sec-pag4" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 15px;">
     <h2 class="group-title" style="color: #ef4444;">Página 4: Evidencias</h2>
+    <!-- Control en la Sidebar -->
+    <div class="field" style="margin-bottom: 15px;">
+      <label>Título de la Página</label>
+      <input type="text" id="page4TitleInput" value="MANEJO INADECUADO DE ACTIVOS FIJOS. R. MEDIO. P ADMINISTRATIVO">
+    </div>
     
     <div style="margin-bottom: 12px;">
       <button class="btn btn-secondary" id="addEvidenceRowBtn" type="button" style="width: 100%; padding: 8px; font-size: 13px;">+ Agregar Nueva Evidencia</button>
@@ -407,90 +384,67 @@
         </article>
 
         <!-- Page 2: Aspects -->
-        <article class="page">
+        <article class="page page-aspects">
           <header class="section-head">
             <div>
               <h2 class="section-title">Aspectos evaluados</h2>
             </div>
           </header>
-          
-          <div class="aspect-grid" id="aspectPreview"></div>
 
-          <div class="intermediate-title-container">
-            <h3 class="intermediate-title" id="previewIntermediateTitle">Detalle Operativo y Métricas Globales</h3>
-          </div>
+          <div class="page2-layout">
 
-          <div class="mini-grid">
-            <!-- Tarjeta 1 -->
-            <div class="mini-card">
-              <div class="mini-header">
-                <!-- Ícono de Mapa/Ubicación -->
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <h3 id="previewVisitsTitle">Visitas realizadas</h3>
+            <!-- Columna izquierda: Aspectos en columna -->
+            <div class="page2-col-left">
+              <div class="aspect-grid" id="aspectPreview"></div>
+            </div>
+
+            <!-- Columna derecha: Mini valores arriba + Alert banner abajo -->
+            <div class="page2-col-right">
+
+              <div class="intermediate-title-container">
+                <h3 class="intermediate-title" id="previewIntermediateTitle">Detalle Operativo y Métricas Globales</h3>
               </div>
-              <strong class="mini-value" id="previewVisits">8</strong>
-              <span class="mini-subtext" id="previewVisitsSub">visitas en distintas zonas</span>
-            </div>
-            
-            <!-- Tarjeta 2 -->
-            <div class="mini-card">
-              <div class="mini-header">
-                <!-- Ícono de Dinero/Monto -->
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                <h3 id="previewAmountTitle">Monto evaluado</h3>
+
+              <div class="mini-grid">
+                <!-- Tarjeta 1 -->
+                <div class="mini-card">
+                  <div class="mini-header">
+                    <!-- Ícono de Mapa/Ubicación -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <h3 id="previewVisitsTitle">Visitas realizadas</h3>
+                  </div>
+                  <strong class="mini-value" id="previewVisits">8</strong>
+                  <span class="mini-subtext" id="previewVisitsSub">visitas en distintas zonas</span>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="mini-card">
+                  <div class="mini-header">
+                    <!-- Ícono de Dinero/Monto -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <h3 id="previewAmountTitle">Monto evaluado</h3>
+                  </div>
+                  <strong class="mini-value" id="previewAmount">$ 1.250</strong>
+                  <span class="mini-subtext" id="previewAmountSub">millones de pesos</span>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="mini-card">
+                  <div class="mini-header">
+                    <!-- Ícono de Alerta/Info -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    <h3 id="previewNoveltyTitle">Detalle de la novedad</h3>
+                  </div>
+                  <p class="mini-text" id="previewNovelty">Se evidenció oportunidad de mejora en la consistencia de los soportes...</p>
+                </div>
               </div>
-              <strong class="mini-value" id="previewAmount">$ 1.250</strong>
-              <span class="mini-subtext" id="previewAmountSub">millones de pesos</span>
-            </div>
-            
-            <!-- Tarjeta 3 -->
-            <div class="mini-card">
-              <div class="mini-header">
-                <!-- Ícono de Alerta/Info -->
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                <h3 id="previewNoveltyTitle">Detalle de la novedad</h3>
-              </div>
-              <p class="mini-text" id="previewNovelty">Se evidenció oportunidad de mejora en la consistencia de los soportes...</p>
+
+              <!-- NUEVO CONTENEDOR DE ALERTAS -->
+              <div id="alertsPreviewContainer" style="display: flex; flex-direction: column; gap: 15px; margin-top: 25px;"></div>
+
             </div>
           </div>
 
-          <!-- NUEVO BANNER DE ALERTA -->
-        <div class="alert-banner" id="alertBannerPreview">
-          <!-- Lado Izquierdo (Monto) -->
-          <div class="alert-icon-box">
-            <!-- Icono de Triángulo de Advertencia (SVG) -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="#a81c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-              <line x1="12" y1="9" x2="12" y2="13"></line>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
-          </div>
-          <div class="alert-details">
-            <h4 class="alert-title" id="previewAlertTitle">NOVEDAD IDENTIFICADA</h4>
-            <p class="alert-subtitle" id="previewAlertSubtitle">Sobrante por</p>
-            <strong class="alert-amount" id="previewAlertAmount">$11.599.470</strong>
-          </div>
-
-          <!-- Línea Divisoria -->
-          <div class="alert-divider"></div>
-
-          <!-- Lado Derecho (Usuario) -->
-          <div class="alert-user">
-            <div class="user-avatar">
-              <!-- Icono de Usuario Circular (SVG) -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="#00205b" stroke-width="1.5">
-                <circle cx="12" cy="12" r="11" fill="#fff"></circle>
-                <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#00205b"></path>
-              </svg>
-            </div>
-            <div class="user-info">
-              <h4 class="user-role" id="previewUserRole">ASESORA DE COMISIÓN</h4>
-              <strong class="user-name" id="previewUserName">MARIA ALEJANDRA SUESCUN</strong>
-              <p class="user-id" id="previewUserId">CC 1004826055</p>
-            </div>
-          </div>
-        </div>
-        
         </article>
         <!-- Page 3: Detalles (Tabla y Banner) -->
         <article class="page">
@@ -509,7 +463,7 @@
 <!-- Page 4: Evidencias -->
         <article class="page">
           <header class="section-head">
-            <div><h2 class="section-title">MANEJO INADECUADO DE ACTIVOS FIJOS. R. MEDIO. P ADMINISTRATIVO</h2></div>
+            <div><h2 class="section-title" id="page4TitlePreview" style="text-align: center; color: #001f5b;" >MANEJO INADECUADO DE ACTIVOS FIJOS. R. MEDIO. P ADMINISTRATIVO</h2></div>
           </header>
 
           <table class="report-table" style="table-layout: fixed; width: 100%;">

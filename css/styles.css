@@ -267,22 +267,53 @@ input:focus, textarea:focus, select:focus {
   text-align: center;
 }
 
-/* --- NUEVO DISEÑO LIMPIO PARA LAS ASPECT CARDS --- */
+/* --- LAYOUT DE 2 COLUMNAS: PÁGINA 2 --- */
+/* Se activa el modo flex-column únicamente en la página de Aspectos,
+   para que el layout de 2 columnas pueda ocupar toda la altura restante
+   sin afectar el resto de las páginas (que siguen en flujo normal). */
+.page.page-aspects {
+  display: flex;
+  flex-direction: column;
+}
+
+.page2-layout {
+  display: flex;
+  align-items: stretch;
+  gap: 28px;
+  margin-top: 30px;
+  flex: 1;
+  min-height: 0;
+}
+
+.page2-col-left {
+  flex: 0 0 30%;
+  display: flex;
+}
+
+.page2-col-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* --- NUEVO DISEÑO LIMPIO PARA LAS ASPECT CARDS (COLUMNA VERTICAL) --- */
 .aspect-grid {
   counter-reset: aspect;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin: 40px 0 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
 }
 
 .aspect-card {
   counter-increment: aspect;
   position: relative;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center; /* Centrado vertical al no tener subtítulo */
-  min-height: 120px; /* Altura reducida para que se vea más esbelta */
+  min-height: 90px; /* Altura reducida para que se vea más esbelta */
   padding: 20px 18px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-left: 5px solid var(--kpi-number-bg);
@@ -320,7 +351,7 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin: 10px 0 28px;
+  margin: 0 0 20px;
 }
 
 .intermediate-title-container::before,
@@ -349,7 +380,7 @@ input:focus, textarea:focus, select:focus {
 
 .mini-card {
   position: relative;
-  min-height: 136px;
+  min-height: 210px;
   border: 0;
   border-top: 8px solid var(--accent);
   border-radius: 8px;
@@ -635,7 +666,7 @@ input:focus, textarea:focus, select:focus {
   align-items: center;
   border: 1px solid #b91c1c; /* Borde rojo */
   border-radius: 10px;
-  margin-top: 24px;
+  margin-top: auto; /* Empuja el banner hacia la parte inferior de la columna derecha */
   background: #ffffff;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(185, 28, 28, 0.05);
@@ -826,14 +857,24 @@ input:focus, textarea:focus, select:focus {
 .report-table tr:nth-child(even) td {
   background: rgba(248, 250, 252, 0.6); /* Color alterno muy suave */
 }
+
 /* --- EVIDENCIAS (Página 4) --- */
 .evidence-img-preview {
-  width: 100%;
-  max-height: 180px; /* Evita que la foto ocupe media página */
-  object-fit: contain; /* Ajusta la foto sin deformarla */
+  max-width: 100%;
+  width: auto;
+  height: 60px; /* Tamaño de miniatura, ajusta entre 50px y 70px según veas mejor */
+  object-fit: contain;
   border-radius: 4px;
-  display: block;
-  margin: 0 auto;
+}
+
+/* Clase para el contenedor de las fotos en la celda de la vista previa */
+.evidence-photo-container {
+  display: flex;
+  flex-wrap: wrap; /* Si hay muchas fotos, las baja a la siguiente línea */
+  justify-content: center; /* Las centra en la celda */
+  align-items: center;
+  gap: 8px; /* Espacio entre foto y foto */
+  padding: 5px;
 }
 
 .evidence-row-editor {
