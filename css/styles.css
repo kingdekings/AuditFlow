@@ -352,27 +352,62 @@ input:focus, textarea:focus, select:focus {
   border: 0;
   border-top: 8px solid var(--accent);
   border-radius: 8px;
-  padding: 18px 18px 16px;
+  padding: 16px 18px;
   background: linear-gradient(180deg, #fff, var(--mix-soft-38-white, #f4f8fe));
   box-shadow: 0 16px 34px rgba(15, 23, 42, .12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra el contenido verticalmente */
 }
 
-.mini-card h3 {
+/* Encabezado de la mini card (Ícono + Título) */
+.mini-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.mini-header svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.mini-header h3 {
   color: var(--kpi-title);
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
 }
 
-.mini-card strong {
+/* Indicador gigante (El "8") */
+.mini-value {
   display: block;
-  font-size: 28px;
+  font-size: 38px; /* Tamaño mucho más grande para darle protagonismo */
   color: var(--accent);
   font-weight: 950;
+  line-height: 1;
+  margin-bottom: 4px;
 }
 
-.mini-card p {
-  font-size: 14px;
-  font-weight: 700;
+/* Texto de apoyo inferior */
+.mini-subtext {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b; /* Un gris azulado sutil */
+  line-height: 1.2;
+}
+
+/* Texto largo (Para la tarjeta 3 de novedades) */
+.mini-text {
+  font-size: 13px;
+  font-weight: 600;
   color: #1f2937;
+  line-height: 1.4;
+  margin: 0;
 }
 
 /* Cover Specific Styling */
@@ -412,6 +447,7 @@ input:focus, textarea:focus, select:focus {
   font-size: 48px;
   font-weight: 950;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .cover-grid {
@@ -437,13 +473,34 @@ input:focus, textarea:focus, select:focus {
   text-align: left;
 }
 
-.cover-grid .card.polaroid-kpi h3 {
-  font-size: 14px;
-  color: var(--kpi-title);
+/* Nuevo contenedor que alinea el ícono y el h3 a la izquierda */
+.kpi-header {
+  display: flex;
+  align-items: center;          /* Centra verticalmente el ícono con el texto */
+  justify-content: flex-start;  /* Fuerza todo a la izquierda */
+  gap: 8px;                     /* Espacio entre el ícono y el título */
   margin-bottom: 12px;
   padding-bottom: 8px;
   border-bottom: 2px dashed var(--mix-accent-18-transparent, rgba(29,78,216,0.18));
+}
+
+/* Estilos para que el SVG tome el color de tu tema */
+.kpi-header svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent); /* Usa tu color azul principal */
+  flex-shrink: 0;       /* Evita que el ícono se encoja si el texto es largo */
+}
+
+/* El h3 ahora está limpio, sin márgenes extra que lo tiren hacia abajo */
+.cover-grid .card.polaroid-kpi h3 {
+  font-size: 14px;
+  color: var(--kpi-title);
+  margin: 0;
+  padding: 0;
+  border: none;
   text-transform: uppercase;
+  text-align: left;
 }
 
 

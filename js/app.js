@@ -13,9 +13,18 @@ document.addEventListener('DOMContentLoaded', () => {
     ["directors", "previewDirectors"],
     ["objective", "previewObjective"],
     ["scope", "previewScope"],
+// --- NUEVOS CAMPOS DE LAS MINI CARDS ---
+    ["visitsTitle", "previewVisitsTitle"],
     ["visits", "previewVisits"],
+    ["visitsSub", "previewVisitsSub"],
+    
+    ["amountTitle", "previewAmountTitle"],
     ["amount", "previewAmount"],
+    ["amountSub", "previewAmountSub"],
+    
+    ["noveltyTitle", "previewNoveltyTitle"],
     ["novelty", "previewNovelty"],
+    // ---------------------------------------
     ["intermediateTitleInput", "previewIntermediateTitle"],
     ["alertTitle", "previewAlertTitle"],
     ["alertSubtitle", "previewAlertSubtitle"],
@@ -66,9 +75,18 @@ document.addEventListener('DOMContentLoaded', () => {
     directors: "Camilo Rodríguez, Paola Villamizar, Francisco Melendéz, Janeth Martínez, Katty Martínez, Maira Echeverry, Luis Osorio.",
     objective: "Presentar los resultados semanales de la evaluación realizada, resaltando avances, novedades y asuntos que requieren gestión directiva.",
     scope: "La revisión comprende las visitas, soportes, procesos y novedades identificadas durante la semana reportada.",
-    visits: "8 visitas",
-    amount: "$ 1.250 millones",
+    // --- DATOS DE EJEMPLO PARA MINI CARDS ---
+    visitsTitle: "Visitas realizadas",
+    visits: "8",
+    visitsSub: "visitas en distintas zonas",
+    
+    amountTitle: "Monto evaluado",
+    amount: "$ 1.250",
+    amountSub: "millones de pesos",
+    
+    noveltyTitle: "Detalle de la novedad",
     novelty: "Se evidenció oportunidad de mejora en la consistencia de los soportes y en la documentación de cierres parciales.",
+    // ----------------------------------------
     intermediateTitleInput: "Novedades de efectivo. R. Alto. P-Comercial",
     alertTitle: "NOVEDAD IDENTIFICADA",
     alertSubtitle: "Sobrante por",
@@ -631,4 +649,5 @@ function setPageBackgroundStyle(bgClass) {
   // Iniciar la tabla de evidencias
   renderEvidenceData();
   
+
 });

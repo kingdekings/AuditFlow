@@ -215,24 +215,43 @@
   <input id="intermediateTitleInput" value="Novedades de efectivo. R. Alto. P-Comercial">
     </div>
 
-    <!-- Evaluation Summary -->
-    <div>
-      <div class="field">
-        <label for="visits">Visitas realizadas</label>
-        <input id="visits" value="8 visitas">
+<!-- Evaluation Summary (Mini Cards) -->
+    <div style="display: grid; gap: 16px; margin-bottom: 20px;">
+      
+      <!-- Campos Tarjeta 1: Visitas -->
+      <div style="background: rgba(255,255,255,0.5); padding: 10px; border: 1px dashed var(--line); border-radius: 8px;">
+        <label style="color: var(--accent); display: block; margin-bottom: 8px;">1. Métrica de Visitas</label>
+        <div class="field"><label>Título</label><input id="visitsTitle" value="Visitas realizadas"></div>
+        <div class="field"><label>Indicador (Grande)</label><input id="visits" value="8"></div>
+        <div class="field"><label>Subtítulo</label><input id="visitsSub" value="visitas en distintas zonas"></div>
       </div>
-      <div class="field">
-        <label for="amount">Monto evaluado</label>
-        <input id="amount" value="$ 1.250 millones">
+
+      <!-- Campos Tarjeta 2: Monto -->
+      <div style="background: rgba(255,255,255,0.5); padding: 10px; border: 1px dashed var(--line); border-radius: 8px;">
+        <label style="color: var(--accent); display: block; margin-bottom: 8px;">2. Métrica de Monto</label>
+        <div class="field"><label>Título</label><input id="amountTitle" value="Monto evaluado"></div>
+        <div class="field"><label>Indicador (Grande)</label><input id="amount" value="$ 1.250"></div>
+        <div class="field"><label>Subtítulo</label><input id="amountSub" value="millones de pesos"></div>
       </div>
-      <div class="field">
-        <label for="novelty">Detalle de la novedad</label>
-        <textarea id="novelty">Se evidenció oportunidad de mejora en la consistencia de los soportes y en la documentación de cierres parciales.</textarea>
+
+      <!-- Campos Tarjeta 3: Novedades -->
+      <div style="background: rgba(255,255,255,0.5); padding: 10px; border: 1px dashed var(--line); border-radius: 8px;">
+        <label style="color: var(--accent); display: block; margin-bottom: 8px;">3. Detalle de Novedad</label>
+        <div class="field"><label>Título</label><input id="noveltyTitle" value="Detalle de la novedad"></div>
+        <!-- Aquí dejamos un textarea para el texto porque suele ser más largo -->
+        <div class="field"><label>Texto Principal</label><textarea id="novelty">Se evidenció oportunidad de mejora en la consistencia de los soportes y en la documentación de cierres parciales.</textarea></div>
       </div>
+
     </div>
 
     <!-- Controles de la Alerta -->
     <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3);">
+      <div class="field" style="margin-bottom: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3); padding-top: 15px;">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" id="toggleAlertBanner" checked> 
+          <strong>Mostrar Alerta / Novedad en la hoja</strong>
+        </label>
+      </div>
       <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Detalles de la Alerta / Novedad</h3>
       <div class="split">
         <div class="field">
@@ -337,24 +356,48 @@
           </header>
           <h2 class="cover-title" id="previewReportTitle"></h2>
 
-        <div class="cover-grid">
-          <div class="card polaroid-kpi">
-            <h3>Procesos</h3>
-            <p class="card-value" id="previewProcesses"></p>
-          </div>
-          <div class="card polaroid-kpi">
-            <h3>Directores</h3>
-            <p class="card-value" id="previewDirectors"></p>
-          </div>
-          <div class="card polaroid-kpi">
-            <h3>Objetivo</h3>
-            <p class="card-value" id="previewObjective"></p>
-          </div>
-          <div class="card polaroid-kpi">
-            <h3>Alcance</h3>
-            <p class="card-value" id="previewScope"></p>
-          </div>
-        </div>
+          <div class="cover-grid">
+  <!-- Tarjeta 1: Procesos -->
+  <div class="card polaroid-kpi">
+    <div class="kpi-header">
+      <!-- Ícono de engranaje -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      <h3>Procesos</h3>
+    </div>
+    <p class="card-value" id="previewProcesses"></p>
+  </div>
+
+  <!-- Tarjeta 2: Directores -->
+  <div class="card polaroid-kpi">
+    <div class="kpi-header">
+      <!-- Ícono de usuarios -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <h3>Directores</h3>
+    </div>
+    <p class="card-value" id="previewDirectors"></p>
+  </div>
+
+  <!-- Tarjeta 3: Objetivo -->
+  <div class="card polaroid-kpi">
+    <div class="kpi-header">
+      <!-- Ícono de diana/objetivo -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+      <h3>Objetivo</h3>
+    </div>
+    <p class="card-value" id="previewObjective"></p>
+  </div>
+
+  <!-- Tarjeta 4: Alcance -->
+  <div class="card polaroid-kpi">
+    <div class="kpi-header">
+      <!-- Ícono de capas/alcance -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 12 12 17 22 12"></polyline><polyline points="2 17 12 22 22 17"></polyline></svg>
+      <h3>Alcance</h3>
+    </div>
+    <p class="card-value" id="previewScope"></p>
+  </div>
+</div>
+
         </article>
 
         <!-- Page 2: Aspects -->
@@ -372,21 +415,42 @@
           </div>
 
           <div class="mini-grid">
+            <!-- Tarjeta 1 -->
             <div class="mini-card">
-              <h3>Visitas realizadas</h3>
-              <strong id="previewVisits"></strong>
+              <div class="mini-header">
+                <!-- Ícono de Mapa/Ubicación -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <h3 id="previewVisitsTitle">Visitas realizadas</h3>
+              </div>
+              <strong class="mini-value" id="previewVisits">8</strong>
+              <span class="mini-subtext" id="previewVisitsSub">visitas en distintas zonas</span>
             </div>
+            
+            <!-- Tarjeta 2 -->
             <div class="mini-card">
-              <h3>Monto evaluado</h3>
-              <strong id="previewAmount"></strong>
+              <div class="mini-header">
+                <!-- Ícono de Dinero/Monto -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <h3 id="previewAmountTitle">Monto evaluado</h3>
+              </div>
+              <strong class="mini-value" id="previewAmount">$ 1.250</strong>
+              <span class="mini-subtext" id="previewAmountSub">millones de pesos</span>
             </div>
+            
+            <!-- Tarjeta 3 -->
             <div class="mini-card">
-              <h3>Detalle de la novedad</h3>
-              <p id="previewNovelty"></p>
+              <div class="mini-header">
+                <!-- Ícono de Alerta/Info -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <h3 id="previewNoveltyTitle">Detalle de la novedad</h3>
+              </div>
+              <p class="mini-text" id="previewNovelty">Se evidenció oportunidad de mejora en la consistencia de los soportes...</p>
             </div>
           </div>
+
           <!-- NUEVO BANNER DE ALERTA -->
         <div class="alert-banner">
+          <div class="alert-banner" id="alertBannerPreview"></div>
           <!-- Lado Izquierdo (Monto) -->
           <div class="alert-icon-box">
             <!-- Icono de Triángulo de Advertencia (SVG) -->
@@ -425,10 +489,6 @@
         </article>
         <!-- Page 3: Detalles (Tabla y Banner) -->
         <article class="page">
-          <header class="section-head">
-            <div><h2 class="section-title">Detalle de Hallazgos</h2></div>
-          </header>
-
           <!-- Banner 4 Columnas -->
           <div class="banner-cuatro">
             <!-- Col 1: Punto -->
@@ -475,7 +535,9 @@
             <div class="b4-seccion">
               <div class="b4-icono" style="color: #1b5e20;">
                 <!-- Icono Bolsa de Dinero -->
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-4 0-4 4-4 4h8s0-4-4-4zm-7 6c0 6 2 14 7 14s7-8 7-14H5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M21 5H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H3V7h18v10zm-9-1.5c-2.21 0-4-1.57-4-3.5s1.79-3.5 4-3.5 4 1.57 4 3.5-1.79 3.5-4 3.5zm0-5c-1.1 0-2 .67-2 1.5s.9 1.5 2 1.5 2-.67 2-1.5-.9-1.5-2-1.5z"/>
+              </svg>
               </div>
               <div class="b4-textos">
                 <span class="b4-label">VALOR TOTAL</span>
