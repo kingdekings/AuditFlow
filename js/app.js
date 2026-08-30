@@ -1438,4 +1438,280 @@ function renderDynSidebar() {
   // Iniciar la primera renderización
   renderDynamicEvidences();
 
+  // --- LÓGICA DE LA PÁGINA 6 (TABLA LIBRE OPCIONAL) ---
+  
+  // Estado inicial de la Página 6
+  let page6Data = {
+    enabled: false,
+    title: "ANÁLISIS DE DATOS DETALLADOS",
+    columns: ["Columna 1", "Columna 2"], // Nombres de las columnas
+    rows: [
+      ["Dato 1", "Dato 2"] // Valores de las filas (cada fila es un arreglo)
+    ]
+  };
+
+  const p6SidebarContainer = document.getElementById("page6SidebarContainer");
+  const p6DeckContainer = document.getElementById("page6DeckContainer");
+
+  function renderPage6() {
+    renderPage6Sidebar();
+    renderPage6Preview();
+  }
+
+  function renderPage6Sidebar() {
+    if (!p6SidebarContainer) return;
+    p6SidebarContainer.innerHTML = "";
+
+    // 1. Checkbox para activar/desactivar la página
+    const toggleWrap = document.createElement("div");
+    toggleWrap.className = "field";
+    toggleWrap.style.display = "flex";
+    toggleWrap.style.alignItems = "center";
+    toggleWrap.style.gap = "10px";
+    toggleWrap.style.marginBottom = "20px";
+    
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = page6Data.enabled;
+    checkbox.style.width = "20px";
+    checkbox.style.height = "20px";
+    checkbox.onchange = (e) => {
+      page6Data.enabled = e.target.checked;
+      renderPage6();
+    };
+    
+    const labelToggle = document.createElement("label");
+    labelToggle.textContent = "Incluir Página 6 en el informe";
+    labelToggle.style.margin = "0";
+    labelToggle.style.cursor = "pointer";
+    labelToggle.onclick = () => checkbox.click();
+
+    toggleWrap.append(checkbox, labelToggle);
+    p6SidebarContainer.appendChild(toggleWrap);
+
+    // Si no está habilitada, no dibujamos el resto de los controles
+    if (!page6Data.enabled) return;
+
+    // 2. Input para el Título
+    const titleWrap = document.createElement("div");
+    titleWrap.className = "field";
+    titleWrap.innerHTML = `<label>Título de la Página</label>`;
+    const titleInput = document.createElement("input");
+    titleInput.value = page6Data.title;
+    titleInput.oninput = (e) => { page6Data.title = e.target.value; renderPage6Preview(); };
+    titleWrap.appendChild(titleInput);
+    p6SidebarContainer.appendChild(titleWrap);
+
+    // 3. SECCIÓN COLUMNAS
+    const colSection = document.createElement("div");
+    colSection.style.background = "#f8fafc";
+    colSection.style.padding = "10px";
+    colSection.style.borderRadius = "6px";
+    colSection.style.marginBottom = "15px";
+    colSection.style.border = "1px solid #e2e8f0";
+    
+    const colTitle = document.createElement("h4");
+    colTitle.textContent = "Configurar Columnas";
+    colTitle.style.marginTop = "0";
+    colTitle.style.color = "#10b981";
+    colSection.appendChild(colTitle);
+
+    page6Data.columns.forEach((colName, colIndex) => {
+      const colRow = document.createElement("div");
+      colRow.style.display = "flex";
+      colRow.style.gap = "5px";
+      colRow.style.marginBottom = "5px";
+      
+      const colInput = document.createElement("input");
+      colInput.value = colName;
+      colInput.placeholder = `Nombre columna ${colIndex + 1}`;
+      colInput.oninput = (e) => { page6Data.columns[colIndex] = e.target.value; renderPage6Preview(); };
+      
+      const delColBtn = document.createElement("button");
+      delColBtn.textContent = "X";
+      delColBtn.className = "remove-btn";
+      delColBtn.style.padding = "0 10px";
+      delColBtn.title = "Eliminar Columna";
+      delColBtn.onclick = () => {
+        page6Data.columns.splice(colIndex, 1);
+        page6Data.rows.forEach(r => r.splice(colIndex, 1)); // Quitar ese dato de todas las filas
+        renderPage6();
+      };
+
+      colRow.append(colInput, delColBtn);
+      colSection.appendChild(colRow);
+    });
+
+    const addColBtn = document.createElement("button");
+    addColBtn.textContent = "+ Agregar Columna";
+    addColBtn.className = "btn";
+    addColBtn.style.background = "#d1fae5";
+    addColBtn.style.color = "#10b981";
+    addColBtn.style.border = "1px solid #10b981";
+    addColBtn.style.width = "100%";
+    addColBtn.onclick = () => {
+      page6Data.columns.push(`Columna ${page6Data.columns.length + 1}`);
+      page6Data.rows.forEach(r => r.push("")); // Agregar un campo vacío a cada fila existente
+      renderPage6();
+    };
+    colSection.appendChild(addColBtn);
+    p6SidebarContainer.appendChild(colSection);
+
+    // 4. SECCIÓN FILAS (DATOS)
+    const rowSection = document.createElement("div");
+    rowSection.style.background = "#f8fafc";
+    rowSection.style.padding = "10px";
+    rowSection.style.borderRadius = "6px";
+    rowSection.style.border = "1px solid #e2e8f0";
+    
+    const rowTitle = document.createElement("h4");
+    rowTitle.textContent = "Datos de las Filas";
+    rowTitle.style.marginTop = "0";
+    rowTitle.style.color = "#10b981";
+    rowSection.appendChild(rowTitle);
+
+    page6Data.rows.forEach((rowArray, rowIndex) => {
+      const rowBox = document.createElement("div");
+      rowBox.style.border = "1px solid #cbd5e1";
+      rowBox.style.padding = "8px";
+      rowBox.style.marginBottom = "10px";
+      rowBox.style.borderRadius = "4px";
+      rowBox.style.background = "white";
+
+      const rowHead = document.createElement("div");
+      rowHead.style.display = "flex";
+      rowHead.style.justifyContent = "space-between";
+      rowHead.style.marginBottom = "8px";
+      rowHead.innerHTML = `<strong>Fila ${rowIndex + 1}</strong>`;
+      
+      const delRowBtn = document.createElement("button");
+      delRowBtn.textContent = "Eliminar Fila";
+      delRowBtn.className = "remove-btn";
+      delRowBtn.style.padding = "2px 6px";
+      delRowBtn.onclick = () => {
+        page6Data.rows.splice(rowIndex, 1);
+        renderPage6();
+      };
+      rowHead.appendChild(delRowBtn);
+      rowBox.appendChild(rowHead);
+
+      // Crear un input por cada columna para esta fila
+      page6Data.columns.forEach((colName, colIndex) => {
+        const field = document.createElement("div");
+        field.className = "field";
+        field.style.marginBottom = "5px";
+        field.innerHTML = `<label style="font-size: 11px;">${colName}</label>`;
+        
+        const cellInput = document.createElement("input");
+        cellInput.value = rowArray[colIndex] || "";
+        cellInput.oninput = (e) => { 
+          page6Data.rows[rowIndex][colIndex] = e.target.value; 
+          renderPage6Preview(); 
+        };
+        
+        field.appendChild(cellInput);
+        rowBox.appendChild(field);
+      });
+
+      rowSection.appendChild(rowBox);
+    });
+
+    const addRowBtn = document.createElement("button");
+    addRowBtn.textContent = "+ Agregar Fila";
+    addRowBtn.className = "btn";
+    addRowBtn.style.background = "#d1fae5";
+    addRowBtn.style.color = "#10b981";
+    addRowBtn.style.border = "1px solid #10b981";
+    addRowBtn.style.width = "100%";
+    addRowBtn.onclick = () => {
+      // Crea una fila nueva con tantos espacios vacíos como columnas existan
+      page6Data.rows.push(new Array(page6Data.columns.length).fill(""));
+      renderPage6();
+    };
+    rowSection.appendChild(addRowBtn);
+
+    p6SidebarContainer.appendChild(rowSection);
+  }
+
+  function renderPage6Preview() {
+    if (!p6DeckContainer) return;
+    p6DeckContainer.innerHTML = "";
+
+    if (!page6Data.enabled) return; // Si está desactivada, el contenedor se queda vacío
+
+    // Crear la hoja de la página 6
+    const pageArticle = document.createElement("article");
+    pageArticle.className = "page page6-dynamic";
+
+    // Header y Título
+    const header = document.createElement("header");
+    header.className = "section-head";
+    const divTitle = document.createElement("div");
+    const h2 = document.createElement("h2");
+    h2.className = "section-title";
+    h2.style.textAlign = "center";
+    h2.style.color = "#001f5b";
+    h2.textContent = page6Data.title;
+    divTitle.appendChild(h2);
+    header.appendChild(divTitle);
+    pageArticle.appendChild(header);
+
+    // Contenedor de la tabla (por si hay muchas columnas y necesita scroll horizontal temporal)
+    const tableContainer = document.createElement("div");
+    tableContainer.style.width = "100%";
+    tableContainer.style.overflowX = "auto";
+
+    // Crear la Tabla Gigante
+    const table = document.createElement("table");
+    table.className = "report-table";
+    table.style.width = "100%";
+    // No forzamos table-layout: fixed para que las columnas se adapten a la cantidad libremente
+
+    // Cabeceras (<thead>)
+    const thead = document.createElement("thead");
+    const trHead = document.createElement("tr");
+    page6Data.columns.forEach(colName => {
+      const th = document.createElement("th");
+      th.textContent = colName;
+      trHead.appendChild(th);
+    });
+    thead.appendChild(trHead);
+    table.appendChild(thead);
+
+    // Cuerpo (<tbody>)
+    const tbody = document.createElement("tbody");
+    page6Data.rows.forEach(rowArray => {
+      const tr = document.createElement("tr");
+      // Recorremos basado en el número de columnas para evitar desfases
+      page6Data.columns.forEach((_, colIndex) => {
+        const td = document.createElement("td");
+        td.textContent = rowArray[colIndex] || "";
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+
+    tableContainer.appendChild(table);
+    pageArticle.appendChild(tableContainer);
+    p6DeckContainer.appendChild(pageArticle);
+
+    // Re-aplicar el fondo seleccionado
+    const bgImageSelect = document.getElementById("pageBackgroundImage");
+    if (typeof currentCustomBg !== 'undefined' && currentCustomBg) {
+       pageArticle.style.backgroundImage = `url('${currentCustomBg}')`;
+       pageArticle.style.backgroundSize = 'cover';
+       pageArticle.style.backgroundPosition = 'center';
+       pageArticle.style.backgroundRepeat = 'no-repeat';
+    } else if (bgImageSelect && bgImageSelect.value) {
+       pageArticle.style.backgroundImage = `url('${bgImageSelect.value}')`;
+       pageArticle.style.backgroundSize = 'cover';
+       pageArticle.style.backgroundPosition = 'center';
+       pageArticle.style.backgroundRepeat = 'no-repeat';
+    }
+  }
+
+  // Renderizar al iniciar
+  renderPage6();
+
 });

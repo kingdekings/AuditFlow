@@ -5,17 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AuditFlow</title>
   <link rel="stylesheet" href="css/styles.css">
-  <!-- External Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
   <main class="app">
-    <!-- Editor / Sidebar -->
 <aside class="editor">
   <h1>AuditFlow</h1>
-  
-  <!-- NUEVO: Menú de navegación por pestañas -->
   <nav class="sidebar-tabs">
     <button class="tab-btn active" data-target="sec-estilos">Estilos</button>
     <button class="tab-btn" data-target="sec-pag1">Pág 1</button>
@@ -23,6 +19,7 @@
     <button class="tab-btn" data-target="sec-pag3">Pág 3</button>
     <button class="tab-btn" data-target="sec-pag4">Pág 4</button>
     <button class="tab-btn" data-target="sec-pag5">Pág 5</button>
+    <button class="tab-btn" data-target="sec-pag6">Pág 6</button>
   </nav>
 
   <!-- ================= SECCIÓN GENERAL (ESTILOS) ================= -->
@@ -129,7 +126,6 @@
       <div class="accordion-content">
         <div class="field">
           <label for="fontChoice">Tipo de letra principal</label>
-          <!-- (Deja aquí tu lista actual de fuentes) -->
           <select id="fontChoice">
 <option value="Inter, 'Segoe UI', Arial, sans-serif">Inter</option>
     <option value="'Roboto', sans-serif">Roboto</option>
@@ -207,8 +203,7 @@
   <!-- ================= SECCIÓN PÁGINA 2 ================= -->
   <section id="sec-pag2" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #0f766e; margin-top: 15px;">
     <h2 class="group-title" style="color: #0f766e;">Página 2: Aspectos Evaluados</h2>
-    
-    <!-- Evaluated Aspects Data -->
+
     <div style="margin-bottom: 15px;">
       <div id="aspectEditors"></div>
       <button class="btn btn-secondary" id="addAspect" type="button" style="margin-top: 8px;">Agregar aspecto</button>
@@ -219,7 +214,6 @@
   <input id="intermediateTitleInput" value="Novedades de efectivo. R. Alto. P-Comercial">
     </div>
 
-    <!-- Evaluation Summary (Mini Cards) -->
     <div style="display: grid; gap: 16px; margin-bottom: 20px;">
       
       <!-- Campos Tarjeta 1: Visitas -->
@@ -242,7 +236,6 @@
       <div style="background: rgba(255,255,255,0.5); padding: 10px; border: 1px dashed var(--line); border-radius: 8px;">
         <label style="color: var(--accent); display: block; margin-bottom: 8px;">3. Detalle de Novedad</label>
         <div class="field"><label>Título</label><input id="noveltyTitle" value="Detalle de la novedad"></div>
-        <!-- Aquí dejamos un textarea para el texto porque suele ser más largo -->
         <div class="field"><label>Texto Principal</label><textarea id="novelty">Se evidenció oportunidad de mejora en la consistencia de los soportes y en la documentación de cierres parciales.</textarea></div>
       </div>
     </div>
@@ -251,8 +244,6 @@
     <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3);">
       <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Detalles de las Alertas / Novedades</h3>
       <button class="btn btn-secondary" id="addAlertBtn" type="button" style="width: 100%; padding: 8px; margin-bottom: 12px; font-size: 13px;">+ Agregar Nueva Alerta</button>
-      
-      <!-- Aquí se generarán los inputs de las alertas dinámicamente -->
       <div id="alertsSidebarGrid" style="display: grid; gap: 16px;"></div>
     </div>
 
@@ -271,7 +262,6 @@
         <button class="btn btn-secondary" id="addRowBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">+ Fila</button>
         <button class="btn btn-secondary" id="remRowBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">- Fila</button>
       </div>
-      <!-- Aquí se generarán los inputs de la tabla dinámicamente -->
       <div id="tableSidebarGrid" style="display: grid; gap: 6px; overflow-x: auto;"></div>
     </div>
 
@@ -308,7 +298,14 @@
     </div>
   </section>
 
-
+<!-- ================= SECCIÓN PÁGINA 6 ================= -->
+  <section id="sec-pag6" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #10b981; margin-top: 15px;">
+    <div class="panel-section">
+      <h2 class="group-title" style="color: #10b981;">Página 6: Tabla Libre (Opcional)</h2>
+      <div id="page6SidebarContainer"></div>
+      
+    </div>
+  </section>
 
   <!-- Actions -->
   <div class="actions" style="margin-top: 20px;">
@@ -317,15 +314,12 @@
   </div>
 </aside>
 
-    <!-- Report Preview Stage -->
     <section class="stage" aria-label="Vista previa">
       <div class="deck theme-boardroom" id="deck">
         
-        <!-- Page 1: Cover -->
         <article class="page cover-page" id="coverPage">
           <header class="topline">
             <div class="brand-block">
-              <!-- AQUÍ CAMBIAS 'ruta/a/tu/logo.png' por la ruta real de tu archivo de imagen -->
               <img class="logo" id="previewLogo" src="media/logo.png" alt="Logo de la empresa">
               <div class="brand-fallback">Logo empresa</div>
             </div>
@@ -359,7 +353,7 @@
   <!-- Tarjeta 3: Objetivo -->
   <div class="card polaroid-kpi">
     <div class="kpi-header">
-      <!-- Ícono de diana/objetivo -->
+      <!-- Ícono de objetivo -->
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
       <h3>Objetivo</h3>
     </div>
@@ -369,17 +363,16 @@
   <!-- Tarjeta 4: Alcance -->
   <div class="card polaroid-kpi">
     <div class="kpi-header">
-      <!-- Ícono de capas/alcance -->
+      <!-- Ícono de alcance -->
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 12 12 17 22 12"></polyline><polyline points="2 17 12 22 22 17"></polyline></svg>
       <h3>Alcance</h3>
     </div>
     <p class="card-value" id="previewScope"></p>
   </div>
 </div>
-
         </article>
 
-        <!-- Page 2: Aspects -->
+
         <article class="page page-aspects">
           <header class="section-head">
             <div>
@@ -405,7 +398,7 @@
                 <!-- Tarjeta 1 -->
                 <div class="mini-card">
                   <div class="mini-header">
-                    <!-- Ícono de Mapa/Ubicación -->
+                    <!-- Ícono de Ubicación -->
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     <h3 id="previewVisitsTitle">Visitas realizadas</h3>
                   </div>
@@ -416,7 +409,7 @@
                 <!-- Tarjeta 2 -->
                 <div class="mini-card">
                   <div class="mini-header">
-                    <!-- Ícono de Dinero/Monto -->
+                    <!-- Ícono de Dinero -->
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                     <h3 id="previewAmountTitle">Monto evaluado</h3>
                   </div>
@@ -427,7 +420,7 @@
                 <!-- Tarjeta 3 -->
                 <div class="mini-card">
                   <div class="mini-header">
-                    <!-- Ícono de Alerta/Info -->
+                    <!-- Ícono de Alerta -->
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                     <h3 id="previewNoveltyTitle">Detalle de la novedad</h3>
                   </div>
@@ -435,22 +428,20 @@
                 </div>
               </div>
 
-              <!-- NUEVO CONTENEDOR DE ALERTAS -->
+              <!--CONTENEDOR DE ALERTAS -->
               <div id="alertsPreviewContainer" style="display: flex; flex-direction: column; gap: 15px; margin-top: 25px;"></div>
 
             </div>
           </div>
 
         </article>
-        <!-- Page 3: Detalles (Tabla y Banner) -->
+       
         <article class="page">
-          <!-- Contenedor donde se inyectarán los banners -->
           <div id="bannerPreviewContainer" style="display: flex; flex-direction: column; gap: 15px;"></div>
 
           <!-- Contenedor de la Tabla -->
           <div style="margin-top: 30px;">
             <table class="report-table" id="previewTable">
-              <!-- La tabla se renderizará aquí vía JS -->
             </table>
           </div>
 
@@ -459,6 +450,7 @@
 
       <div id="dynamicEvidencesDeckContainer"></div>
       <div id="dynamicPagesDeckContainer"></div>
+      <div id="page6DeckContainer"></div>
 
       </div>
     </section>

@@ -41,14 +41,13 @@ button {
   cursor: pointer;
 }
 
-/* App Layout */
+
 .app {
   display: grid;
   grid-template-columns: minmax(340px, 420px) 1fr;
   min-height: 100vh;
 }
 
-/* Editor Sidebar Fijo y Seccionado */
 .editor {
   position: sticky;
   top: 20px;
@@ -177,7 +176,7 @@ input:focus, textarea:focus, select:focus {
   color: #991b1b;
 }
 
-/* Stage / Preview Area */
+
 .stage {
   overflow: auto;
   padding: 28px;
@@ -192,7 +191,7 @@ input:focus, textarea:focus, select:focus {
   font-family: var(--report-font);
 }
 
-/* Page Header & Elements */
+
 .topline {
   display: flex;
   align-items: flex-start;
@@ -268,9 +267,6 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* --- LAYOUT DE 2 COLUMNAS: PÁGINA 2 --- */
-/* Se activa el modo flex-column únicamente en la página de Aspectos,
-   para que el layout de 2 columnas pueda ocupar toda la altura restante
-   sin afectar el resto de las páginas (que siguen en flujo normal). */
 .page.page-aspects {
   display: flex;
   flex-direction: column;
@@ -297,7 +293,7 @@ input:focus, textarea:focus, select:focus {
   min-width: 0;
 }
 
-/* --- NUEVO DISEÑO LIMPIO PARA LAS ASPECT CARDS (COLUMNA VERTICAL) --- */
+/* --- DISEÑO  PARA LAS ASPECT CARDS--- */
 .aspect-grid {
   counter-reset: aspect;
   display: flex;
@@ -312,8 +308,8 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: center; /* Centrado vertical al no tener subtítulo */
-  min-height: 90px; /* Altura reducida para que se vea más esbelta */
+  justify-content: center; 
+  min-height: 90px; 
   padding: 20px 18px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-left: 5px solid var(--kpi-number-bg);
@@ -327,7 +323,7 @@ input:focus, textarea:focus, select:focus {
   content: counter(aspect, decimal-leading-zero);
   position: absolute;
   right: 12px;
-  top: -8px; /* Ajustado para el nuevo tamaño */
+  top: -8px; 
   color: rgba(255, 255, 255, 0.12);
   font-size: 48px;
   font-weight: 950;
@@ -337,16 +333,16 @@ input:focus, textarea:focus, select:focus {
 .aspect-card h3 {
   margin: 0;
   color: #fff;
-  font-size: 15px; /* Un poco más grande para darle presencia */
+  font-size: 15px; 
   font-weight: 900;
   letter-spacing: .04em;
   text-transform: uppercase;
   line-height: 1.3;
   padding-right: 25px;
-  z-index: 1; /* Asegura que el texto quede por encima del número gigante */
+  z-index: 1; 
 }
 
-/* --- TÍTULO INTERMEDIO (Detalle Operativo) --- */
+/* --- TÍTULO INTERMEDIO --- */
 .intermediate-title-container {
   display: flex;
   align-items: center;
@@ -389,10 +385,10 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 16px 34px rgba(15, 23, 42, .12);
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centra el contenido verticalmente */
+  justify-content: center; 
 }
 
-/* Encabezado de la mini card (Ícono + Título) */
+/* Encabezado de la mini card*/
 .mini-header {
   display: flex;
   align-items: center;
@@ -415,25 +411,25 @@ input:focus, textarea:focus, select:focus {
   margin: 0;
 }
 
-/* Indicador gigante (El "8") */
+
 .mini-value {
   display: block;
-  font-size: 38px; /* Tamaño mucho más grande para darle protagonismo */
+  font-size: 38px; 
   color: var(--accent);
   font-weight: 950;
   line-height: 1;
   margin-bottom: 4px;
 }
 
-/* Texto de apoyo inferior */
+
 .mini-subtext {
   font-size: 13px;
   font-weight: 600;
-  color: #64748b; /* Un gris azulado sutil */
+  color: #64748b; 
   line-height: 1.2;
 }
 
-/* Texto largo (Para la tarjeta 3 de novedades) */
+
 .mini-text {
   font-size: 13px;
   font-weight: 600;
@@ -442,7 +438,7 @@ input:focus, textarea:focus, select:focus {
   margin: 0;
 }
 
-/* Cover Specific Styling */
+
 .cover-page {
   padding-top: 34px;
   background: linear-gradient(135deg, #f8fafc 0 58%, var(--mix-soft-48-white, #edf3fe) 58% 100%), var(--page-bg);
@@ -486,7 +482,7 @@ input:focus, textarea:focus, select:focus {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
-  align-items: stretch; /* Esto hace que todas las tarjetas de la misma fila intenten igualar su altura, o puedes cambiarlo a 'start' si prefieres que cada una sea totalmente independiente */
+  align-items: stretch; 
 }
 
 .cover-grid .card.polaroid-kpi {
@@ -494,37 +490,37 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: unset; /* Quitamos la altura mínima estricta para que respire según el contenido */
-  height: 100%; /* Ocupa el alto necesario de la fila */
+  min-height: unset; 
+  height: 100%; 
   border: 0;
   border-bottom: 6px solid var(--accent);
   border-radius: 12px;
-  padding: 24px 20px; /* Reducimos un poco el padding vertical para que no queden tan alargadas si tienen poco texto */
+  padding: 24px 20px; 
   background: linear-gradient(180deg, #fff, var(--mix-soft-36-white, #f2f7fe));
   box-shadow: 0 16px 34px rgba(15, 23, 42, .12);
   text-align: left;
 }
 
-/* Nuevo contenedor que alinea el ícono y el h3 a la izquierda */
+
 .kpi-header {
   display: flex;
-  align-items: center;          /* Centra verticalmente el ícono con el texto */
-  justify-content: flex-start;  /* Fuerza todo a la izquierda */
-  gap: 8px;                     /* Espacio entre el ícono y el título */
+  align-items: center;          
+  justify-content: flex-start;  
+  gap: 8px;                     
   margin-bottom: 12px;
   padding-bottom: 8px;
   border-bottom: 2px dashed var(--mix-accent-18-transparent, rgba(29,78,216,0.18));
 }
 
-/* Estilos para que el SVG tome el color de tu tema */
+
 .kpi-header svg {
   width: 18px;
   height: 18px;
-  color: var(--accent); /* Usa tu color azul principal */
-  flex-shrink: 0;       /* Evita que el ícono se encoja si el texto es largo */
+  color: var(--accent); 
+  flex-shrink: 0;       
 }
 
-/* El h3 ahora está limpio, sin márgenes extra que lo tiren hacia abajo */
+
 .cover-grid .card.polaroid-kpi h3 {
   font-size: 14px;
   color: var(--kpi-title);
@@ -555,7 +551,7 @@ input:focus, textarea:focus, select:focus {
   font-weight: 750;
 }
 
-/* UI Responsive Handling */
+
 @media (max-width: 1200px) {
   .stage {
     overflow-x: auto;
@@ -573,7 +569,6 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
-/* --- FONDOS DE DISEÑO GRÁFICO AVANZADO --- */
 .page {
   position: relative;
   width: 1122px;
@@ -651,7 +646,7 @@ input:focus, textarea:focus, select:focus {
   clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
-/* Corrección para evitar que los textos largos deformen las tarjetas */
+
 .mini-card strong, 
 .mini-card p, 
 .cover-grid .card.polaroid-kpi p.card-value {
@@ -660,24 +655,24 @@ input:focus, textarea:focus, select:focus {
   word-break: break-word; 
 }
 
-/* --- BANNER DE ALERTA (Novedad Identificada) --- */
+/* --- BANNER DE ALERTA--- */
 .alert-banner {
   display: flex;
   align-items: center;
-  border: 1px solid #b91c1c; /* Borde rojo */
+  border: 1px solid #b91c1c; 
   border-radius: 10px;
-  margin-top: auto; /* Empuja el banner hacia la parte inferior de la columna derecha */
+  margin-top: auto; 
   background: #ffffff;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(185, 28, 28, 0.05);
 }
 
 .alert-icon-box {
-  background: #fdf2f2; /* Fondo rosado suave */
+  background: #fdf2f2; 
   padding: 18px 24px;
   display: flex;
   align-items: center;
-  align-self: stretch; /* Se estira para cubrir el alto */
+  align-self: stretch; 
 }
 
 .alert-icon-box svg {
@@ -691,7 +686,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .alert-title {
-  color: #881313; /* Rojo oscuro */
+  color: #881313; 
   font-size: 14px;
   font-weight: 850;
   margin: 0 0 4px 0;
@@ -738,7 +733,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .user-role {
-  color: #00205b; /* Azul oscuro corporativo */
+  color: #00205b; 
   font-size: 12px;
   font-weight: 800;
   margin: 0;
@@ -756,7 +751,7 @@ input:focus, textarea:focus, select:focus {
   margin: 0;
 }
 
-/* Corrección para evitar que los textos largos deformen el banner de alerta */
+
 .alert-details h4,
 .alert-details p,
 .alert-details strong,
@@ -768,12 +763,12 @@ input:focus, textarea:focus, select:focus {
   word-break: break-word;
 }
 
-/* --- BANNER 4 COLUMNAS (Página 3) --- */
+/* --- BANNER 4 COLUMNAS--- */
 .banner-cuatro {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #c8d4e3; /* Borde azul muy suave */
+  border: 1px solid #c8d4e3; 
   border-radius: 12px;
   background: #ffffff;
   padding: 12px 16px;
@@ -827,7 +822,7 @@ input:focus, textarea:focus, select:focus {
   opacity: 0.6;
 }
 
-/* --- TABLA EDITABLE (Página 3) --- */
+/* --- TABLA EDITABLE --- */
 .report-table {
   width: 100%;
   border-collapse: collapse;
@@ -855,7 +850,7 @@ input:focus, textarea:focus, select:focus {
   letter-spacing: 0.05em;
 }
 .report-table tr:nth-child(even) td {
-  background: rgba(248, 250, 252, 0.6); /* Color alterno muy suave */
+  background: rgba(248, 250, 252, 0.6); 
 }
 
 /* --- EVIDENCIAS (Página 4) --- */
@@ -871,10 +866,10 @@ input:focus, textarea:focus, select:focus {
 .evidence-img-preview {
   max-width: 100%;
   width: auto;
-  height: 60px; /* Miniatura */
+  height: 60px; 
   object-fit: contain;
   border-radius: 4px;
-  border: 1px solid #e2e8f0; /* Borde opcional para resaltarlas */
+  border: 1px solid #e2e8f0; 
 }
 
 .evidence-row-editor {
@@ -921,10 +916,10 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  list-style: none; /* Elimina la flecha estándar */
+  list-style: none; 
 }
 
-/* Soporte para ocultar la flecha en navegadores WebKit (Chrome/Safari) */
+
 .style-accordion summary::-webkit-details-marker {
   display: none; 
 }
@@ -933,7 +928,7 @@ input:focus, textarea:focus, select:focus {
   background: #f1f5f9;
 }
 
-/* Crea un indicador de + y - personalizado */
+
 .style-accordion summary::after {
   content: '+';
   font-size: 16px;
@@ -956,84 +951,10 @@ input:focus, textarea:focus, select:focus {
   background: #ffffff;
 }
 
-/* =========================================
-   NUEVOS FONDOS PARA LA PÁGINA (Página A4)
-========================================= */
-
-/* 1. Orbes Desenfocados: Da un estilo "Glassmorphism" o Mesh suave */
-.bg-soft-orbs {
-  background-color: var(--page-bg);
-  background-image:
-    radial-gradient(circle at 0% 0%, var(--soft) 0%, transparent 45%),
-    radial-gradient(circle at 100% 100%, var(--mix-accent-16-transparent) 0%, transparent 50%);
-}
-
-/* 2. Arco Corporativo: Un arco gigante a la derecha, muy usado en informes formales */
-.bg-corporate-arch {
-  background-color: var(--page-bg);
-  background-image: radial-gradient(ellipse 120% 100% at 100% 0%, var(--soft) 0%, transparent 50%);
-}
-
-/* 3. Corte Diagonal Inferior: Líneas fuertes en la esquina inferior derecha */
-.bg-diagonal-swoosh {
-  background-color: var(--page-bg);
-  background-image: linear-gradient(115deg, transparent 65%, var(--soft) 65.2%, var(--soft) 80%, var(--mix-accent-16-transparent) 80.2%, var(--mix-accent-16-transparent) 100%);
-}
-
-/* 4. Formas flotantes: Un triángulo suave y un círculo discreto */
-.bg-floating-shapes {
-  background-color: var(--page-bg);
-  background-image:
-    linear-gradient(45deg, var(--soft) 0%, transparent 25%),
-    radial-gradient(circle at 85% 15%, var(--mix-accent-16-transparent) 0%, transparent 15%);
-}
-
-/* 5. Banda superior: Un bloque horizontal en la parte de arriba del papel */
-.bg-modern-split {
-  background-color: var(--page-bg);
-  background-image: linear-gradient(180deg, var(--soft) 0%, var(--soft) 12%, transparent 12.2%);
-}
-
-/* 6. Esquinas Angulares: Triángulos precisos en esquinas opuestas */
-.bg-angled-corners {
-  background-color: var(--page-bg);
-  background-image:
-    linear-gradient(135deg, var(--soft) 8%, transparent 8.2%),
-    linear-gradient(-45deg, var(--mix-accent-16-transparent) 8%, transparent 8.2%);
-}
-
-/* 7. Onda Curva Superior: Un arco ovalado que cae desde el techo de la página */
-.bg-elegant-curve {
-  background-color: var(--page-bg);
-  background-image: radial-gradient(150% 100% at 50% 0%, var(--soft) 0%, var(--soft) 10%, transparent 10.2%);
-}
-
-/* 8. Acento Lateral: Unas delgadas líneas verticales a la izquierda tipo "libreta ejecutiva" */
-.bg-side-accent {
-  background-color: var(--page-bg);
-  background-image: 
-    linear-gradient(90deg, var(--accent) 0%, var(--accent) 1.5%, transparent 1.6%),
-    linear-gradient(90deg, transparent 1.6%, var(--soft) 1.6%, var(--soft) 4%, transparent 4.1%);
-}
-
-/* 9. Spotlight (Iluminación): Un degradado central que da protagonismo al medio */
-.bg-spotlight {
-  background-color: var(--page-bg);
-  background-image: radial-gradient(circle at 50% -10%, var(--soft) 0%, transparent 55%);
-}
-
-/* 10. Esferas Traslúcidas: Dos círculos elegantes que se cruzan ligeramente */
-.bg-glass-spheres {
-  background-color: var(--page-bg);
-  background-image: 
-    radial-gradient(circle at 15% 90%, var(--soft) 0%, transparent 35%),
-    radial-gradient(circle at 25% 100%, var(--mix-accent-16-transparent) 0%, transparent 30%);
-}
-
 /* --- ESTILOS PARA PÁGINAS DINÁMICAS DE TABLAS --- */
 .grid-page-container {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas como en tu imagen */
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   padding: 40px;
   align-content: start;
@@ -1083,7 +1004,6 @@ input:focus, textarea:focus, select:focus {
   color: #334155;
 }
 
-/* Estilos para el panel lateral de estas tablas */
 .dynamic-page-editor {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
@@ -1115,7 +1035,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .tab-btn {
-  flex: 1 1 calc(33.333% - 6px); /* Para que queden 3 botones por fila */
+  flex: 1 1 calc(33.333% - 6px);
   padding: 8px 4px;
   font-size: 12px;
   background: #f8fafc;
@@ -1131,19 +1051,19 @@ input:focus, textarea:focus, select:focus {
   background: #e2e8f0;
 }
 
-/* Estado activo del botón */
+
 .tab-btn.active {
   background: #1d4ed8;
   color: white;
   border-color: #1d4ed8;
 }
 
-/* Ocultar todas las secciones por defecto */
+
 .tab-content {
   display: none;
 }
 
-/* Mostrar solo la sección activa */
+
 .tab-content.active-tab {
   display: block;
   animation: fadeIn 0.3s ease;
@@ -1153,4 +1073,3 @@ input:focus, textarea:focus, select:focus {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
