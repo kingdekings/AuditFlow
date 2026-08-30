@@ -59,7 +59,6 @@ button {
   cursor: pointer;
 }
 
-
 .app {
   display: grid;
   grid-template-columns: minmax(340px, 420px) 1fr;
@@ -228,7 +227,6 @@ input:focus, textarea:focus, select:focus {
   justify-items: center;
   font-family: var(--report-font);
 }
-
 
 .topline {
   display: flex;
@@ -460,14 +458,12 @@ input:focus, textarea:focus, select:focus {
   margin-bottom: 4px;
 }
 
-
 .mini-subtext {
   font-size: var(--span-size);
   font-weight: 600;
   color: var(--span-color); 
   line-height: 1.2;
 }
-
 
 .mini-text {
   font-size: var(--paragraph-size);
@@ -476,7 +472,6 @@ input:focus, textarea:focus, select:focus {
   line-height: 1.4;
   margin: 0;
 }
-
 
 .cover-page {
   padding-top: 34px;
@@ -540,7 +535,6 @@ input:focus, textarea:focus, select:focus {
   text-align: left;
 }
 
-
 .kpi-header {
   display: flex;
   align-items: center;          
@@ -551,14 +545,12 @@ input:focus, textarea:focus, select:focus {
   border-bottom: 2px dashed var(--mix-accent-18-transparent, rgba(29,78,216,0.18));
 }
 
-
 .kpi-header svg {
   width: 18px;
   height: 18px;
   color: var(--accent); 
   flex-shrink: 0;       
 }
-
 
 .cover-grid .card.polaroid-kpi h3 {
   font-size: calc(14px * var(--title-scale));
@@ -569,7 +561,6 @@ input:focus, textarea:focus, select:focus {
   text-transform: uppercase;
   text-align: left;
 }
-
 
 .cover-grid .card.polaroid-kpi p.card-value {
   font-size: var(--paragraph-size);
@@ -590,7 +581,6 @@ input:focus, textarea:focus, select:focus {
   font-weight: 750;
 }
 
-
 @media (max-width: 1200px) {
   .stage {
     overflow-x: auto;
@@ -608,7 +598,7 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
-/* --- Tipografía genérica de contenido del reporte (aplica salvo que una clase más específica la sobreescriba) --- */
+
 .page p {
   color: var(--paragraph-color);
   font-size: var(--paragraph-size);
@@ -695,7 +685,6 @@ input:focus, textarea:focus, select:focus {
   background: var(--accent);
   clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
-
 
 .mini-card strong, 
 .mini-card p, 
@@ -800,7 +789,6 @@ input:focus, textarea:focus, select:focus {
   font-size: 13px;
   margin: 0;
 }
-
 
 .alert-details h4,
 .alert-details p,
@@ -970,7 +958,6 @@ input:focus, textarea:focus, select:focus {
   list-style: none; 
 }
 
-
 .style-accordion summary::-webkit-details-marker {
   display: none; 
 }
@@ -978,7 +965,6 @@ input:focus, textarea:focus, select:focus {
 .style-accordion summary:hover {
   background: #f1f5f9;
 }
-
 
 .style-accordion summary::after {
   content: '+';
@@ -1104,18 +1090,15 @@ input:focus, textarea:focus, select:focus {
   background: #e2e8f0;
 }
 
-
 .tab-btn.active {
   background: #1d4ed8;
   color: white;
   border-color: #1d4ed8;
 }
 
-
 .tab-content {
   display: none;
 }
-
 
 .tab-content.active-tab {
   display: block;

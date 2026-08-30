@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
     alertSubtitle: "Sobrante por",
     alertAmount: "$11.599.470",
     userRole: "ASESORA DE COMISIÓN",
-    userName: "MARIA ALEJANDRA SUESCUN",
-    userId: "CC 1004826055"
+    userName: "MARIA SUESCUN",
+    userId: "CC 12345678"
   };
 
   function setReportVar(name, value) {
@@ -152,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (inputId === "directors") {
       previewEl.innerHTML = "";
       
-      // Dividimos por saltos de línea O por comas seguidas de espacio para limpiar cualquier formato previo
       const lines = val.split(/\n|, /).map(l => l.trim()).filter(l => l.length > 0);
       
       if (lines.length === 0) {
@@ -422,11 +421,11 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
       pages.forEach(page => {
         if (imagePath) {
           page.style.backgroundImage = `url('${imagePath}')`;
-          page.style.backgroundSize = 'cover'; // Asegura que la imagen cubra toda la hoja
+          page.style.backgroundSize = 'cover'; 
           page.style.backgroundPosition = 'center';
           page.style.backgroundRepeat = 'no-repeat';
         } else {
-          page.style.backgroundImage = 'none'; // Quita la imagen si elige "Sin fondo"
+          page.style.backgroundImage = 'none'; 
         }
       });
     });
@@ -450,7 +449,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
         page.style.backgroundRepeat = 'no-repeat';
       });
       
-      // Reiniciamos el selector desplegable si el usuario sube una imagen
+      
       const bgImageSelect = document.getElementById("pageBackgroundImage");
       if (bgImageSelect) {
         bgImageSelect.value = ""; 
@@ -550,7 +549,6 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     }
   });
 
-  // Inicializar la tabla al cargar
   renderTableData();
 
 
@@ -561,8 +559,8 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
       alertSubtitle: "Sobrante por",
       alertAmount: "$11.599.470",
       userRole: "ASESORA DE COMISIÓN",
-      userName: "MARIA ALEJANDRA SUESCUN",
-      userId: "CC 1004826055"
+      userName: "MARIA  SUESCUN",
+      userId: "CC 1234567"
     }
   ];
 
@@ -611,7 +609,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
       alertsSidebarGrid.appendChild(editor);
     });
 
-    // NUEVO: Ocultar el botón si ya hay 2 alertas
+    //  Ocultar el botón si ya hay 2 alertas
     const addBtn = document.getElementById("addAlertBtn");
     if (addBtn) {
       if (alertsData.length >= 2) {
@@ -624,7 +622,6 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     renderAlertsPreview();
   }
 
-  // Y actualizamos el evento del botón para mayor seguridad
   const addAlertBtn = document.getElementById("addAlertBtn");
   if(addAlertBtn) {
     addAlertBtn.addEventListener("click", () => {
@@ -680,16 +677,13 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     });
   }
 
-
-
-  // Inicializar al cargar
   renderAlertsData();
 
   // --- LÓGICA DE BANNERS DINÁMICOS (Página 3) ---
   let bannerData = [
     {
       puntoNum: "8570", puntoName: "LAS DELICIAS COMUNEROS",
-      userRole: "ASESORA DE COMISIÓN", userName: "ANDREA CASTELLANOS", userId: "CC 1092385256",
+      userRole: "ASESORA DE COMISIÓN", userName: "ANDREA CASTELLANOS", userId: "CC 12345678",
       faltanteNum: "67", faltanteType: "RASPAS", valor: "$155.000"
     }
   ];
@@ -800,7 +794,6 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     renderBannerData();
   });
 
-  // Inicializar al cargar
   renderBannerData();
 
   // --- LÓGICA DE PÁGINAS DINÁMICAS (MÚLTIPLES TABLAS) ---
@@ -865,7 +858,7 @@ function renderDynSidebar() {
 
       pageHeader.append(titleH3, delPageBtn);
       pageWrapper.appendChild(pageHeader);
-      // --- NUEVO: Input para el título de la página (Header) ---
+      // --- Input para el título de la página (Header) ---
       const pageTitleWrap = document.createElement("div");
       pageTitleWrap.style.marginBottom = "15px";
       
@@ -1067,7 +1060,7 @@ function renderDynSidebar() {
       const pageDiv = document.createElement("div");
       pageDiv.className = "page";
 
-      // --- NUEVO: Crear el header visual en la hoja de papel ---
+      // --- Crear el header visual en la hoja de papel ---
       const pageHeaderEl = document.createElement("header");
       pageHeaderEl.className = "section-head";
       
@@ -1079,7 +1072,6 @@ function renderDynSidebar() {
       pageHeaderDiv.appendChild(pageHeaderTitle);
       pageHeaderEl.appendChild(pageHeaderDiv);
       pageDiv.appendChild(pageHeaderEl);
-      // ---------------------------------------------------------
       
       const gridContainer = document.createElement("div");
       gridContainer.className = "grid-page-container";
@@ -1130,7 +1122,7 @@ function renderDynSidebar() {
       dynDeckContainer.appendChild(pageDiv);
     });
     
-// Al regenerar páginas, volvemos a aplicar las imágenes de fondo si existen
+
     const bgImageSelect = document.getElementById("pageBackgroundImage");
     
     if (currentCustomBg) {
@@ -1189,7 +1181,6 @@ function renderDynSidebar() {
     });
   }
 
-  // Iniciar el renderizado
   renderDynamicPages();
 
 
@@ -1462,7 +1453,6 @@ function renderDynSidebar() {
     });
   }
 
-  // Iniciar la primera renderización
   renderDynamicEvidences();
 
   // --- LÓGICA DE LA PÁGINA 6 (TABLA LIBRE OPCIONAL) ---
@@ -1578,7 +1568,7 @@ function renderDynSidebar() {
     addColBtn.style.width = "100%";
     addColBtn.onclick = () => {
       page6Data.columns.push(`Columna ${page6Data.columns.length + 1}`);
-      page6Data.rows.forEach(r => r.push("")); // Agregar un campo vacío a cada fila existente
+      page6Data.rows.forEach(r => r.push("")); 
       renderPage6();
     };
     colSection.appendChild(addColBtn);
@@ -1692,7 +1682,6 @@ function renderDynSidebar() {
     const table = document.createElement("table");
     table.className = "report-table";
     table.style.width = "100%";
-    // No forzamos table-layout: fixed para que las columnas se adapten a la cantidad libremente
 
     // Cabeceras (<thead>)
     const thead = document.createElement("thead");
@@ -1709,7 +1698,7 @@ function renderDynSidebar() {
     const tbody = document.createElement("tbody");
     page6Data.rows.forEach(rowArray => {
       const tr = document.createElement("tr");
-      // Recorremos basado en el número de columnas para evitar desfases
+
       page6Data.columns.forEach((_, colIndex) => {
         const td = document.createElement("td");
         td.textContent = rowArray[colIndex] || "";
@@ -1738,7 +1727,6 @@ function renderDynSidebar() {
     }
   }
 
-  // Renderizar al iniciar
   renderPage6();
 
 });
