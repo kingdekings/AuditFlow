@@ -526,117 +526,6 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   // Inicializar la tabla al cargar
   renderTableData();
 
-// --- LÓGICA DE LA TABLA DE EVIDENCIAS (Página 4) ---
-  let evidenceData = [
-    { title: "Sobrante de caja", desc: "Se evidencia billete de 50.000 adicional fuera de la gaveta principal.", imgUrl: "" }
-  ];
-
-  const evidenceSidebarGrid = document.getElementById("evidenceSidebarGrid");
-  const evidenceTableBody = document.getElementById("evidenceTableBody");
-
-  function renderEvidenceData() {
-    evidenceSidebarGrid.innerHTML = "";
-    
-    evidenceData.forEach((row, index) => {
-      // Crear contenedor de la fila en el sidebar
-      const editor = document.createElement("div");
-      editor.className = "evidence-row-editor";
-      
-      // Botón Eliminar
-      const removeBtn = document.createElement("button");
-      removeBtn.className = "remove-btn";
-      removeBtn.textContent = "Eliminar";
-      removeBtn.onclick = () => { 
-        evidenceData.splice(index, 1); 
-        renderEvidenceData(); 
-      };
-
-      // Input: Hallazgo
-      const titleDiv = document.createElement("div");
-      titleDiv.className = "field";
-      titleDiv.innerHTML = `<label>Punto de Venta</label>`;
-      const titleInput = document.createElement("input");
-      titleInput.value = row.title;
-      titleInput.oninput = (e) => { row.title = e.target.value; renderEvidencePreview(); };
-      titleDiv.appendChild(titleInput);
-
-      // Input: Descripción
-      const descDiv = document.createElement("div");
-      descDiv.className = "field";
-      descDiv.innerHTML = `<label>Novedad</label>`;
-      const descInput = document.createElement("textarea");
-      descInput.value = row.desc;
-      descInput.style.minHeight = "60px";
-      descInput.oninput = (e) => { row.desc = e.target.value; renderEvidencePreview(); };
-      descDiv.appendChild(descInput);
-
-      // Input: Imagen
-      const imgDiv = document.createElement("div");
-      imgDiv.className = "field";
-      imgDiv.innerHTML = `<label>Cargar Imagen</label>`;
-      const imgInput = document.createElement("input");
-      imgInput.type = "file";
-      imgInput.accept = "image/*";
-      imgInput.onchange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            row.imgUrl = ev.target.result; // Convierte la imagen a Base64
-            renderEvidencePreview();
-          };
-          reader.readAsDataURL(file);
-        }
-      };
-      imgDiv.appendChild(imgInput);
-
-      editor.append(removeBtn, titleDiv, descDiv, imgDiv);
-      evidenceSidebarGrid.appendChild(editor);
-    });
-
-    renderEvidencePreview();
-  }
-
-  function renderEvidencePreview() {
-    evidenceTableBody.innerHTML = "";
-    
-    evidenceData.forEach(row => {
-      const tr = document.createElement("tr");
-      
-      // Col 1: Texto
-      const td1 = document.createElement("td");
-      td1.textContent = row.title;
-      
-      // Col 2: Texto
-      const td2 = document.createElement("td");
-      td2.textContent = row.desc;
-      
-      // Col 3: Imagen
-      const td3 = document.createElement("td");
-      td3.style.verticalAlign = "middle";
-      if (row.imgUrl) {
-        const img = document.createElement("img");
-        img.src = row.imgUrl;
-        img.className = "evidence-img-preview";
-        td3.appendChild(img);
-      } else {
-        td3.innerHTML = `<div style="text-align: center; color: #94a3b8; font-style: italic; padding: 20px;">Sin imagen cargada</div>`;
-      }
-      
-      tr.appendChild(td1);
-      tr.appendChild(td2);
-      tr.appendChild(td3);
-      evidenceTableBody.appendChild(tr);
-    });
-  }
-
-  document.getElementById("addEvidenceRowBtn").addEventListener("click", () => {
-    evidenceData.push({ title: "Nuevo hallazgo", desc: "", imgUrl: "" });
-    renderEvidenceData();
-  });
-
-  // Iniciar la tabla de evidencias
-  renderEvidenceData();
 
   // --- LÓGICA DE ALERT BANNERS DINÁMICOS (Página 2) ---
   let alertsData = [
@@ -1294,15 +1183,259 @@ function renderDynSidebar() {
     });
   });
 
-// --- EDICIÓN DEL TÍTULO DE LA PÁGINA 4 ---
-const page4TitleInput = document.getElementById("page4TitleInput");
-const page4TitlePreview = document.getElementById("page4TitlePreview");
+  // --- LÓGICA DE PÁGINAS DE EVIDENCIA DINÁMICAS (Página 4) ---
+  let dynamicEvidencePages = [
+    {
+      id: "ev_page_" + Date.now(),
+      title: "MANEJO INADECUADO DE ACTIVOS FIJOS. R. MEDIO. P ADMINISTRATIVO",
+      evidences: [
+        { title: "Sobrante de caja", desc: "Se evidencia billete de 50.000 adicional fuera de la gaveta principal.", imgUrls: [] }
+      ]
+    }
+  ];
 
-if (page4TitleInput && page4TitlePreview) {
-  page4TitleInput.addEventListener("input", (e) => {
-    // Reemplaza el texto de la vista previa con lo que escribas en el input
-    page4TitlePreview.textContent = e.target.value;
-  });
-}
+  const evSidebarContainer = document.getElementById("dynamicEvidencesSidebarContainer");
+  const evDeckContainer = document.getElementById("dynamicEvidencesDeckContainer");
+
+  function renderDynamicEvidences() {
+    renderDynEvSidebar();
+    renderDynEvPreview();
+  }
+
+  function renderDynEvSidebar() {
+    if (!evSidebarContainer) return;
+    evSidebarContainer.innerHTML = "";
+
+    dynamicEvidencePages.forEach((page, pageIndex) => {
+      // Contenedor principal de la página en la sidebar
+      const pageWrapper = document.createElement("div");
+      pageWrapper.style.paddingLeft = "10px";
+      pageWrapper.style.marginBottom = "30px";
+      pageWrapper.style.borderLeft = "3px solid #ef4444";
+
+      // Encabezado de la página (Título y botón eliminar hoja)
+      const pageHeader = document.createElement("div");
+      pageHeader.style.display = "flex";
+      pageHeader.style.justifyContent = "space-between";
+      pageHeader.style.alignItems = "center";
+      pageHeader.style.marginBottom = "15px";
+
+      const titleH3 = document.createElement("h3");
+      titleH3.textContent = `Hoja de Evidencia ${pageIndex + 1}`;
+      titleH3.style.color = "#ef4444";
+      titleH3.style.fontSize = "14px";
+      titleH3.style.margin = "0";
+
+      const delPageBtn = document.createElement("button");
+      delPageBtn.textContent = "Eliminar Hoja";
+      delPageBtn.className = "remove-btn";
+      delPageBtn.onclick = () => { dynamicEvidencePages.splice(pageIndex, 1); renderDynamicEvidences(); };
+
+      pageHeader.append(titleH3, delPageBtn);
+      pageWrapper.appendChild(pageHeader);
+
+      // Input para el Título de la página
+      const titleWrap = document.createElement("div");
+      titleWrap.className = "field";
+      titleWrap.innerHTML = `<label>Título de la Página</label>`;
+      const titleInput = document.createElement("input");
+      titleInput.value = page.title;
+      titleInput.oninput = (e) => { page.title = e.target.value; renderDynEvPreview(); };
+      titleWrap.appendChild(titleInput);
+      pageWrapper.appendChild(titleWrap);
+
+      // Botón para agregar una fila de evidencia dentro de esta hoja
+      const addEvBtn = document.createElement("button");
+      addEvBtn.textContent = "+ Agregar Evidencia";
+      addEvBtn.className = "btn btn-secondary";
+      addEvBtn.style.width = "100%";
+      addEvBtn.style.marginBottom = "15px";
+      addEvBtn.onclick = () => {
+        page.evidences.push({ title: "Nuevo hallazgo", desc: "", imgUrls: [] });
+        renderDynamicEvidences();
+      };
+      pageWrapper.appendChild(addEvBtn);
+
+      // Mini-formularios de cada fila de evidencia
+      page.evidences.forEach((ev, evIndex) => {
+        const editor = document.createElement("div");
+        editor.className = "evidence-row-editor";
+        editor.style.background = "white";
+        editor.style.padding = "10px";
+        editor.style.borderRadius = "6px";
+        editor.style.marginBottom = "10px";
+        editor.style.border = "1px solid #e2e8f0";
+
+        // Botón eliminar evidencia específica
+        const evHeader = document.createElement("div");
+        evHeader.style.display = "flex";
+        evHeader.style.justifyContent = "flex-end";
+        evHeader.style.marginBottom = "5px";
+        const delEvBtn = document.createElement("button");
+        delEvBtn.textContent = "Eliminar Fila";
+        delEvBtn.className = "remove-btn";
+        delEvBtn.style.padding = "4px 8px";
+        delEvBtn.onclick = () => { page.evidences.splice(evIndex, 1); renderDynamicEvidences(); };
+        evHeader.appendChild(delEvBtn);
+        editor.appendChild(evHeader);
+
+        // Input Punto de Venta
+        const field1 = document.createElement("div"); field1.className = "field";
+        field1.innerHTML = `<label>Punto de Venta</label>`;
+        const input1 = document.createElement("input");
+        input1.value = ev.title;
+        input1.oninput = (e) => { ev.title = e.target.value; renderDynEvPreview(); };
+        field1.appendChild(input1);
+
+        // Input Novedad
+        const field2 = document.createElement("div"); field2.className = "field";
+        field2.innerHTML = `<label>Novedad</label>`;
+        const input2 = document.createElement("textarea");
+        input2.value = ev.desc;
+        input2.style.minHeight = "60px";
+        input2.oninput = (e) => { ev.desc = e.target.value; renderDynEvPreview(); };
+        field2.appendChild(input2);
+
+        // Input Imágenes
+        const field3 = document.createElement("div"); field3.className = "field";
+        field3.innerHTML = `<label>Cargar Imagen(es)</label>`;
+        const input3 = document.createElement("input");
+        input3.type = "file";
+        input3.accept = "image/*";
+        input3.multiple = true;
+        input3.onchange = (e) => {
+          const files = Array.from(e.target.files);
+          if (files.length > 0) {
+            ev.imgUrls = [];
+            let loaded = 0;
+            files.forEach(file => {
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                ev.imgUrls.push(event.target.result);
+                loaded++;
+                if (loaded === files.length) renderDynEvPreview();
+              };
+              reader.readAsDataURL(file);
+            });
+          }
+        };
+        field3.appendChild(input3);
+
+        editor.append(field1, field2, field3);
+        pageWrapper.appendChild(editor);
+      });
+
+      evSidebarContainer.appendChild(pageWrapper);
+    });
+  }
+
+  function renderDynEvPreview() {
+    if (!evDeckContainer) return;
+    evDeckContainer.innerHTML = "";
+
+    dynamicEvidencePages.forEach(page => {
+      // Crear nueva hoja .page
+      const pageArticle = document.createElement("article");
+      pageArticle.className = "page dynamic-ev-page";
+
+      // Crear el Header
+      const header = document.createElement("header");
+      header.className = "section-head";
+      const divTitle = document.createElement("div");
+      const h2 = document.createElement("h2");
+      h2.className = "section-title";
+      h2.style.textAlign = "center";
+      h2.style.color = "#001f5b";
+      h2.textContent = page.title;
+      divTitle.appendChild(h2);
+      header.appendChild(divTitle);
+      pageArticle.appendChild(header);
+
+      // Crear la Tabla
+      const table = document.createElement("table");
+      table.className = "report-table";
+      table.style.tableLayout = "fixed";
+      table.style.width = "100%";
+
+      const thead = document.createElement("thead");
+      thead.innerHTML = `
+        <tr>
+           <th style="width: 25%;">Punto de Venta</th>
+           <th style="width: 35%;">Novedad</th>
+           <th style="width: 40%; text-align: center;">Evidencia Fotográfica</th>
+        </tr>
+      `;
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+      page.evidences.forEach(ev => {
+        const tr = document.createElement("tr");
+
+        const td1 = document.createElement("td");
+        td1.textContent = ev.title;
+
+        const td2 = document.createElement("td");
+        td2.textContent = ev.desc;
+
+        const td3 = document.createElement("td");
+        td3.style.verticalAlign = "middle";
+
+        if (ev.imgUrls && ev.imgUrls.length > 0) {
+          const photoContainer = document.createElement("div");
+          photoContainer.className = "evidence-photo-container";
+          ev.imgUrls.forEach(url => {
+            const img = document.createElement("img");
+            img.src = url;
+            img.className = "evidence-img-preview";
+            photoContainer.appendChild(img);
+          });
+          td3.appendChild(photoContainer);
+        } else {
+          td3.innerHTML = `<div style="text-align: center; color: #94a3b8; font-style: italic; padding: 20px;">Sin imagen cargada</div>`;
+        }
+
+        tr.append(td1, td2, td3);
+        tbody.appendChild(tr);
+      });
+
+      table.appendChild(tbody);
+      pageArticle.appendChild(table);
+      evDeckContainer.appendChild(pageArticle);
+    });
+
+    // Re-aplicar el fondo seleccionado a las nuevas hojas creadas
+    const bgImageSelect = document.getElementById("pageBackgroundImage");
+    if (currentCustomBg) {
+      evDeckContainer.querySelectorAll(".page").forEach(p => {
+         p.style.backgroundImage = `url('${currentCustomBg}')`;
+         p.style.backgroundSize = 'cover';
+         p.style.backgroundPosition = 'center';
+         p.style.backgroundRepeat = 'no-repeat';
+      });
+    } else if (bgImageSelect && bgImageSelect.value) {
+      evDeckContainer.querySelectorAll(".page").forEach(p => {
+         p.style.backgroundImage = `url('${bgImageSelect.value}')`;
+         p.style.backgroundSize = 'cover';
+         p.style.backgroundPosition = 'center';
+         p.style.backgroundRepeat = 'no-repeat';
+      });
+    }
+  }
+
+  // Listener para agregar una página completamente nueva
+  const addDynEvBtn = document.getElementById("addDynamicEvidencePageBtn");
+  if (addDynEvBtn) {
+    addDynEvBtn.addEventListener("click", () => {
+      dynamicEvidencePages.push({
+        id: "ev_page_" + Date.now(),
+        title: "NUEVO TÍTULO DE EVIDENCIA",
+        evidences: [] // Inicia sin filas de evidencia
+      });
+      renderDynamicEvidences();
+    });
+  }
+
+  // Iniciar la primera renderización
+  renderDynamicEvidences();
 
 });

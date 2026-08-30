@@ -286,19 +286,15 @@
 
   <!-- ================= SECCIÓN PÁGINA 4 ================= -->
   <section id="sec-pag4" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 15px;">
-    <h2 class="group-title" style="color: #ef4444;">Página 4: Evidencias</h2>
-    <!-- Control en la Sidebar -->
-    <div class="field" style="margin-bottom: 15px;">
-      <label>Título de la Página</label>
-      <input type="text" id="page4TitleInput" value="MANEJO INADECUADO DE ACTIVOS FIJOS. R. MEDIO. P ADMINISTRATIVO">
+    <div class="panel-section">
+      <h2 class="group-title" style="color: #ef4444;">Página 4: Evidencias</h2>
+      
+      <div id="dynamicEvidencesSidebarContainer"></div>
+      
+      <button class="btn" id="addDynamicEvidencePageBtn" type="button" style="width: 100%; margin-top: 10px; background: #fee2e2; color: #ef4444; border: 1px solid #ef4444;">
+        + Agregar Nueva Página de Evidencias
+      </button>
     </div>
-    
-    <div style="margin-bottom: 12px;">
-      <button class="btn btn-secondary" id="addEvidenceRowBtn" type="button" style="width: 100%; padding: 8px; font-size: 13px;">+ Agregar Nueva Evidencia</button>
-    </div>
-    
-    <!-- Aquí se generarán los miniformularios de evidencia -->
-    <div id="evidenceSidebarGrid" style="display: grid; gap: 16px;"></div>
   </section>
 
   <!-- ================= SECCIÓN PÁGINA 5 ================= -->
@@ -460,27 +456,8 @@
 
         </article>
 
-<!-- Page 4: Evidencias -->
-        <article class="page">
-          <header class="section-head">
-            <div><h2 class="section-title" id="page4TitlePreview" style="text-align: center; color: #001f5b;" >MANEJO INADECUADO DE ACTIVOS FIJOS. R. MEDIO. P ADMINISTRATIVO</h2></div>
-          </header>
 
-          <table class="report-table" style="table-layout: fixed; width: 100%;">
-             <thead>
-                <tr>
-                   <th style="width: 25%;">Punto de Venta</th>
-                   <th style="width: 35%;">Novedad</th>
-                   <th style="width: 40%; text-align: center;">Evidencia Fotográfica</th>
-                </tr>
-             </thead>
-             <tbody id="evidenceTableBody">
-                <!-- Las filas de evidencia se inyectarán aquí -->
-             </tbody>
-          </table>
-
-        </article>
-
+      <div id="dynamicEvidencesDeckContainer"></div>
       <div id="dynamicPagesDeckContainer"></div>
 
       </div>

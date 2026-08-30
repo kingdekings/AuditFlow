@@ -261,7 +261,7 @@ input:focus, textarea:focus, select:focus {
   padding: 6px 14px;
   border-radius: 999px;
   color: var(--kpi-title);
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 950;
   text-transform: uppercase;
   text-align: center;
@@ -859,22 +859,22 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* --- EVIDENCIAS (Página 4) --- */
+.evidence-photo-container {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  align-items: center;
+  gap: 8px; 
+  padding: 5px;
+}
+
 .evidence-img-preview {
   max-width: 100%;
   width: auto;
-  height: 60px; /* Tamaño de miniatura, ajusta entre 50px y 70px según veas mejor */
+  height: 60px; /* Miniatura */
   object-fit: contain;
   border-radius: 4px;
-}
-
-/* Clase para el contenedor de las fotos en la celda de la vista previa */
-.evidence-photo-container {
-  display: flex;
-  flex-wrap: wrap; /* Si hay muchas fotos, las baja a la siguiente línea */
-  justify-content: center; /* Las centra en la celda */
-  align-items: center;
-  gap: 8px; /* Espacio entre foto y foto */
-  padding: 5px;
+  border: 1px solid #e2e8f0; /* Borde opcional para resaltarlas */
 }
 
 .evidence-row-editor {
