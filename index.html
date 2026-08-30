@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Generador de Informe Ejecutivo SPA</title>
+  <title>AuditFlow</title>
   <link rel="stylesheet" href="css/styles.css">
   <!-- External Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -12,166 +12,273 @@
 <body>
   <main class="app">
     <!-- Editor / Sidebar -->
-    <aside class="editor">
-      <h1>Generador de Informes</h1>
-      <p>Plantilla ejecutiva A4 horizontal en formato SPA. Personaliza y descarga tu informe de 2 páginas con dimensiones exactas.</p>
-      
-      <!-- General Customization -->
-      <section class="group">
-        <h2 class="group-title">Estilo Semanal</h2>
-        <div class="field">
-        <label for="pageBackgroundStyle">Diseño Gráfico (Estilo Diapositiva)</label>
-        <select id="pageBackgroundStyle">
-          <option value="bg-geometric-blocks">Bloques Geométricos Angulares (Nuevo)</option>
-          <option value="bg-swiss-diagonal">Corte Diagonal Estilo Suizo</option>
-          <option value="bg-asymmetric-bars">Franjas Asimétricas de Autor</option>
-          <option value="bg-modern">Abstracto Fluido Clásico</option>
-        </select>
+<aside class="editor">
+  <h1>AuditFlow</h1>
+  
+  <!-- ================= SECCIÓN GENERAL ================= -->
+  <section class="group">
+    <h2 class="group-title" style="border-bottom: 2px solid var(--accent); padding-bottom: 5px;">Estilo General y Apariencia</h2>
+    
+    <div class="field">
+      <label for="pageBackgroundStyle">Diseño Gráfico (Estilo Diapositiva)</label>
+      <select id="pageBackgroundStyle">
+        
+        <option value="bg-swiss-diagonal">Corte Diagonal Estilo Suizo</option>
+        <option value="bg-asymmetric-bars">Franjas Asimétricas de Autor</option>
+        <option value="bg-modern">Abstracto Fluido Clásico</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="theme">Tema</label>
+      <select id="theme">
+        <option value="theme-boardroom">Azul Ejecutivo</option>
+        <option value="theme-mineral">Verde Institucional</option>
+        <option value="theme-copper">Contraste Directivo</option>
+      </select>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="pageBg">Fondo</label>
+        <input id="pageBg" type="color" value="#f8fafc">
       </div>
-        <div class="field">
-          <label for="theme">Tema</label>
-          <select id="theme">
-            <option value="theme-boardroom">Azul Ejecutivo</option>
-            <option value="theme-mineral">Verde Institucional</option>
-            <option value="theme-copper">Contraste Directivo</option>
-          </select>
-        </div>
-        <div class="split">
-          <div class="field">
-            <label for="pageBg">Fondo</label>
-            <input id="pageBg" type="color" value="#f8fafc">
-          </div>
-          <div class="field">
-            <label for="accent">Color principal</label>
-            <input id="accent" type="color" value="#1d4ed8">
-          </div>
-        </div>
-        <div class="split">
-          <div class="field">
-            <label for="accent2">Color secundario</label>
-            <input id="accent2" type="color" value="#0f766e">
-          </div>
-          <div class="field">
-            <label for="soft">Color suave</label>
-            <input id="soft" type="color" value="#dbeafe">
-          </div>
-        </div>
-        <div class="field">
-          <label for="fontChoice">Fuente de textos</label>
-          <select id="fontChoice">
-            <option value="Inter, 'Segoe UI', Arial, sans-serif">Inter / Segoe UI</option>
-            <option value="Arial, Helvetica, sans-serif">Arial</option>
-            <option value="Georgia, serif">Georgia</option>
-            <option value="Verdana, Geneva, sans-serif">Verdana</option>
-            <option value="'Trebuchet MS', Arial, sans-serif">Trebuchet</option>
-            <option value="'Times New Roman', Times, serif">Times New Roman</option>
-          </select>
-        </div>
-        <div class="split">
-          <div class="field">
-            <label for="kpiBgStart">KPI Fondo 1</label>
-            <input id="kpiBgStart" type="color" value="#0b4290">
-          </div>
-          <div class="field">
-            <label for="kpiBgEnd">KPI Fondo 2</label>
-            <input id="kpiBgEnd" type="color" value="#052b68">
-          </div>
-        </div>
-        <div class="split">
-          <div class="field">
-            <label for="kpiBorder">KPI Borde</label>
-            <input id="kpiBorder" type="color" value="#050075">
-          </div>
-          <div class="field">
-            <label for="kpiNumberBg">KPI Número</label>
-            <input id="kpiNumberBg" type="color" value="#ffe169">
-          </div>
-        </div>
-        <div class="split">
-          <div class="field">
-            <label for="kpiNumberText">Texto Número</label>
-            <input id="kpiNumberText" type="color" value="#ffffff">
-          </div>
-          <div class="field">
-            <label for="kpiTitleColor">Títulos destacados</label>
-            <input id="kpiTitleColor" type="color" value="#06135f">
-          </div>
-        </div>
-        <div class="field">
-          <label for="logoUpload">Logo de la empresa</label>
-          <input id="logoUpload" type="file" accept="image/*">
-        </div>
-        <div class="field">
-        <label for="bgImageUpload">Fondo personalizado (Imagen/Plantilla)</label>
-        <input id="bgImageUpload" type="file" accept="image/*">
+      <div class="field">
+        <label for="accent">Color principal</label>
+        <input id="accent" type="color" value="#1d4ed8">
       </div>
-      </section>
-
-      <!-- Cover Page Data -->
-      <section class="group">
-        <h2 class="group-title">Portada</h2>
-        <div class="field">
-          <label for="reportTitle">Título</label>
-          <input id="reportTitle" value="Informe ejecutivo semanal">
-        </div>
-        <div class="split">
-          <div class="field">
-            <label for="reportDate">Fecha</label>
-            <input id="reportDate" value="28 de agosto de 2026">
-          </div>
-          <div class="field">
-            <label for="reportNumber">Número</label>
-            <input id="reportNumber" value="Informe No. 034">
-          </div>
-        </div>
-        <div class="field">
-          <label for="processes">Procesos evaluados</label>
-          <textarea id="processes">Contratación y compras&#10;Supervisión operativa&#10;Gestión documental</textarea>
-        </div>
-        <div class="field">
-          <label for="directors">Directores</label>
-          <textarea id="directors">Dirección de Operaciones&#10;Dirección Administrativa</textarea>
-        </div>
-        <div class="field">
-          <label for="objective">Objetivo</label>
-          <textarea id="objective">Presentar los resultados semanales de la evaluación realizada, resaltando avances, novedades y asuntos que requieren gestión directiva.</textarea>
-        </div>
-        <div class="field">
-          <label for="scope">Alcance</label>
-          <textarea id="scope">La revisión comprende las visitas, soportes, procesos y novedades identificadas durante la semana reportada.</textarea>
-        </div>
-      </section>
-
-      <!-- Evaluated Aspects Data -->
-      <section class="group">
-        <h2 class="group-title">Aspectos Evaluados</h2>
-        <div id="aspectEditors"></div>
-        <button class="btn btn-secondary" id="addAspect" type="button">Agregar aspecto</button>
-      </section>
-
-      <!-- Evaluation Summary -->
-      <section class="group">
-        <h2 class="group-title">Resumen de Evaluación</h2>
-        <div class="field">
-          <label for="visits">Visitas realizadas</label>
-          <input id="visits" value="8 visitas">
-        </div>
-        <div class="field">
-          <label for="amount">Monto evaluado</label>
-          <input id="amount" value="$ 1.250 millones">
-        </div>
-        <div class="field">
-          <label for="novelty">Detalle de la novedad</label>
-          <textarea id="novelty">Se evidenció oportunidad de mejora en la consistencia de los soportes y en la documentación de cierres parciales.</textarea>
-        </div>
-      </section>
-
-      <!-- Actions -->
-      <div class="actions">
-        <button class="btn btn-secondary" id="sample" type="button">Cargar ejemplo</button>
-        <button class="btn btn-primary" id="print" type="button">Generar PDF</button>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="accent2">Color secundario</label>
+        <input id="accent2" type="color" value="#0f766e">
       </div>
-    </aside>
+      <div class="field">
+        <label for="soft">Color suave</label>
+        <input id="soft" type="color" value="#dbeafe">
+      </div>
+    </div>
+<div class="field">
+  <label for="fontChoice">Fuente de textos</label>
+  <select id="fontChoice">
+    <!-- Sans-Serif Modernas y UI -->
+    <option value="Inter, 'Segoe UI', Arial, sans-serif">Inter</option>
+    <option value="'Roboto', sans-serif">Roboto</option>
+    <option value="'Open Sans', sans-serif">Open Sans</option>
+    <option value="'Montserrat', sans-serif">Montserrat</option>
+    <option value="'Poppins', sans-serif">Poppins</option>
+    <option value="'Lato', sans-serif">Lato</option>
+    <option value="'Raleway', sans-serif">Raleway</option>
+    <option value="'Nunito', sans-serif">Nunito</option>
+    <option value="'Work Sans', sans-serif">Work Sans</option>
+    <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Segoe UI</option>
+    <option value="Arial, Helvetica, sans-serif">Arial</option>
+    
+    <!-- Serif Clásicas y Editoriales -->
+    <option value="Georgia, serif">Georgia</option>
+    <option value="'Times New Roman', Times, serif">Times New Roman</option>
+    <option value="'Playfair Display', serif">Playfair Display</option>
+    <option value="'Merriweather', serif">Merriweather</option>
+    <option value="'Lora', serif">Lora</option>
+    <option value="'Baskerville', serif">Baskerville</option>
+
+    <!-- Monoespaciadas y Técnicas -->
+    <option value="'Fira Code', monospace">Fira Code</option>
+    <option value="'Courier New', Courier, monospace">Courier New</option>
+    <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+    
+    <!-- Tradicionales -->
+    <option value="Verdana, Geneva, sans-serif">Verdana</option>
+    <option value="'Trebuchet MS', Arial, sans-serif">Trebuchet MS</option>
+  </select>
+</div>
+    <div class="split">
+      <div class="field">
+        <label for="kpiBgStart">KPI Fondo 1</label>
+        <input id="kpiBgStart" type="color" value="#0b4290">
+      </div>
+      <div class="field">
+        <label for="kpiBgEnd">KPI Fondo 2</label>
+        <input id="kpiBgEnd" type="color" value="#052b68">
+      </div>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="kpiBorder">KPI Borde</label>
+        <input id="kpiBorder" type="color" value="#050075">
+      </div>
+      <div class="field">
+        <label for="kpiNumberBg">KPI Número</label>
+        <input id="kpiNumberBg" type="color" value="#ffe169">
+      </div>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="kpiNumberText">Texto Número</label>
+        <input id="kpiNumberText" type="color" value="#ffffff">
+      </div>
+      <div class="field">
+        <label for="kpiTitleColor">Títulos destacados</label>
+        <input id="kpiTitleColor" type="color" value="#06135f">
+      </div>
+    </div>
+    <div class="field">
+      <label for="bgImageUpload">Fondo personalizado (Imagen/Plantilla)</label>
+      <input id="bgImageUpload" type="file" accept="image/*">
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN PÁGINA 1 ================= -->
+  <section class="group" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #1d4ed8;">
+    <h2 class="group-title" style="color: #1d4ed8;">Página 1: Portada</h2>
+    <div class="field">
+      <label for="reportTitle">Título</label>
+      <input id="reportTitle" value="Informe Auditoría Operativa">
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="reportDate">Fecha</label>
+        <input id="reportDate" value="28 de agosto de 2026">
+      </div>
+      <div class="field">
+        <label for="reportNumber">Número</label>
+        <input id="reportNumber" value="No. INFORME: OP-2026-020">
+      </div>
+    </div>
+    <div class="field">
+      <label for="processes">Procesos evaluados</label>
+      <textarea id="processes">Comercial, Administrativo, Juridico, Gestión Humana, Cumplimiento, TIC</textarea>
+    </div>
+    <div class="field">
+      <label for="directors">Directores</label>
+      <textarea id="directors"> Camilo Rodríguez, Paola Villamizar, Francisco Melendéz, Janeth Martínez, Katty Martínez, Maira Echeverry, Luis Osorio.</textarea>
+    </div>
+    <div class="field">
+      <label for="objective">Objetivo</label>
+      <textarea id="objective">Presentar los resultados semanales de la evaluación realizada, resaltando avances, novedades y asuntos que requieren gestión directiva.</textarea>
+    </div>
+    <div class="field">
+      <label for="scope">Alcance</label>
+      <textarea id="scope">La revisión comprende las visitas, soportes, procesos y novedades identificadas durante la semana reportada.</textarea>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN PÁGINA 2 ================= -->
+  <section class="group" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #0f766e; margin-top: 15px;">
+    <h2 class="group-title" style="color: #0f766e;">Página 2: Aspectos Evaluados</h2>
+    
+    <!-- Evaluated Aspects Data -->
+    <div style="margin-bottom: 15px;">
+      <div id="aspectEditors"></div>
+      <button class="btn btn-secondary" id="addAspect" type="button" style="margin-top: 8px;">Agregar aspecto</button>
+    </div>
+
+    <div class="field">
+  <label for="intermediateTitleInput">Título Intermedio</label>
+  <input id="intermediateTitleInput" value="Novedades de efectivo. R. Alto. P-Comercial">
+    </div>
+
+    <!-- Evaluation Summary -->
+    <div>
+      <div class="field">
+        <label for="visits">Visitas realizadas</label>
+        <input id="visits" value="8 visitas">
+      </div>
+      <div class="field">
+        <label for="amount">Monto evaluado</label>
+        <input id="amount" value="$ 1.250 millones">
+      </div>
+      <div class="field">
+        <label for="novelty">Detalle de la novedad</label>
+        <textarea id="novelty">Se evidenció oportunidad de mejora en la consistencia de los soportes y en la documentación de cierres parciales.</textarea>
+      </div>
+    </div>
+
+    <!-- Controles de la Alerta -->
+    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3);">
+      <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Detalles de la Alerta / Novedad</h3>
+      <div class="split">
+        <div class="field">
+          <label for="alertTitle">Título</label>
+          <input id="alertTitle" value="NOVEDAD IDENTIFICADA">
+        </div>
+        <div class="field">
+          <label for="alertSubtitle">Subtítulo</label>
+          <input id="alertSubtitle" value="Sobrante por">
+        </div>
+      </div>
+      <div class="field">
+        <label for="alertAmount">Monto de la novedad</label>
+        <input id="alertAmount" value="$11.599.470">
+      </div>
+      <div class="field">
+        <label for="userRole">Cargo del funcionario</label>
+        <input id="userRole" value="ASESORA DE COMISIÓN">
+      </div>
+      <div class="field">
+        <label for="userName">Nombre del funcionario</label>
+        <input id="userName" value="MARIA ALEJANDRA SUESCUN">
+      </div>
+      <div class="field">
+        <label for="userId">Documento de identidad</label>
+        <input id="userId" value="CC 1004826055">
+      </div>
+    </div>
+  </section>
+
+<!-- ================= SECCIÓN PÁGINA 3 ================= -->
+  <section class="group" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #8a3ffc; margin-top: 15px;">
+    <h2 class="group-title" style="color: #8a3ffc;">📄 Página 3: Detalles y Tabla</h2>
+
+    <!-- Controles de la Tabla -->
+    <div style="margin-bottom: 20px;">
+      <h3 style="font-size: 0.95rem; margin-bottom: 8px; color: #333;">Editor de Tabla</h3>
+      <div style="display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap;">
+        <button class="btn btn-secondary" id="addColBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">+ Columna</button>
+        <button class="btn btn-secondary" id="remColBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">- Columna</button>
+        <button class="btn btn-secondary" id="addRowBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">+ Fila</button>
+        <button class="btn btn-secondary" id="remRowBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">- Fila</button>
+      </div>
+      <!-- Aquí se generarán los inputs de la tabla dinámicamente -->
+      <div id="tableSidebarGrid" style="display: grid; gap: 6px; overflow-x: auto;"></div>
+    </div>
+
+    <!-- Controles del Banner de 4 Columnas -->
+    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(138, 63, 252, 0.3);">
+      <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Indicadores del Punto</h3>
+      <div class="split">
+        <div class="field"><label>Punto (Número)</label><input id="b3PuntoNum" value="8570"></div>
+        <div class="field"><label>Punto (Nombre)</label><input id="b3PuntoName" value="LAS DELICIAS COMUNEROS"></div>
+      </div>
+      <div class="field"><label>Cargo Funcionario</label><input id="b3UserRole" value="ASESORA DE COMISIÓN"></div>
+      <div class="split">
+        <div class="field"><label>Nombre Funcionario</label><input id="b3UserName" value="ANDREA CASTELLANOS"></div>
+        <div class="field"><label>Documento</label><input id="b3UserId" value="CC 1092385256"></div>
+      </div>
+      <div class="split">
+        <div class="field"><label>Faltante (Cantidad)</label><input id="b3FaltanteNum" value="67"></div>
+        <div class="field"><label>Faltante (Tipo)</label><input id="b3FaltanteType" value="RASPAS"></div>
+      </div>
+      <div class="field"><label>Valor Total</label><input id="b3Valor" value="$155.000"></div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN PÁGINA 4 ================= -->
+  <section class="group" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 15px;">
+    <h2 class="group-title" style="color: #ef4444;">🖼️ Página 4: Evidencias</h2>
+    
+    <div style="margin-bottom: 12px;">
+      <button class="btn btn-secondary" id="addEvidenceRowBtn" type="button" style="width: 100%; padding: 8px; font-size: 13px;">+ Agregar Nueva Evidencia</button>
+    </div>
+    
+    <!-- Aquí se generarán los miniformularios de evidencia -->
+    <div id="evidenceSidebarGrid" style="display: grid; gap: 16px;"></div>
+  </section>
+
+  <!-- Actions -->
+  <div class="actions" style="margin-top: 20px;">
+    <button class="btn btn-secondary" id="sample" type="button">Cargar ejemplo</button>
+    <button class="btn btn-primary" id="print" type="button">Generar PDF</button>
+  </div>
+</aside>
 
     <!-- Report Preview Stage -->
     <section class="stage" aria-label="Vista previa">
@@ -181,7 +288,8 @@
         <article class="page cover-page" id="coverPage">
           <header class="topline">
             <div class="brand-block">
-              <img class="logo" id="previewLogo" alt="Logo de la empresa">
+              <!-- AQUÍ CAMBIAS 'ruta/a/tu/logo.png' por la ruta real de tu archivo de imagen -->
+              <img class="logo" id="previewLogo" src="media/logo.png" alt="Logo de la empresa">
               <div class="brand-fallback">Logo empresa</div>
             </div>
             <p style="margin: 0; font-size: 0.9rem; color: #555;">
@@ -208,11 +316,9 @@
             <p class="card-value" id="previewScope"></p>
           </div>
         </div>
-
-          <span class="page-label">Página 1 / Portada</span>
         </article>
 
-<!-- Page 2: Aspects -->
+        <!-- Page 2: Aspects -->
         <article class="page">
           <header class="section-head">
             <div>
@@ -220,15 +326,12 @@
             </div>
           </header>
           
-          <!-- Las tarjetas de aspectos (ahora solo con título h3) -->
           <div class="aspect-grid" id="aspectPreview"></div>
 
-          <!-- Título intermedio nuevo -->
           <div class="intermediate-title-container">
-            <h3 class="intermediate-title">Detalle Operativo y Métricas Globales</h3>
+            <h3 class="intermediate-title" id="previewIntermediateTitle">Detalle Operativo y Métricas Globales</h3>
           </div>
 
-          <!-- Mini tarjetas inferiores -->
           <div class="mini-grid">
             <div class="mini-card">
               <h3>Visitas realizadas</h3>
@@ -243,7 +346,133 @@
               <p id="previewNovelty"></p>
             </div>
           </div>
-          <span class="page-label">Página 2 / Aspectos evaluados</span>
+          <!-- NUEVO BANNER DE ALERTA -->
+        <div class="alert-banner">
+          <!-- Lado Izquierdo (Monto) -->
+          <div class="alert-icon-box">
+            <!-- Icono de Triángulo de Advertencia (SVG) -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#a81c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <div class="alert-details">
+            <h4 class="alert-title" id="previewAlertTitle">NOVEDAD IDENTIFICADA</h4>
+            <p class="alert-subtitle" id="previewAlertSubtitle">Sobrante por</p>
+            <strong class="alert-amount" id="previewAlertAmount">$11.599.470</strong>
+          </div>
+
+          <!-- Línea Divisoria -->
+          <div class="alert-divider"></div>
+
+          <!-- Lado Derecho (Usuario) -->
+          <div class="alert-user">
+            <div class="user-avatar">
+              <!-- Icono de Usuario Circular (SVG) -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00205b" stroke-width="1.5">
+                <circle cx="12" cy="12" r="11" fill="#fff"></circle>
+                <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#00205b"></path>
+              </svg>
+            </div>
+            <div class="user-info">
+              <h4 class="user-role" id="previewUserRole">ASESORA DE COMISIÓN</h4>
+              <strong class="user-name" id="previewUserName">MARIA ALEJANDRA SUESCUN</strong>
+              <p class="user-id" id="previewUserId">CC 1004826055</p>
+            </div>
+          </div>
+        </div>
+        
+        </article>
+        <!-- Page 3: Detalles (Tabla y Banner) -->
+        <article class="page">
+          <header class="section-head">
+            <div><h2 class="section-title">Detalle de Hallazgos</h2></div>
+          </header>
+
+          <!-- Banner 4 Columnas -->
+          <div class="banner-cuatro">
+            <!-- Col 1: Punto -->
+            <div class="b4-seccion">
+              <div class="b4-icono" style="color: #003380;">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+              </div>
+              <div class="b4-textos">
+                <span class="b4-label">PUNTO</span>
+                <strong class="b4-val b4-dark" id="prevB3PuntoNum">8570</strong>
+                <span class="b4-sub" id="prevB3PuntoName">LAS DELICIAS COMUNEROS</span>
+              </div>
+            </div>
+            <div class="b4-divisor"></div>
+
+            <!-- Col 2: Usuario -->
+            <div class="b4-seccion">
+              <div class="b4-icono" style="color: #003380;">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              </div>
+              <div class="b4-textos">
+                <span class="b4-label" id="prevB3UserRole">ASESORA DE COMISIÓN</span>
+                <strong class="b4-val b4-dark" style="font-size: 15px;" id="prevB3UserName">ANDREA CASTELLANOS</strong>
+                <span class="b4-sub" style="font-weight: normal;" id="prevB3UserId">CC 1092385256</span>
+              </div>
+            </div>
+            <div class="b4-divisor"></div>
+
+            <!-- Col 3: Faltante -->
+            <div class="b4-seccion">
+              <div class="b4-icono" style="color: #a81c1c;">
+                <!-- Icono tipo Raspas/Ticket -->
+                <svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M8 6h8M8 10h8M8 14h4" stroke="#fff" stroke-width="2"/></svg>
+              </div>
+              <div class="b4-textos">
+                <span class="b4-label">FALTANTE FÍSICO</span>
+                <strong class="b4-val" style="color: #a81c1c; font-size: 32px;" id="prevB3FaltanteNum">67</strong>
+                <span class="b4-sub" id="prevB3FaltanteType">RASPAS</span>
+              </div>
+            </div>
+            <div class="b4-divisor"></div>
+
+            <!-- Col 4: Valor Total -->
+            <div class="b4-seccion">
+              <div class="b4-icono" style="color: #1b5e20;">
+                <!-- Icono Bolsa de Dinero -->
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-4 0-4 4-4 4h8s0-4-4-4zm-7 6c0 6 2 14 7 14s7-8 7-14H5z"/></svg>
+              </div>
+              <div class="b4-textos">
+                <span class="b4-label">VALOR TOTAL</span>
+                <strong class="b4-val" style="color: #1b5e20; font-size: 26px;" id="prevB3Valor">$155.000</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contenedor de la Tabla -->
+          <div style="margin-top: 30px;">
+            <table class="report-table" id="previewTable">
+              <!-- La tabla se renderizará aquí vía JS -->
+            </table>
+          </div>
+
+        </article>
+
+<!-- Page 4: Evidencias -->
+        <article class="page">
+          <header class="section-head">
+            <div><h2 class="section-title">Registro Fotográfico</h2></div>
+          </header>
+
+          <table class="report-table" style="table-layout: fixed; width: 100%;">
+             <thead>
+                <tr>
+                   <th style="width: 25%;">Hallazgo / Ítem</th>
+                   <th style="width: 35%;">Descripción</th>
+                   <th style="width: 40%; text-align: center;">Evidencia Fotográfica</th>
+                </tr>
+             </thead>
+             <tbody id="evidenceTableBody">
+                <!-- Las filas de evidencia se inyectarán aquí -->
+             </tbody>
+          </table>
+
         </article>
       </div>
     </section>
