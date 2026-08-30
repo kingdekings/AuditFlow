@@ -385,17 +385,19 @@ document.getElementById("fontChoice").addEventListener("change", event => {
     }
   });
 
-  function setPageBackgroundStyle(bgClass) {
+function setPageBackgroundStyle(bgClass) {
     const pages = document.querySelectorAll(".page");
+    const allBgClasses = [
+      "bg-swiss-diagonal", "bg-asymmetric-bars", "bg-modern", "bg-editorial", "bg-dynamic",
+      "bg-soft-orbs", "bg-corporate-arch", "bg-diagonal-swoosh", "bg-floating-shapes",
+      "bg-modern-split", "bg-angled-corners", "bg-elegant-curve", "bg-side-accent",
+      "bg-spotlight", "bg-glass-spheres"
+    ];
+
     pages.forEach(page => {
-      page.classList.remove(
-        
-        "bg-swiss-diagonal", 
-        "bg-asymmetric-bars", 
-        "bg-modern", 
-        "bg-editorial", 
-        "bg-dynamic"
-      );
+      // Remover todas las clases de fondo posibles
+      page.classList.remove(...allBgClasses);
+      // Agregar la nueva si existe
       if (bgClass) page.classList.add(bgClass);
     });
   }

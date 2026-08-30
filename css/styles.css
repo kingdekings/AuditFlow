@@ -856,3 +856,77 @@ input:focus, textarea:focus, select:focus {
   padding: 14px 14px 2px 14px;
   background: #ffffff;
 }
+
+/* =========================================
+   NUEVOS FONDOS PARA LA PÁGINA (Página A4)
+========================================= */
+
+/* 1. Orbes Desenfocados: Da un estilo "Glassmorphism" o Mesh suave */
+.bg-soft-orbs {
+  background-color: var(--page-bg);
+  background-image:
+    radial-gradient(circle at 0% 0%, var(--soft) 0%, transparent 45%),
+    radial-gradient(circle at 100% 100%, var(--mix-accent-16-transparent) 0%, transparent 50%);
+}
+
+/* 2. Arco Corporativo: Un arco gigante a la derecha, muy usado en informes formales */
+.bg-corporate-arch {
+  background-color: var(--page-bg);
+  background-image: radial-gradient(ellipse 120% 100% at 100% 0%, var(--soft) 0%, transparent 50%);
+}
+
+/* 3. Corte Diagonal Inferior: Líneas fuertes en la esquina inferior derecha */
+.bg-diagonal-swoosh {
+  background-color: var(--page-bg);
+  background-image: linear-gradient(115deg, transparent 65%, var(--soft) 65.2%, var(--soft) 80%, var(--mix-accent-16-transparent) 80.2%, var(--mix-accent-16-transparent) 100%);
+}
+
+/* 4. Formas flotantes: Un triángulo suave y un círculo discreto */
+.bg-floating-shapes {
+  background-color: var(--page-bg);
+  background-image:
+    linear-gradient(45deg, var(--soft) 0%, transparent 25%),
+    radial-gradient(circle at 85% 15%, var(--mix-accent-16-transparent) 0%, transparent 15%);
+}
+
+/* 5. Banda superior: Un bloque horizontal en la parte de arriba del papel */
+.bg-modern-split {
+  background-color: var(--page-bg);
+  background-image: linear-gradient(180deg, var(--soft) 0%, var(--soft) 12%, transparent 12.2%);
+}
+
+/* 6. Esquinas Angulares: Triángulos precisos en esquinas opuestas */
+.bg-angled-corners {
+  background-color: var(--page-bg);
+  background-image:
+    linear-gradient(135deg, var(--soft) 8%, transparent 8.2%),
+    linear-gradient(-45deg, var(--mix-accent-16-transparent) 8%, transparent 8.2%);
+}
+
+/* 7. Onda Curva Superior: Un arco ovalado que cae desde el techo de la página */
+.bg-elegant-curve {
+  background-color: var(--page-bg);
+  background-image: radial-gradient(150% 100% at 50% 0%, var(--soft) 0%, var(--soft) 10%, transparent 10.2%);
+}
+
+/* 8. Acento Lateral: Unas delgadas líneas verticales a la izquierda tipo "libreta ejecutiva" */
+.bg-side-accent {
+  background-color: var(--page-bg);
+  background-image: 
+    linear-gradient(90deg, var(--accent) 0%, var(--accent) 1.5%, transparent 1.6%),
+    linear-gradient(90deg, transparent 1.6%, var(--soft) 1.6%, var(--soft) 4%, transparent 4.1%);
+}
+
+/* 9. Spotlight (Iluminación): Un degradado central que da protagonismo al medio */
+.bg-spotlight {
+  background-color: var(--page-bg);
+  background-image: radial-gradient(circle at 50% -10%, var(--soft) 0%, transparent 55%);
+}
+
+/* 10. Esferas Traslúcidas: Dos círculos elegantes que se cruzan ligeramente */
+.bg-glass-spheres {
+  background-color: var(--page-bg);
+  background-image: 
+    radial-gradient(circle at 15% 90%, var(--soft) 0%, transparent 35%),
+    radial-gradient(circle at 25% 100%, var(--mix-accent-16-transparent) 0%, transparent 30%);
+}
