@@ -281,6 +281,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Color de borde general ---
   document.getElementById("lineColor").addEventListener("input", event => setReportVar("--line", event.target.value));
 
+  document.getElementById("metaColor").addEventListener("input", event => setReportVar("--meta-color", event.target.value));
+  document.getElementById("metaSize").addEventListener("input", event => setReportVar("--meta-size", event.target.value + "px"));
+
   // --- Estilo de tablas ---
   document.getElementById("tableHeaderBg").addEventListener("input", event => setReportVar("--table-header-bg", event.target.value));
   document.getElementById("tableHeaderText").addEventListener("input", event => setReportVar("--table-header-text", event.target.value));
@@ -1363,7 +1366,6 @@ function renderDynSidebar() {
       const h2 = document.createElement("h2");
       h2.className = "section-title";
       h2.style.textAlign = "center";
-      h2.style.color = "#001f5b";
       h2.textContent = page.title;
       divTitle.appendChild(h2);
       header.appendChild(divTitle);
@@ -1667,7 +1669,6 @@ function renderDynSidebar() {
     const h2 = document.createElement("h2");
     h2.className = "section-title";
     h2.style.textAlign = "center";
-    h2.style.color = "#001f5b";
     h2.textContent = page6Data.title;
     divTitle.appendChild(h2);
     header.appendChild(divTitle);

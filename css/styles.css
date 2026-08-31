@@ -37,6 +37,9 @@
   --table-cell-bg: #ffffff;
   --table-cell-text: #111827;
   --table-font-size: 13px;
+
+  --meta-color: #555555;
+  --meta-size: 14px;
 }
 
 *, *::before, *::after {
@@ -510,6 +513,12 @@ input:focus, textarea:focus, select:focus {
   font-weight: 950;
   text-transform: uppercase;
   text-align: center;
+}
+
+.cover-page .cover-meta {
+  margin: 0;
+  font-size: var(--meta-size);
+  color: var(--meta-color);
 }
 
 .cover-grid {

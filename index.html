@@ -48,7 +48,8 @@
           <option value="media/fondo12.png">Diseño SuperGiros 1</option>
           <option value="media/fondo13.png">Diseño BetPlay 1</option>
           <option value="media/fondo14.png">Diseño Chance Legal</option>
-
+          <option value="media/fondo15.png">Diseño BetPlay 2</option>
+          <option value="media/fondo16.png">Diseño Raspa</option>
 
         </select>
       </div>
@@ -71,6 +72,16 @@
     <details class="style-accordion">
       <summary>Colores Principales (Líneas y Botones)</summary>
       <div class="accordion-content">
+      <div class="split">
+        <div class="field">
+          <label for="metaColor">Color N° informe / fecha</label>
+          <input id="metaColor" type="color" value="#555555">
+        </div>
+        <div class="field">
+          <label for="metaSize">Tamaño (px)</label>
+          <input id="metaSize" type="number" min="8" max="24" step="1" value="14">
+        </div>
+      </div>
         <div class="split">
           <div class="field">
             <label for="accent">Principal (Líneas/Íconos)</label>
@@ -420,8 +431,8 @@
             <div class="brand-block">
               <img class="logo" id="previewLogo" src="media/logo.png" alt="Logo de la empresa">
             </div>
-            <p style="margin: 0; font-size: 0.9rem; color: #555;">
-              <strong id="previewReportNumber"></strong> | <span id="previewReportDate"></span>
+            <p class="cover-meta">
+              <strong id="previewReportNumber"></strong> | <strong id="previewReportDate"></strong>
             </p>
           </header>
           <h2 class="cover-title" id="previewReportTitle"></h2>
