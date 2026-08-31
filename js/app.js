@@ -1241,6 +1241,32 @@ function renderDynSidebar() {
 // --- LÓGICA DE LAS PESTAÑAS (TABS) EN LA SIDEBAR ---
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
+  const stageEl = document.querySelector('.stage');
+
+  // Relación entre cada pestaña de la sidebar y la página correspondiente en la vista previa
+  const tabToPreviewMap = {
+    'sec-pag1': 'coverPage',
+    'sec-pag2': 'page2Preview',
+    'sec-pag3': 'page3Preview',
+    'sec-pag4': 'dynamicEvidencesDeckContainer',
+    'sec-pag5': 'dynamicPagesDeckContainer',
+    'sec-pag6': 'page6DeckContainer'
+  };
+
+  function scrollPreviewToTab(targetId) {
+    const previewId = tabToPreviewMap[targetId];
+
+    // Pestaña "Estilos": llevamos la vista al inicio (portada)
+    if (!previewId) {
+      if (stageEl) stageEl.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const previewEl = document.getElementById(previewId);
+    if (previewEl) {
+      previewEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 
   tabButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1252,6 +1278,9 @@ function renderDynSidebar() {
       btn.classList.add('active');
       const targetId = btn.getAttribute('data-target');
       document.getElementById(targetId).classList.add('active-tab');
+
+      // 3. Llevar la vista previa directamente a la página correspondiente
+      scrollPreviewToTab(targetId);
     });
   });
 
