@@ -419,7 +419,8 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     bgImageSelect.addEventListener("change", event => {
       currentCustomBg = null;
       const imagePath = event.target.value;
-      const pages = document.querySelectorAll(".page");
+      // Excluimos la portada: su fondo se controla por separado (coverBackgroundImage)
+      const pages = document.querySelectorAll(".page:not(#coverPage)");
       
       pages.forEach(page => {
         if (imagePath) {
@@ -444,7 +445,8 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     const reader = new FileReader();
     reader.onload = (ev) => {
       currentCustomBg = ev.target.result; // Se guarda en Base64
-      const pages = document.querySelectorAll(".page");
+      // Excluimos la portada: su fondo se controla por separado (coverBackgroundImage / coverBgImageUpload)
+      const pages = document.querySelectorAll(".page:not(#coverPage)");
       pages.forEach(page => {
         page.style.backgroundImage = `url('${currentCustomBg}')`;
         page.style.backgroundSize = 'cover';
@@ -466,6 +468,55 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   if (bgImageUpload) {
     bgImageUpload.addEventListener("change", (event) => {
       applyCustomBackground(event.target.files[0]);
+    });
+  }
+
+  // ===== Fondo exclusivo de la Portada (Página 1) =====
+
+  // Selector de fondo predefinido para la portada
+  const coverBgImageSelect = document.getElementById("coverBackgroundImage");
+  if (coverBgImageSelect) {
+    coverBgImageSelect.addEventListener("change", event => {
+      currentCustomCoverBg = null;
+      const imagePath = event.target.value;
+      if (!coverPage) return;
+
+      if (imagePath) {
+        coverPage.style.backgroundImage = `url('${imagePath}')`;
+        coverPage.style.backgroundSize = 'cover';
+        coverPage.style.backgroundPosition = 'center';
+        coverPage.style.backgroundRepeat = 'no-repeat';
+      } else {
+        coverPage.style.backgroundImage = 'none';
+      }
+    });
+  }
+
+  // Variable global para recordar la imagen de portada subida manualmente
+  let currentCustomCoverBg = null;
+
+  function applyCustomCoverBackground(file) {
+    if (!file || !coverPage) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      currentCustomCoverBg = ev.target.result; // Se guarda en Base64
+      coverPage.style.backgroundImage = `url('${currentCustomCoverBg}')`;
+      coverPage.style.backgroundSize = 'cover';
+      coverPage.style.backgroundPosition = 'center';
+      coverPage.style.backgroundRepeat = 'no-repeat';
+
+      if (coverBgImageSelect) {
+        coverBgImageSelect.value = "";
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  const coverBgImageUpload = document.getElementById("coverBgImageUpload");
+  if (coverBgImageUpload) {
+    coverBgImageUpload.addEventListener("change", (event) => {
+      applyCustomCoverBackground(event.target.files[0]);
     });
   }
 

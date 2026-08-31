@@ -279,6 +279,21 @@
   <section id="sec-pag1" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #1d4ed8;">
     <h2 class="group-title" style="color: #1d4ed8;">Página 1: Portada</h2>
     <div class="field">
+      <label for="coverBackgroundImage">Fondo de la portada (solo Página 1)</label>
+      <select id="coverBackgroundImage">
+        <option value="">Sin fondo (usar color / fondo general)</option>
+        <option value="media/portadas/portada1.png">Portada 1</option>
+        <option value="media/portadas/portada2.jpeg">Portada 2</option>
+        <option value="media/portadas/portada3.png">Portada 3</option>
+        <option value="media/portadas/portada4.png">Portada 4</option>
+        <option value="media/portadas/portada5.png">Portada 5</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="coverBgImageUpload">Cargar imagen de fondo para la portada</label>
+      <input id="coverBgImageUpload" type="file" accept="image/*">
+    </div>
+    <div class="field">
       <label for="reportTitle">Título</label>
       <input id="reportTitle" value="Informe Auditoría Operativa">
     </div>
