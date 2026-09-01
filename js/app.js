@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     directors: "Camilo Rodríguez, Paola Villamizar, Francisco Melendéz, Janeth Martínez, Katty Martínez, Maira Echeverry, Luis Osorio.",
     objective: "Presentar los resultados semanales de la evaluación realizada, resaltando avances, novedades y asuntos que requieren gestión directiva.",
     scope: "La revisión comprende las visitas, soportes, procesos y novedades identificadas durante la semana reportada.",
-    // --- DATOS DE EJEMPLO PARA MINI CARDS ---
     visitsTitle: "Visitas realizadas",
     visits: "8",
     visitsSub: "visitas en distintas zonas",
@@ -477,7 +476,6 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   const coverBgImageSelect = document.getElementById("coverBackgroundImage");
   if (coverBgImageSelect) {
     coverBgImageSelect.addEventListener("change", event => {
-      currentCustomCoverBg = null;
       const imagePath = event.target.value;
       if (!coverPage) return;
 
@@ -489,34 +487,6 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
       } else {
         coverPage.style.backgroundImage = 'none';
       }
-    });
-  }
-
-  // Variable global para recordar la imagen de portada subida manualmente
-  let currentCustomCoverBg = null;
-
-  function applyCustomCoverBackground(file) {
-    if (!file || !coverPage) return;
-
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      currentCustomCoverBg = ev.target.result; // Se guarda en Base64
-      coverPage.style.backgroundImage = `url('${currentCustomCoverBg}')`;
-      coverPage.style.backgroundSize = 'cover';
-      coverPage.style.backgroundPosition = 'center';
-      coverPage.style.backgroundRepeat = 'no-repeat';
-
-      if (coverBgImageSelect) {
-        coverBgImageSelect.value = "";
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-
-  const coverBgImageUpload = document.getElementById("coverBgImageUpload");
-  if (coverBgImageUpload) {
-    coverBgImageUpload.addEventListener("change", (event) => {
-      applyCustomCoverBackground(event.target.files[0]);
     });
   }
 
