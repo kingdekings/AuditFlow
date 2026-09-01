@@ -335,7 +335,10 @@ document.getElementById("fontChoice").addEventListener("change", event => {
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 
       const { jsPDF } = window.jspdf;
-      const pages = [...document.querySelectorAll(".page")];
+      const pages = [...document.querySelectorAll(".page")].filter(page => {
+        const style = window.getComputedStyle(page);
+        return style.display !== "none";
+      });
 
       const pdfWidth = 297;
       const pdfHeight = 210;
@@ -682,6 +685,48 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
       faltanteNum: "67", faltanteType: "RASPAS", valor: "$155.000"
     }
   ];
+
+  // --- LÓGICA DE LA PÁGINA 3 (INCLUIR/EXCLUIR PÁGINA COMPLETA, OPCIONAL) ---
+  let page3Data = {
+    enabled: true,
+    title: "Raspas Faltantes"
+  };
+
+  const page3Toggle = document.getElementById("page3Toggle");
+  const page3HeaderTitleInput = document.getElementById("page3HeaderTitleInput");
+  const page3ControlsWrap = document.getElementById("page3ControlsWrap");
+  const page3Preview = document.getElementById("page3Preview");
+  const page3HeaderTitlePreview = document.getElementById("page3HeaderTitlePreview");
+
+  function renderPage3() {
+    if (page3Preview) {
+      page3Preview.style.display = page3Data.enabled ? "" : "none";
+    }
+    if (page3ControlsWrap) {
+      page3ControlsWrap.style.display = page3Data.enabled ? "" : "none";
+    }
+    if (page3HeaderTitlePreview) {
+      page3HeaderTitlePreview.textContent = page3Data.title;
+    }
+  }
+
+  if (page3Toggle) {
+    page3Toggle.checked = page3Data.enabled;
+    page3Toggle.addEventListener("change", (e) => {
+      page3Data.enabled = e.target.checked;
+      renderPage3();
+    });
+  }
+
+  if (page3HeaderTitleInput) {
+    page3HeaderTitleInput.value = page3Data.title;
+    page3HeaderTitleInput.addEventListener("input", (e) => {
+      page3Data.title = e.target.value;
+      renderPage3();
+    });
+  }
+
+  renderPage3();
 
   const bannerSidebarGrid = document.getElementById("bannerSidebarGrid");
   const bannerPreviewContainer = document.getElementById("bannerPreviewContainer");
