@@ -1189,7 +1189,7 @@ function renderDynSidebar() {
       const pageHeaderDiv = document.createElement("div");
       const pageHeaderTitle = document.createElement("h2");
       pageHeaderTitle.className = "section-title";
-      pageHeaderTitle.textContent = page.title || "Tablas de Novedades";
+      pageHeaderTitle.textContent = page.title || "Aspectos Normativos";
       
       pageHeaderDiv.appendChild(pageHeaderTitle);
       pageHeaderEl.appendChild(pageHeaderDiv);
