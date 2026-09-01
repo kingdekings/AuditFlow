@@ -653,7 +653,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   // --- LÓGICA DE LA PÁGINA 3 (INCLUIR/EXCLUIR PÁGINA COMPLETA, OPCIONAL) ---
   let page3Data = {
     enabled: true,
-    title: "Raspas Faltantes"
+    title: "Faltantes Tangibles"
   };
 
   const page3Toggle = document.getElementById("page3Toggle");
