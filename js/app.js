@@ -993,7 +993,7 @@ function renderDynSidebar() {
       pageTitleLabel.style.marginBottom = "5px";
       
       const pageTitleInput = document.createElement("input");
-      pageTitleInput.value = page.title || "Tablas de Novedades";
+      pageTitleInput.value = page.title || "Aspectos Normativos";
       pageTitleInput.style.width = "100%";
       pageTitleInput.style.padding = "10px";
       pageTitleInput.style.border = "1px solid #cbd5e1";
