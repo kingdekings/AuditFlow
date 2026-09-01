@@ -26,19 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const themes = {
     "theme-boardroom": {
-      bg: "#f8fafc", accent: "#1d4ed8", accent2: "#0f766e", soft: "#dbeafe",
-      kpiBgStart: "#0b4290", kpiBgEnd: "#052b68", kpiBorder: "#050075",
-      kpiNumberBg: "#ffe169", kpiNumberText: "#ffffff", kpiTitle: "#06135f"
+      bg: "#f8fafc", accent: "#1d4ed8", soft: "#dbeafe",
+      kpiNumberBg: "#ffe169", kpiTitle: "#06135f"
     },
     "theme-mineral": {
-      bg: "#f4f7f6", accent: "#31572c", accent2: "#4f6f7f", soft: "#d8e7df",
-      kpiBgStart: "#31572c", kpiBgEnd: "#1f3d25", kpiBorder: "#17211f",
-      kpiNumberBg: "#d9ed92", kpiNumberText: "#17211f", kpiTitle: "#17211f"
+      bg: "#f4f7f6", accent: "#31572c", soft: "#d8e7df",
+      kpiNumberBg: "#d9ed92", kpiTitle: "#17211f"
     },
     "theme-copper": {
-      bg: "#fbfaf8", accent: "#8a3ffc", accent2: "#b45309", soft: "#eee7ff",
-      kpiBgStart: "#8a3ffc", kpiBgEnd: "#4c1d95", kpiBorder: "#2e1065",
-      kpiNumberBg: "#fbbf24", kpiNumberText: "#ffffff", kpiTitle: "#2e1065"
+      bg: "#fbfaf8", accent: "#8a3ffc", soft: "#eee7ff",
+      kpiNumberBg: "#fbbf24", kpiTitle: "#2e1065"
     }
   };
 
@@ -110,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateMixedColors() {
     const accent = document.getElementById("accent").value;
-    const accent2 = document.getElementById("accent2").value;
     const pageBg = document.getElementById("pageBg").value;
     const soft = document.getElementById("soft").value;
     const kpiNumberBg = document.getElementById("kpiNumberBg").value;
@@ -121,8 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setReportVar("--mix-accent-18-transparent", mixWithTransparent(accent, 18));
     setReportVar("--mix-accent-16-transparent", mixWithTransparent(accent, 16));
     setReportVar("--mix-accent-34-transparent", mixWithTransparent(accent, 34));
-    setReportVar("--mix-accent2-24-transparent", mixWithTransparent(accent2, 24));
-    setReportVar("--mix-accent2-30-transparent", mixWithTransparent(accent2, 30));
     setReportVar("--mix-pagebg-92-white", mixWithWhite(pageBg, 92));
     setReportVar("--mix-pageink-78-muted", mixTwoColors(pageInk, 78, muted));
     setReportVar("--mix-pageink-72-muted", mixTwoColors(pageInk, 72, muted));
@@ -159,11 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       lines.forEach(line => {
-        const span = document.createElement("span");
-        span.style.display = "block";
-        span.style.marginBottom = "2px";
-        span.textContent = line;
-        previewEl.appendChild(span);
+        const p = document.createElement("p");
+        p.textContent = line;
+        previewEl.appendChild(p);
       });
     } else {
       previewEl.textContent = val.trim() || "Pendiente por completar";
@@ -180,24 +172,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const theme = themes[themeName];
     setReportVar("--page-bg", theme.bg);
     setReportVar("--accent", theme.accent);
-    setReportVar("--accent-2", theme.accent2);
     setReportVar("--soft", theme.soft);
-    setReportVar("--kpi-bg-start", theme.kpiBgStart);
-    setReportVar("--kpi-bg-end", theme.kpiBgEnd);
-    setReportVar("--kpi-border", theme.kpiBorder);
     setReportVar("--kpi-number-bg", theme.kpiNumberBg);
-    setReportVar("--kpi-number-text", theme.kpiNumberText);
     setReportVar("--kpi-title", theme.kpiTitle);
 
     document.getElementById("pageBg").value = theme.bg;
     document.getElementById("accent").value = theme.accent;
-    document.getElementById("accent2").value = theme.accent2;
     document.getElementById("soft").value = theme.soft;
-    document.getElementById("kpiBgStart").value = theme.kpiBgStart;
-    document.getElementById("kpiBgEnd").value = theme.kpiBgEnd;
-    document.getElementById("kpiBorder").value = theme.kpiBorder;
     document.getElementById("kpiNumberBg").value = theme.kpiNumberBg;
-    document.getElementById("kpiNumberText").value = theme.kpiNumberText;
     document.getElementById("kpiTitleColor").value = theme.kpiTitle;
     
     updateMixedColors();
@@ -251,13 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById("theme").addEventListener("change", event => setTheme(event.target.value));
   document.getElementById("pageBg").addEventListener("input", event => { setReportVar("--page-bg", event.target.value); updateMixedColors(); });
   document.getElementById("accent").addEventListener("input", event => { setReportVar("--accent", event.target.value); updateMixedColors(); });
-  document.getElementById("accent2").addEventListener("input", event => { setReportVar("--accent-2", event.target.value); updateMixedColors(); });
   document.getElementById("soft").addEventListener("input", event => { setReportVar("--soft", event.target.value); updateMixedColors(); });  
-  document.getElementById("kpiBgStart").addEventListener("input", event => setReportVar("--kpi-bg-start", event.target.value));
-  document.getElementById("kpiBgEnd").addEventListener("input", event => setReportVar("--kpi-bg-end", event.target.value));
-  document.getElementById("kpiBorder").addEventListener("input", event => setReportVar("--kpi-border", event.target.value));
   document.getElementById("kpiNumberBg").addEventListener("input", event => { setReportVar("--kpi-number-bg", event.target.value); updateMixedColors(); });
-  document.getElementById("kpiNumberText").addEventListener("input", event => setReportVar("--kpi-number-text", event.target.value));
   document.getElementById("kpiTitleColor").addEventListener("input", event => setReportVar("--kpi-title", event.target.value));
 
   // --- Tarjeta de aspecto: fondo/texto sólidos ---
@@ -309,12 +286,6 @@ document.getElementById("fontChoice").addEventListener("change", event => {
     const index = event.target.dataset.removeAspect;
     if (index === undefined) return;
     aspects.splice(Number(index), 1);
-    renderAspectEditors();
-    renderAspects();
-  });
-
-  document.getElementById("addAspect").addEventListener("click", () => {
-    aspects.push({ title: "Nuevo aspecto" });
     renderAspectEditors();
     renderAspects();
   });

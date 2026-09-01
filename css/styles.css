@@ -11,10 +11,8 @@
   --soft: #dbeafe;
   --report-font: Inter, "Segoe UI", Arial, sans-serif;
   --kpi-bg-start: #0b4290;
-  --kpi-bg-end: #052b68;
   --kpi-border: #050075;
   --kpi-number-bg: #ffe169;
-  --kpi-number-text: #ffffff;
   --kpi-title: #06135f;
   --card: rgba(255, 255, 255, 0.88);
   --card-line: rgba(100, 116, 139, 0.24);
@@ -305,7 +303,7 @@ input:focus, textarea:focus, select:focus {
   text-align: center;
 }
 
-/* --- LAYOUT DE 2 COLUMNAS: PÁGINA 2 --- */
+/* --- LAYOUT DE PÁGINA 2: ASPECTOS COMPACTOS ARRIBA + CONTENIDO ABAJO --- */
 .page.page-aspects {
   display: flex;
   flex-direction: column;
@@ -313,73 +311,50 @@ input:focus, textarea:focus, select:focus {
 
 .page2-layout {
   display: flex;
-  align-items: stretch;
-  gap: 28px;
-  margin-top: 30px;
+  flex-direction: column;
   flex: 1;
   min-height: 0;
 }
 
-.page2-col-left {
-  flex: 0 0 30%;
-  display: flex;
-}
-
-.page2-col-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-/* --- DISEÑO  PARA LAS ASPECT CARDS--- */
+/* --- DISEÑO PARA LAS ASPECT CARDS (COMPACTO, EN FILA) --- */
 .aspect-grid {
   counter-reset: aspect;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
   width: 100%;
+  margin-bottom: 18px;
 }
 
 .aspect-card {
   counter-increment: aspect;
   position: relative;
   display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center; 
-  min-height: 90px; 
-  padding: 20px 18px;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 140px;
+  min-height: 0;
+  padding: 8px 10px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-left: 5px solid var(--kpi-number-bg);
-  border-radius: 12px;
+  border-left: 3px solid var(--kpi-number-bg);
+  border-radius: 8px;
   background: var(--aspect-bg);
-  box-shadow: 0 10px 25px rgba(5, 0, 117, 0.15);
+  box-shadow: 0 4px 10px rgba(5, 0, 117, 0.12);
   overflow: hidden;
-}
-
-.aspect-card::before {
-  content: counter(aspect, decimal-leading-zero);
-  position: absolute;
-  right: 12px;
-  top: -8px; 
-  color: var(--aspect-text);
-  opacity: 0.15;
-  font-size: 48px;
-  font-weight: 950;
-  pointer-events: none;
 }
 
 .aspect-card h3 {
   margin: 0;
   color: var(--aspect-text);
-  font-size: calc(15px * var(--title-scale)); 
-  font-weight: 900;
-  letter-spacing: .04em;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: .02em;
   text-transform: uppercase;
-  line-height: 1.3;
-  padding-right: 25px;
-  z-index: 1; 
+  line-height: 1.2;
+  text-align: center;
+  z-index: 1;
 }
 
 /* --- TÍTULO INTERMEDIO --- */
@@ -416,7 +391,7 @@ input:focus, textarea:focus, select:focus {
 
 .mini-card {
   position: relative;
-  min-height: 210px;
+  min-height: 120px;
   border: 0;
   border-top: 8px solid var(--accent);
   border-radius: 8px;
@@ -571,7 +546,8 @@ input:focus, textarea:focus, select:focus {
   text-align: left;
 }
 
-.cover-grid .card.polaroid-kpi p.card-value {
+.cover-grid .card.polaroid-kpi p.card-value,
+.cover-grid .card.polaroid-kpi div.card-value {
   font-size: var(--paragraph-size);
   font-weight: 700;
   color: var(--paragraph-color);
@@ -579,6 +555,10 @@ input:focus, textarea:focus, select:focus {
   margin: 0;
   display: flex;
   flex-direction: column;
+}
+
+.cover-grid .card.polaroid-kpi div.card-value p {
+  margin: 0 0 2px 0;
 }
 
 .page-label {
@@ -697,7 +677,8 @@ input:focus, textarea:focus, select:focus {
 
 .mini-card strong, 
 .mini-card p, 
-.cover-grid .card.polaroid-kpi p.card-value {
+.cover-grid .card.polaroid-kpi p.card-value,
+.cover-grid .card.polaroid-kpi div.card-value {
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word; 
@@ -713,6 +694,7 @@ input:focus, textarea:focus, select:focus {
   background: #ffffff;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(185, 28, 28, 0.05);
+  width: 40%;
 }
 
 .alert-icon-box {
@@ -724,8 +706,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .alert-icon-box svg {
-  width: 42px;
-  height: 42px;
+  width: 24px;
+  height: 24px;
 }
 
 .alert-details {
@@ -735,49 +717,49 @@ input:focus, textarea:focus, select:focus {
 
 .alert-title {
   color: #881313; 
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 850;
   margin: 0 0 4px 0;
 }
 
 .alert-subtitle {
   color: #1f2937;
-  font-size: 13px;
+  font-size: 10px;
   margin: 0 0 2px 0;
 }
 
 .alert-amount {
   color: #881313;
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 900;
   display: block;
   line-height: 1.1;
 }
 
 .alert-divider {
-  width: 1px;
-  height: 60px;
+  width: 5px;
+  height: 70px;
   background: #b91c1c;
-  opacity: 0.3;
+  opacity: 0.6;
 }
 
 .alert-user {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px 24px;
+  gap: 8px;
+  padding: 8px 12px;
   flex: 1.2;
 }
 
 .user-avatar svg {
-  width: 58px;
-  height: 58px;
+  width: 24px;
+  height: 24px;
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 9px;
 }
 
 .user-role {
@@ -789,13 +771,13 @@ input:focus, textarea:focus, select:focus {
 
 .user-name {
   color: #00205b;
-  font-size: 14px;
-  font-weight: 850;
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .user-id {
   color: #1f2937;
-  font-size: 13px;
+  font-size: 12px;
   margin: 0;
 }
 

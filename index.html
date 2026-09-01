@@ -83,19 +83,17 @@
           <input id="metaSize" type="number" min="8" max="24" step="1" value="14">
         </div>
       </div>
-        <div class="split">
-          <div class="field">
-            <label for="accent">Principal (Líneas/Íconos)</label>
-            <input id="accent" type="color" value="#1d4ed8">
-          </div>
-          <div class="field">
-            <label for="accent2">Secundario (Detalles)</label>
-            <input id="accent2" type="color" value="#0f766e">
-          </div>
+        <div class="field">
+          <label for="accent">Principal (Líneas/Íconos)</label>
+          <input id="accent" type="color" value="#1d4ed8">
         </div>
         <div class="field">
           <label for="soft">Color suave (Rellenos claros)</label>
           <input id="soft" type="color" value="#dbeafe">
+        </div>
+        <div class="field">
+          <label for="kpiTitleColor">Títulos de sección</label>
+          <input id="kpiTitleColor" type="color" value="#06135f">
         </div>
       </div>
     </details>
@@ -104,43 +102,10 @@
     <details class="style-accordion">
       <summary>Tarjetas de Métricas (Aspectos)</summary>
       <div class="accordion-content">
-        <div class="split">
-          <div class="field">
-            <label for="kpiBgStart">Fondo (Arriba)</label>
-            <input id="kpiBgStart" type="color" value="#0b4290">
-          </div>
-          <div class="field">
-            <label for="kpiBgEnd">Fondo (Abajo)</label>
-            <input id="kpiBgEnd" type="color" value="#052b68">
-          </div>
+        <div class="field">
+          <label for="kpiNumberBg">Cinta decorativa</label>
+          <input id="kpiNumberBg" type="color" value="#ffe169">
         </div>
-        <div class="split">
-          <div class="field">
-            <label for="kpiBorder">Borde de tarjeta</label>
-            <input id="kpiBorder" type="color" value="#050075">
-          </div>
-          <div class="field">
-            <label for="kpiTitleColor">Títulos de sección</label>
-            <input id="kpiTitleColor" type="color" value="#06135f">
-          </div>
-        </div>
-        <div class="split">
-          <div class="field">
-            <label for="kpiNumberBg">Cinta decorativa</label>
-            <input id="kpiNumberBg" type="color" value="#ffe169">
-          </div>
-          <div class="field">
-            <label for="kpiNumberText">Texto de números</label>
-            <input id="kpiNumberText" type="color" value="#ffffff">
-          </div>
-        </div>
-      </div>
-    </details>
-
-    <!-- Acordeón 3b: Tarjetas de Aspecto (fondo/texto sólido, sin degradado) -->
-    <details class="style-accordion">
-      <summary>Tarjeta de Aspectos (Página 2)</summary>
-      <div class="accordion-content">
         <div class="split">
           <div class="field">
             <label for="aspectCardBg">Color de fondo</label>
@@ -327,7 +292,6 @@
 
     <div style="margin-bottom: 15px;">
       <div id="aspectEditors"></div>
-      <button class="btn btn-secondary" id="addAspect" type="button" style="margin-top: 8px;">Agregar aspecto</button>
     </div>
 
     <div class="field">
@@ -467,7 +431,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
       <h3>Directores</h3>
     </div>
-    <p class="card-value" id="previewDirectors"></p>
+    <div class="card-value" id="previewDirectors"></div>
   </div>
 
   <!-- Tarjeta 3: Objetivo -->
@@ -500,15 +464,9 @@
             </div>
           </header>
 
+          <div class="aspect-grid" id="aspectPreview"></div>
+
           <div class="page2-layout">
-
-            <!-- Columna izquierda: Aspectos en columna -->
-            <div class="page2-col-left">
-              <div class="aspect-grid" id="aspectPreview"></div>
-            </div>
-
-            <!-- Columna derecha: Mini valores arriba + Alert banner abajo -->
-            <div class="page2-col-right">
 
               <div class="intermediate-title-container">
                 <h3 class="intermediate-title" id="previewIntermediateTitle">Detalle Operativo y Métricas Globales</h3>
@@ -551,7 +509,6 @@
               <!--CONTENEDOR DE ALERTAS -->
               <div id="alertsPreviewContainer" style="display: flex; flex-direction: column; gap: 15px; margin-top: 25px;"></div>
 
-            </div>
           </div>
 
         </article>
