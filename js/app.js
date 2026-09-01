@@ -924,7 +924,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   let dynamicPagesData = [
     {
       id: "page_0",
-      title: "Tablas de Novedades",
+      title: "Aspectos Normativos",
       tables: [
         {
           title: "PUNTOS SIN AVISO",
