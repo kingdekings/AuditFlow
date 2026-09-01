@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ["directors", "previewDirectors"],
     ["objective", "previewObjective"],
     ["scope", "previewScope"],
+    ["elaboradoPor", "previewElaboradoPor"],
     ["visitsTitle", "previewVisitsTitle"],
     ["visits", "previewVisits"],
     ["visitsSub", "previewVisitsSub"],   
@@ -23,21 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ["novelty", "previewNovelty"],
     ["intermediateTitleInput", "previewIntermediateTitle"]
   ];
-
-  const themes = {
-    "theme-boardroom": {
-      bg: "#f8fafc", accent: "#1d4ed8", soft: "#dbeafe",
-      kpiNumberBg: "#ffe169", kpiTitle: "#06135f"
-    },
-    "theme-mineral": {
-      bg: "#f4f7f6", accent: "#31572c", soft: "#d8e7df",
-      kpiNumberBg: "#d9ed92", kpiTitle: "#17211f"
-    },
-    "theme-copper": {
-      bg: "#fbfaf8", accent: "#8a3ffc", soft: "#eee7ff",
-      kpiNumberBg: "#fbbf24", kpiTitle: "#2e1065"
-    }
-  };
 
   let aspects = [
     { title: "Cumplimiento documental" },
@@ -54,17 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
     directors: "Camilo Rodríguez, Paola Villamizar, Francisco Melendéz, Janeth Martínez, Katty Martínez, Maira Echeverry, Luis Osorio.",
     objective: "Presentar los resultados semanales de la evaluación realizada, resaltando avances, novedades y asuntos que requieren gestión directiva.",
     scope: "La revisión comprende las visitas, soportes, procesos y novedades identificadas durante la semana reportada.",
+    elaboradoPor: "Elaborado por: Nombre Apellido",
     visitsTitle: "Visitas realizadas",
     visits: "8",
     visitsSub: "visitas en distintas zonas",
-    
     amountTitle: "Monto evaluado",
     amount: "$ 1.250",
     amountSub: "millones de pesos",
-    
     noveltyTitle: "Detalle de la novedad",
     novelty: "Se evidenció oportunidad de mejora en la consistencia de los soportes y en la documentación de cierres parciales.",
-    // ----------------------------------------
     intermediateTitleInput: "Novedades de efectivo. R. Alto. P-Comercial",
     alertTitle: "NOVEDAD IDENTIFICADA",
     alertSubtitle: "Sobrante por",
@@ -107,12 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateMixedColors() {
     const accent = document.getElementById("accent").value;
-    const pageBg = document.getElementById("pageBg").value;
     const soft = document.getElementById("soft").value;
     const kpiNumberBg = document.getElementById("kpiNumberBg").value;
     const muted = "#637083";
     const pageEl = document.querySelector(".page");
     const pageInk = pageEl ? (getComputedStyle(pageEl).getPropertyValue("--page-ink").trim() || "#111827") : "#111827";
+    const pageBg = (pageEl ? getComputedStyle(pageEl).getPropertyValue("--page-bg").trim() : "") || "#f8fafc";
 
     setReportVar("--mix-accent-18-transparent", mixWithTransparent(accent, 18));
     setReportVar("--mix-accent-16-transparent", mixWithTransparent(accent, 16));
@@ -167,24 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAspects();
   }
 
-  function setTheme(themeName) {
-    deck.className = "deck " + themeName;
-    const theme = themes[themeName];
-    setReportVar("--page-bg", theme.bg);
-    setReportVar("--accent", theme.accent);
-    setReportVar("--soft", theme.soft);
-    setReportVar("--kpi-number-bg", theme.kpiNumberBg);
-    setReportVar("--kpi-title", theme.kpiTitle);
-
-    document.getElementById("pageBg").value = theme.bg;
-    document.getElementById("accent").value = theme.accent;
-    document.getElementById("soft").value = theme.soft;
-    document.getElementById("kpiNumberBg").value = theme.kpiNumberBg;
-    document.getElementById("kpiTitleColor").value = theme.kpiTitle;
-    
-    updateMixedColors();
-  }
-
   function escapeHtml(text) {
     return text.replace(/[&<>"']/g, char => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
@@ -230,8 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(el) el.addEventListener("input", () => syncField(inputId, previewId));
   });
 
-  document.getElementById("theme").addEventListener("change", event => setTheme(event.target.value));
-  document.getElementById("pageBg").addEventListener("input", event => { setReportVar("--page-bg", event.target.value); updateMixedColors(); });
   document.getElementById("accent").addEventListener("input", event => { setReportVar("--accent", event.target.value); updateMixedColors(); });
   document.getElementById("soft").addEventListener("input", event => { setReportVar("--soft", event.target.value); updateMixedColors(); });  
   document.getElementById("kpiNumberBg").addEventListener("input", event => { setReportVar("--kpi-number-bg", event.target.value); updateMixedColors(); });
@@ -464,7 +428,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     });
   }
 
-  setTheme("theme-boardroom");
+  updateMixedColors();
   initLogo();
   renderAspectEditors();
   syncAll();
@@ -835,6 +799,124 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   });
 
   renderBannerData();
+
+  // --- LÓGICA DE BANNER ADICIONAL EN PÁGINA 2 (ASPECTOS) ---
+  // Reutiliza el mismo diseño "banner-cuatro" de la Página 3, pero es
+  // independiente y opcional: sirve para aprovechar el espacio libre que
+  // queda debajo de las alertas y la tabla cuando hay poco contenido.
+  let page2BannerData = [];
+
+  const page2BannerSidebarGrid = document.getElementById("page2BannerSidebarGrid");
+  const page2BannerPreviewContainer = document.getElementById("page2BannerPreviewContainer");
+
+  function renderPage2BannerData() {
+    if (!page2BannerSidebarGrid) return;
+    page2BannerSidebarGrid.innerHTML = "";
+    page2BannerData.forEach((row, index) => {
+      const editor = document.createElement("div");
+      editor.className = "evidence-row-editor";
+      editor.style.border = "1px solid #d1d5db";
+      editor.style.padding = "10px";
+      editor.style.borderRadius = "6px";
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Eliminar Banner";
+      removeBtn.className = "remove-btn";
+      removeBtn.style.marginBottom = "10px";
+      removeBtn.onclick = () => { page2BannerData.splice(index, 1); renderPage2BannerData(); };
+
+      const createField = (labelTxt, key) => {
+         const wrap = document.createElement("div"); wrap.className = "field";
+         wrap.innerHTML = `<label>${labelTxt}</label>`;
+         const inp = document.createElement("input");
+         inp.value = row[key];
+         inp.oninput = (e) => { row[key] = e.target.value; renderPage2BannerPreview(); };
+         wrap.appendChild(inp);
+         return wrap;
+      };
+
+      const split1 = document.createElement("div"); split1.className = "split";
+      split1.append(createField("Punto (Num)", "puntoNum"), createField("Punto (Nombre)", "puntoName"));
+
+      const fCargo = createField("Cargo", "userRole");
+
+      const split2 = document.createElement("div"); split2.className = "split";
+      split2.append(createField("Nombre", "userName"), createField("Documento", "userId"));
+
+      const split3 = document.createElement("div"); split3.className = "split";
+      split3.append(createField("Faltante (Num)", "faltanteNum"), createField("Faltante (Tipo)", "faltanteType"));
+
+      const fValor = createField("Valor Total", "valor");
+
+      editor.append(removeBtn, split1, fCargo, split2, split3, fValor);
+      page2BannerSidebarGrid.appendChild(editor);
+    });
+    renderPage2BannerPreview();
+  }
+
+  function renderPage2BannerPreview() {
+    if (!page2BannerPreviewContainer) return;
+    page2BannerPreviewContainer.innerHTML = "";
+    page2BannerData.forEach(row => {
+      const bannerHtml = `
+        <div class="banner-cuatro">
+          <div class="b4-seccion">
+            <div class="b4-icono" style="color: #003380;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            </div>
+            <div class="b4-textos">
+              <span class="b4-label">PUNTO</span>
+              <strong class="b4-val b4-dark">${row.puntoNum}</strong>
+              <span class="b4-sub">${row.puntoName}</span>
+            </div>
+          </div>
+          <div class="b4-divisor"></div>
+          <div class="b4-seccion">
+            <div class="b4-icono" style="color: #003380;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="b4-textos">
+              <span class="b4-label">${row.userRole}</span>
+              <strong class="b4-val b4-dark" style="font-size: 15px;">${row.userName}</strong>
+              <span class="b4-sub" style="font-weight: normal;">${row.userId}</span>
+            </div>
+          </div>
+          <div class="b4-divisor"></div>
+          <div class="b4-seccion">
+            <div class="b4-icono" style="color: #a81c1c;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M8 6h8M8 10h8M8 14h4" stroke="#fff" stroke-width="2"/></svg>
+            </div>
+            <div class="b4-textos">
+              <span class="b4-label">FALTANTE FÍSICO</span>
+              <strong class="b4-val" style="color: #a81c1c; font-size: 32px;">${row.faltanteNum}</strong>
+              <span class="b4-sub">${row.faltanteType}</span>
+            </div>
+          </div>
+          <div class="b4-divisor"></div>
+          <div class="b4-seccion">
+            <div class="b4-icono" style="color: #1b5e20;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 5H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H3V7h18v10zm-9-1.5c-2.21 0-4-1.57-4-3.5s1.79-3.5 4-3.5 4 1.57 4 3.5-1.79 3.5-4 3.5zm0-5c-1.1 0-2 .67-2 1.5s.9 1.5 2 1.5 2-.67 2-1.5-.9-1.5-2-1.5z"/></svg>
+            </div>
+            <div class="b4-textos">
+              <span class="b4-label">VALOR TOTAL</span>
+              <strong class="b4-val" style="color: #1b5e20; font-size: 26px;">${row.valor}</strong>
+            </div>
+          </div>
+        </div>
+      `;
+      page2BannerPreviewContainer.insertAdjacentHTML('beforeend', bannerHtml);
+    });
+  }
+
+  const addPage2BannerBtn = document.getElementById("addPage2BannerBtn");
+  if (addPage2BannerBtn) {
+    addPage2BannerBtn.addEventListener("click", () => {
+      page2BannerData.push({ puntoNum: "0", puntoName: "NUEVO", userRole: "CARGO", userName: "NOMBRE", userId: "CC", faltanteNum: "0", faltanteType: "TIPO", valor: "$0" });
+      renderPage2BannerData();
+    });
+  }
+
+  renderPage2BannerData();
 
   // --- LÓGICA DE PÁGINAS DINÁMICAS (MÚLTIPLES TABLAS) ---
   

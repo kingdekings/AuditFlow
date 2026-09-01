@@ -280,7 +280,7 @@ input:focus, textarea:focus, select:focus {
   justify-content: space-between;
   gap: 22px;
   margin-bottom: 26px;
-  padding-bottom: 14px;
+  padding-bottom: 0px;
   border-bottom: 5px solid var(--accent);
 }
 
@@ -496,6 +496,15 @@ input:focus, textarea:focus, select:focus {
   color: var(--meta-color);
 }
 
+.cover-elaborado {
+  position: absolute;
+  left: 38px;
+  bottom: 18px;
+  margin: 0;
+  font-size: 12px;
+  color: var(--meta-color, #64748b);
+}
+
 .cover-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -603,7 +612,7 @@ input:focus, textarea:focus, select:focus {
   width: 1122px;
   height: 794px;
   overflow: hidden;
-  padding: 44px 48px;
+  padding: 34px 38px;
   color: var(--page-ink);
   background-color: var(--page-bg);
   background-size: cover;
@@ -1028,6 +1037,10 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.dynamic-table-header span {
+  color: #ffffff;
 }
 
 .dynamic-table-header svg {

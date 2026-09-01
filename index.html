@@ -12,7 +12,7 @@
 <body>
   <main class="app">
 <aside class="editor">
-  <h1>AuditFlow</h1>
+  <h1>Info-Audit</h1>
   <nav class="sidebar-tabs">
     <button class="tab-btn active" data-target="sec-estilos">Estilos</button>
     <button class="tab-btn" data-target="sec-pag1">Portada</button>
@@ -27,51 +27,33 @@
   <section id="sec-estilos" class="group tab-content active-tab">
     <h2 class="group-title" style="border-bottom: 2px solid var(--accent); padding-bottom: 5px;">Personalización Visual</h2>
     
-    <!-- Acordeón 1: Fondos y Temas -->
-    <details class="style-accordion" open>
-      <summary>Temas y Fondos Base</summary>
-      <div class="accordion-content">
-      <div class="field">
-        <label>Fondo de las páginas</label>
-        <select id="pageBackgroundImage">
-          <option value="">Sin fondo (Color sólido)</option>
-          <option value="media/fondo.png">Diseño RSNS 1</option>
-          <option value="media/fondo2.png">Diseño RSNS 2</option>
-          <option value="media/fondo3.png">Diseño RSNS 3</option>
-          <option value="media/fondo4.png">Diseño RSNS 4</option>
-          <option value="media/fondo5.png">Diseño RSNS 5</option>
-          <option value="media/fondo6.png">Diseño RSNS 6</option>
-          <option value="media/fondo7.png">Diseño RSNS 7</option>
-          <option value="media/fondo8.png">Diseño RSNS 8</option>
-          <option value="media/fondo9.png">Diseño Astro</option>
-          <option value="media/fondo10.png">Diseño RSNS 9</option>
-          <option value="media/fondo11.png">Diseño RSNS 10</option>
-          <option value="media/fondo12.png">Diseño SuperGiros 1</option>
-          <option value="media/fondo13.png">Diseño BetPlay 1</option>
-          <option value="media/fondo14.png">Diseño Chance Legal</option>
-          <option value="media/fondo15.png">Diseño BetPlay 2</option>
-          <option value="media/fondo16.png">Diseño Raspa</option>
+    <div class="field">
+      <label>Fondo de las páginas</label>
+      <select id="pageBackgroundImage">
+        <option value="">Sin fondo</option>
+        <option value="media/fondo.png">Diseño RSNS 1</option>
+        <option value="media/fondo2.png">Diseño RSNS 2</option>
+        <option value="media/fondo3.png">Diseño RSNS 3</option>
+        <option value="media/fondo4.png">Diseño RSNS 4</option>
+        <option value="media/fondo5.png">Diseño RSNS 5</option>
+        <option value="media/fondo6.png">Diseño RSNS 6</option>
+        <option value="media/fondo7.png">Diseño RSNS 7</option>
+        <option value="media/fondo8.png">Diseño RSNS 8</option>
+        <option value="media/fondo9.png">Diseño Astro</option>
+        <option value="media/fondo10.png">Diseño RSNS 9</option>
+        <option value="media/fondo11.png">Diseño RSNS 10</option>
+        <option value="media/fondo12.png">Diseño SuperGiros 1</option>
+        <option value="media/fondo13.png">Diseño BetPlay 1</option>
+        <option value="media/fondo14.png">Diseño Chance Legal</option>
+        <option value="media/fondo15.png">Diseño BetPlay 2</option>
+        <option value="media/fondo16.png">Diseño Raspa</option>
 
-        </select>
-      </div>
-        <div class="field">
-          <label for="theme">Esquema de Colores Rápido</label>
-          <select id="theme">
-            <option value="theme-boardroom">Azul Ejecutivo</option>
-            <option value="theme-mineral">Verde Institucional</option>
-            <option value="theme-copper">Contraste Directivo</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="pageBg">Color de fondo del papel</label>
-          <input id="pageBg" type="color" value="#f8fafc">
-        </div>
-      </div>
-    </details>
+      </select>
+    </div>
 
     <!-- Acordeón 2: Colores Generales -->
     <details class="style-accordion">
-      <summary>Colores Principales (Líneas y Botones)</summary>
+      <summary>Colores Principales</summary>
       <div class="accordion-content">
       <div class="split">
         <div class="field">
@@ -84,15 +66,15 @@
         </div>
       </div>
         <div class="field">
-          <label for="accent">Principal (Líneas/Íconos)</label>
+          <label for="accent">Principal</label>
           <input id="accent" type="color" value="#1d4ed8">
         </div>
         <div class="field">
-          <label for="soft">Color suave (Rellenos claros)</label>
+          <label for="soft">Color suave</label>
           <input id="soft" type="color" value="#dbeafe">
         </div>
         <div class="field">
-          <label for="kpiTitleColor">Títulos de sección</label>
+          <label for="kpiTitleColor">Títulos</label>
           <input id="kpiTitleColor" type="color" value="#06135f">
         </div>
       </div>
@@ -100,10 +82,10 @@
 
     <!-- Acordeón 3: Tarjetas y Métricas -->
     <details class="style-accordion">
-      <summary>Tarjetas de Métricas (Aspectos)</summary>
+      <summary>Tarjetas de Aspectos</summary>
       <div class="accordion-content">
         <div class="field">
-          <label for="kpiNumberBg">Cinta decorativa</label>
+          <label for="kpiNumberBg">Borde tarjeta aspecto</label>
           <input id="kpiNumberBg" type="color" value="#ffe169">
         </div>
         <div class="split">
@@ -121,12 +103,12 @@
 
     <!-- Acordeón 4: Tipografía e Imágenes -->
     <details class="style-accordion">
-      <summary>Tipografía y Logos</summary>
+      <summary>Tipografía</summary>
       <div class="accordion-content">
         <div class="field">
           <label for="fontChoice">Tipo de letra principal</label>
           <select id="fontChoice">
-<option value="Inter, 'Segoe UI', Arial, sans-serif">Inter</option>
+    <option value="Inter, 'Segoe UI', Arial, sans-serif">Inter</option>
     <option value="'Roboto', sans-serif">Roboto</option>
     <option value="'Open Sans', sans-serif">Open Sans</option>
     <option value="'Montserrat', sans-serif">Montserrat</option>
@@ -242,16 +224,21 @@
 
   <!-- ================= SECCIÓN PÁGINA 1 ================= -->
   <section id="sec-pag1" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #1d4ed8;">
-    <h2 class="group-title" style="color: #1d4ed8;">Página 1: Portada</h2>
+    <h2 class="group-title" style="color: #1d4ed8;">Portada</h2>
     <div class="field">
-      <label for="coverBackgroundImage">Fondo de la portada (solo Página 1)</label>
+      <label for="coverBackgroundImage">Fondo de la portada</label>
       <select id="coverBackgroundImage">
-        <option value="">Sin fondo (usar color / fondo general)</option>
-        <option value="media/portadas/portada1.png">Portada 1</option>
-        <option value="media/portadas/portada2.png">Portada 2</option>
-        <option value="media/portadas/portada3.png">Portada 3</option>
-        <option value="media/portadas/portada4.png">Portada 4</option>
-        <option value="media/portadas/portada5.png">Portada 5</option>
+        <option value="">Sin fondo</option>
+        <option value="media/portadas/portada1.png">Portada Memphis</option>
+        <option value="media/portadas/portada2.png">Portada Punto</option>
+        <option value="media/portadas/portada3.png">Portada Auditor</option>
+        <option value="media/portadas/portada4.png">Portada Charla</option>
+        <option value="media/portadas/portada5.png">Portada Reunión</option>
+        <option value="media/portadas/portada6.png">Portada Operativa</option>
+        <option value="media/portadas/portada7.png">Portada Operativa 2</option>
+        <option value="media/portadas/portada8.png">Portada Operativa 3</option>
+        <option value="media/portadas/portada9.png">Portada Operativa 4</option>
+
       </select>
     </div>
     <div class="field">
@@ -284,11 +271,15 @@
       <label for="scope">Alcance</label>
       <textarea id="scope">La revisión comprende las visitas, soportes, procesos y novedades identificadas durante la semana reportada.</textarea>
     </div>
+    <div class="field">
+  <label for="elaboradoPor">Elaborado por</label>
+  <input id="elaboradoPor" value="Elaborado por: Nombre Apellido">
+    </div>
   </section>
 
   <!-- ================= SECCIÓN PÁGINA 2 ================= -->
   <section id="sec-pag2" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #0f766e; margin-top: 15px;">
-    <h2 class="group-title" style="color: #0f766e;">Página 2: Aspectos Evaluados y Tabla</h2>
+    <h2 class="group-title" style="color: #0f766e;">Aspectos Evaluados</h2>
 
     <div style="margin-bottom: 15px;">
       <div id="aspectEditors"></div>
@@ -305,7 +296,7 @@
       <div style="background: rgba(255,255,255,0.5); padding: 10px; border: 1px dashed var(--line); border-radius: 8px;">
         <label style="color: var(--accent); display: block; margin-bottom: 8px;">1. Métrica de Visitas</label>
         <div class="field"><label>Título</label><input id="visitsTitle" value="Visitas realizadas"></div>
-        <div class="field"><label>Indicador (Grande)</label><input id="visits" value="8"></div>
+        <div class="field"><label>Número de visitas</label><input id="visits" value="8"></div>
         <div class="field"><label>Subtítulo</label><input id="visitsSub" value="visitas en distintas zonas"></div>
       </div>
 
@@ -313,7 +304,7 @@
       <div style="background: rgba(255,255,255,0.5); padding: 10px; border: 1px dashed var(--line); border-radius: 8px;">
         <label style="color: var(--accent); display: block; margin-bottom: 8px;">2. Métrica de Monto</label>
         <div class="field"><label>Título</label><input id="amountTitle" value="Monto evaluado"></div>
-        <div class="field"><label>Indicador (Grande)</label><input id="amount" value="$ 1.250"></div>
+        <div class="field"><label>Número de dinero</label><input id="amount" value="$ 1.250"></div>
         <div class="field"><label>Subtítulo</label><input id="amountSub" value="millones de pesos"></div>
       </div>
 
@@ -327,7 +318,7 @@
 
     <!-- Controles de la Alerta (DINÁMICO) -->
     <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3);">
-      <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Detalles de las Alertas / Novedades</h3>
+      <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Detalles de las Alertas</h3>
       <button class="btn btn-secondary" id="addAlertBtn" type="button" style="width: 100%; padding: 8px; margin-bottom: 12px; font-size: 13px;">+ Agregar Nueva Alerta</button>
       <div id="alertsSidebarGrid" style="display: grid; gap: 16px;"></div>
     </div>
@@ -344,11 +335,19 @@
       <div id="tableSidebarGrid" style="display: grid; gap: 6px; overflow-x: auto;"></div>
     </div>
 
+    <!-- Controles del Banner de 4 Columnas (espacio libre debajo de Alertas/Tabla) -->
+    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3);">
+      <h3 style="font-size: 0.95rem; margin-bottom: 4px; color: #333;">Banner Adicional (espacio libre)</h3>
+      <p style="font-size: 12px; color: #666; margin: 0 0 12px 0;">Opcional. Úsalo para aprovechar el espacio libre que queda debajo de las alertas y la tabla, por ejemplo cuando solo hay una alerta y una fila.</p>
+      <button class="btn btn-secondary" id="addPage2BannerBtn" type="button" style="width: 100%; padding: 8px; margin-bottom: 12px; font-size: 13px;">+ Agregar Banner</button>
+      <div id="page2BannerSidebarGrid" style="display: grid; gap: 16px;"></div>
+    </div>
+
   </section>
 
   <!-- ================= SECCIÓN PÁGINA 3 ================= -->
   <section id="sec-pag3" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #8a3ffc; margin-top: 15px;">
-    <h2 class="group-title" style="color: #8a3ffc;">Página 3: Indicadores (Banners)</h2>
+    <h2 class="group-title" style="color: #8a3ffc;">Raspas</h2>
 
     <!-- Toggle para incluir/excluir la página 3 completa (Opcional, como la Página 6) -->
     <div class="field" style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed rgba(138, 63, 252, 0.3);">
@@ -365,7 +364,7 @@
 
       <!-- Controles del Banner de 4 Columnas (DINÁMICO) -->
       <div>
-        <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Indicadores del Punto (Banners)</h3>
+        <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #333;">Indicador</h3>
         <button class="btn btn-secondary" id="addBannerBtn" type="button" style="width: 100%; padding: 8px; margin-bottom: 12px; font-size: 13px;">+ Agregar Nuevo Banner</button>
         <div id="bannerSidebarGrid" style="display: grid; gap: 16px;"></div>
       </div>
@@ -376,7 +375,7 @@
   <!-- ================= SECCIÓN PÁGINA 4 ================= -->
   <section id="sec-pag4" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 15px;">
     <div class="panel-section">
-      <h2 class="group-title" style="color: #ef4444;">Página 4: Evidencias</h2>
+      <h2 class="group-title" style="color: #ef4444;">Evidencias</h2>
       
       <div id="dynamicEvidencesSidebarContainer"></div>
       
@@ -389,7 +388,7 @@
   <!-- ================= SECCIÓN PÁGINA 5 ================= -->
   <section id="sec-pag5" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #cde403; margin-top: 15px;">
     <div class="panel-section">
-    <h2 class="group-title" style="color: #cde403;">Página 5: Tablas de Novedades</h2>
+    <h2 class="group-title" style="color: #1100ff;">Tablas de Novedades</h2>
     <div id="dynamicPagesSidebarContainer"></div>
     <button class="btn" id="addDynamicPageBtn" type="button" style="width: 100%; margin-top: 10px;">
       + Agregar Nueva Página de Tablas
@@ -400,7 +399,7 @@
 <!-- ================= SECCIÓN PÁGINA 6 ================= -->
   <section id="sec-pag6" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #10b981; margin-top: 15px;">
     <div class="panel-section">
-      <h2 class="group-title" style="color: #10b981;">Página 6: Tabla Libre (Opcional)</h2>
+      <h2 class="group-title" style="color: #10b981;">Tabla Libre (Opcional)</h2>
       <div id="page6SidebarContainer"></div>
       
     </div>
@@ -428,46 +427,47 @@
           <h2 class="cover-title" id="previewReportTitle"></h2>
 
           <div class="cover-grid">
-  <!-- Tarjeta 1: Procesos -->
-  <div class="card polaroid-kpi">
-    <div class="kpi-header">
-      <!-- Ícono de engranaje -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-      <h3>Procesos</h3>
-    </div>
-    <p class="card-value" id="previewProcesses"></p>
-  </div>
+        <!-- Tarjeta 1: Procesos -->
+        <div class="card polaroid-kpi">
+          <div class="kpi-header">
+            <!-- Ícono de engranaje -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <h3>Procesos</h3>
+          </div>
+          <p class="card-value" id="previewProcesses"></p>
+        </div>
 
-  <!-- Tarjeta 2: Directores -->
-  <div class="card polaroid-kpi">
-    <div class="kpi-header">
-      <!-- Ícono de usuarios -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-      <h3>Directores</h3>
-    </div>
-    <div class="card-value" id="previewDirectors"></div>
-  </div>
+        <!-- Tarjeta 2: Directores -->
+        <div class="card polaroid-kpi">
+          <div class="kpi-header">
+            <!-- Ícono de usuarios -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <h3>Directores</h3>
+          </div>
+          <div class="card-value" id="previewDirectors"></div>
+        </div>
 
-  <!-- Tarjeta 3: Objetivo -->
-  <div class="card polaroid-kpi">
-    <div class="kpi-header">
-      <!-- Ícono de objetivo -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-      <h3>Objetivo</h3>
-    </div>
-    <p class="card-value" id="previewObjective"></p>
-  </div>
+        <!-- Tarjeta 3: Objetivo -->
+        <div class="card polaroid-kpi">
+          <div class="kpi-header">
+            <!-- Ícono de objetivo -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+            <h3>Objetivo</h3>
+          </div>
+          <p class="card-value" id="previewObjective"></p>
+        </div>
 
-  <!-- Tarjeta 4: Alcance -->
-  <div class="card polaroid-kpi">
-    <div class="kpi-header">
-      <!-- Ícono de alcance -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 12 12 17 22 12"></polyline><polyline points="2 17 12 22 22 17"></polyline></svg>
-      <h3>Alcance</h3>
-    </div>
-    <p class="card-value" id="previewScope"></p>
-  </div>
-</div>
+        <!-- Tarjeta 4: Alcance -->
+        <div class="card polaroid-kpi">
+          <div class="kpi-header">
+            <!-- Ícono de alcance -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 12 12 17 22 12"></polyline><polyline points="2 17 12 22 22 17"></polyline></svg>
+            <h3>Alcance</h3>
+          </div>
+          <p class="card-value" id="previewScope"></p>
+        </div>
+      </div>
+      <p class="cover-elaborado" id="previewElaboradoPor"></p>
         </article>
 
 
@@ -530,6 +530,9 @@
                   </table>
                 </div>
               </div>
+
+              <!-- Banner adicional: aprovecha el espacio libre debajo de alertas/tabla -->
+              <div id="page2BannerPreviewContainer" style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;"></div>
 
           </div>
 
