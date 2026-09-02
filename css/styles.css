@@ -624,7 +624,7 @@ input:focus, textarea:focus, select:focus {
   min-height: unset;
   height: 100%;
   border: 0;
-  border-top: 4px solid #ffffff;
+  border-top: 4px solid #000000;
   border-radius: 10px;
   padding: 0;
   background: linear-gradient(180deg, #ffffff, var(--mix-soft-38-white, #f4f8fe));
