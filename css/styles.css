@@ -548,10 +548,10 @@ input:focus, textarea:focus, select:focus {
 }
 
 .cover-title {
-  max-width: 720px;
+  max-width: 920px;
   margin: 0;
   color: var(--cover-title-color);
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 950;
   text-transform: uppercase;
   text-align: left;
@@ -587,13 +587,17 @@ input:focus, textarea:focus, select:focus {
   letter-spacing: .04em;
 }
 
-.cover-objective-text {
+.cover-objective-block .cover-objective-text {
   margin: 0 0 50px;
   max-width: 480px;
   font-size: var(--paragraph-size);
   font-style: italic;
   color: var(--cover-objective-color);
   line-height: 1.5;
+}
+
+.cover-meta, .cover-elaborado {
+    width: fit-content;
 }
 
 .cover-grid {
@@ -603,6 +607,7 @@ input:focus, textarea:focus, select:focus {
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
   align-items: stretch; 
+  margin:30px;
 }
 
 .cover-grid.cover-grid-3 {
@@ -610,9 +615,6 @@ input:focus, textarea:focus, select:focus {
   margin-top: 10px;
 }
 
-/* Estética neobrutalista para las tarjetas KPI de portada
-   (inspirado en el componente "Window" de Uiverse.io by vaibhavchandranv,
-   adaptado para respetar los colores configurables del panel) */
 .cover-grid .card.polaroid-kpi {
   position: relative;
   display: flex;
@@ -621,15 +623,14 @@ input:focus, textarea:focus, select:focus {
   justify-content: flex-start;
   min-height: unset;
   height: 100%;
-  border: 3px solid #000000;
-  border-radius: 0;
+  border: 0;
+  border-top: 4px solid var(--kpi-number-bg);
+  border-radius: 10px;
   padding: 0;
-  background: #ffffff;
-  box-shadow: 8px 8px 0 #000000;
+  background: linear-gradient(180deg, #ffffff, var(--mix-soft-38-white, #f4f8fe));
+  box-shadow: 0 14px 30px rgba(15, 23, 42, .12);
   text-align: left;
   overflow: hidden;
-  transform: translate(0, 0);
-  transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .kpi-header {
@@ -638,15 +639,15 @@ input:focus, textarea:focus, select:focus {
   align-items: center;
   gap: 8px;
   margin-bottom: 0;
-  padding: 8px 14px;
-  background: #ffffff;
-  border-bottom: 3px solid #000000;
+  padding: 12px 14px 8px;
+  background: transparent;
+  border-bottom: 1px solid var(--mix-pageink-72-muted, rgba(17,24,39,.08));
 }
 
 .kpi-header svg {
-  width: 20px;
-  height: 20px;
-  color: var(--accent);
+  width: 18px;
+  height: 18px;
+  color: var(--kpi-number-bg);
   flex-shrink: 0;
 }
 
@@ -659,7 +660,7 @@ input:focus, textarea:focus, select:focus {
   text-transform: uppercase;
   letter-spacing: .03em;
   text-align: left;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .cover-grid .card.polaroid-kpi p.card-value,
