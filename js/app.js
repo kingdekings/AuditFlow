@@ -128,19 +128,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (inputId === "directors") {
       previewEl.innerHTML = "";
-      
-      const lines = val.split(/\n|, /).map(l => l.trim()).filter(l => l.length > 0);
-      
-      if (lines.length === 0) {
+
+      const names = val.split(/\n|,/).map(l => l.trim()).filter(l => l.length > 0);
+
+      if (names.length === 0) {
         previewEl.textContent = "Pendiente por completar";
         return;
       }
 
-      lines.forEach(line => {
-        const p = document.createElement("p");
-        p.textContent = line;
-        previewEl.appendChild(p);
-      });
+      // Todos los nombres van en un solo párrafo, separados por comas,
+      // y el texto se ajusta (wrap) dentro de la tarjeta en vez de apilarse.
+      const p = document.createElement("p");
+      p.textContent = names.join(", ");
+      previewEl.appendChild(p);
     } else {
       previewEl.textContent = val.trim() || "Pendiente por completar";
     }
@@ -400,20 +400,68 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     });
   }
 
-  // ===== Imagen cuadrada de la Portada (Página 1) =====
+  // ===== Imagen / Diseño de la Portada (Página 1) =====
+  // Ahora se elige desde un menú desplegable con diseños ya cargados en el servidor
+  // (carpeta media/), en lugar de subir un archivo desde el equipo.
 
-  const coverImageUpload = document.getElementById("coverImageUpload");
+  const coverImageSelect = document.getElementById("coverImageSelect");
   const previewCoverImage = document.getElementById("previewCoverImage");
-  if (coverImageUpload && previewCoverImage) {
-    coverImageUpload.addEventListener("change", event => {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = ev => {
-        previewCoverImage.src = ev.target.result;
+  if (coverImageSelect && previewCoverImage) {
+    coverImageSelect.addEventListener("change", event => {
+      const imagePath = event.target.value;
+      if (imagePath) {
+        previewCoverImage.style.backgroundImage = `url('${imagePath}')`;
+        previewCoverImage.style.display = "";
         coverPage.classList.add("has-cover-image");
-      };
-      reader.readAsDataURL(file);
+      } else {
+        previewCoverImage.style.backgroundImage = "none";
+        previewCoverImage.style.display = "none";
+        coverPage.classList.remove("has-cover-image");
+      }
+    });
+  }
+
+  // ===== Colores y Fondo exclusivos de la Portada =====
+  const coverTitleColorInput = document.getElementById("coverTitleColor");
+  if (coverTitleColorInput) {
+    coverTitleColorInput.addEventListener("input", event => {
+      setReportVar("--cover-title-color", event.target.value);
+    });
+  }
+
+  const coverParagraphColorInput = document.getElementById("coverParagraphColor");
+  if (coverParagraphColorInput) {
+    coverParagraphColorInput.addEventListener("input", event => {
+      setReportVar("--cover-paragraph-color", event.target.value);
+    });
+  }
+
+  const coverObjectiveColorInput = document.getElementById("coverObjectiveColor");
+  if (coverObjectiveColorInput) {
+    coverObjectiveColorInput.addEventListener("input", event => {
+      setReportVar("--cover-objective-color", event.target.value);
+    });
+  }
+
+  const coverBgColorInput = document.getElementById("coverBgColor");
+  if (coverBgColorInput) {
+    coverBgColorInput.addEventListener("input", event => {
+      setReportVar("--cover-bg-color", event.target.value);
+    });
+  }
+
+  const coverBgColor2Input = document.getElementById("coverBgColor2");
+  if (coverBgColor2Input) {
+    coverBgColor2Input.addEventListener("input", event => {
+      setReportVar("--cover-bg-color-2", event.target.value);
+    });
+  }
+
+  const coverWaveStyleSelect = document.getElementById("coverWaveStyle");
+  if (coverWaveStyleSelect) {
+    coverWaveStyleSelect.addEventListener("change", event => {
+      coverPage.classList.remove("wave-soft", "wave-strong", "wave-double", "diagonal");
+      coverPage.classList.add(event.target.value);
     });
   }
 
