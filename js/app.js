@@ -182,14 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Dejar el logo fijo habilitado por defecto
-  function initLogo() {
-    const logo = document.getElementById("previewLogo");
-    if (logo) {
-      coverPage.classList.add("has-logo");
-    }
-  }
-
   // --- Event Listeners ---
   fields.forEach(([inputId, previewId]) => {
     const el = document.getElementById(inputId);
@@ -408,111 +400,26 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     });
   }
 
-  // ===== Fondo exclusivo de la Portada (Página 1) =====
+  // ===== Imagen cuadrada de la Portada (Página 1) =====
 
-  // Selector de fondo predefinido para la portada
-  const coverBgImageSelect = document.getElementById("coverBackgroundImage");
-  if (coverBgImageSelect) {
-    coverBgImageSelect.addEventListener("change", event => {
-      const imagePath = event.target.value;
-      if (!coverPage) return;
-
-      if (imagePath) {
-        coverPage.style.backgroundImage = `url('${imagePath}')`;
-        coverPage.style.backgroundSize = 'cover';
-        coverPage.style.backgroundPosition = 'center';
-        coverPage.style.backgroundRepeat = 'no-repeat';
-      } else {
-        coverPage.style.backgroundImage = 'none';
-      }
+  const coverImageUpload = document.getElementById("coverImageUpload");
+  const previewCoverImage = document.getElementById("previewCoverImage");
+  if (coverImageUpload && previewCoverImage) {
+    coverImageUpload.addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        previewCoverImage.src = ev.target.result;
+        coverPage.classList.add("has-cover-image");
+      };
+      reader.readAsDataURL(file);
     });
   }
 
   updateMixedColors();
-  initLogo();
   renderAspectEditors();
   syncAll();
-
-  // --- LÓGICA DE LA TABLA DINÁMICA (Página 3) ---
-  let tableData = [
-    ["Concepto", "Descripción", "Valor Faltante"],
-    ["Raspas", "Faltante físico en inventario", "$155.000"],
-    ["Efectivo", "Descuadre de caja menor", "$0"]
-  ];
-
-  const tableSidebarGrid = document.getElementById("tableSidebarGrid");
-  const previewTable = document.getElementById("previewTable");
-
-  function renderTableData() {
-    // 1. Renderizar inputs en el Sidebar
-    tableSidebarGrid.style.gridTemplateColumns = `repeat(${tableData[0].length}, 1fr)`;
-    tableSidebarGrid.innerHTML = "";
-
-    tableData.forEach((row, rowIndex) => {
-      row.forEach((cellData, colIndex) => {
-        const input = document.createElement("input");
-        input.value = cellData;
-        input.style.padding = "6px";
-        input.style.fontSize = "12px";
-        
-        // Colores para diferenciar el encabezado (Fila 0)
-        if (rowIndex === 0) {
-          input.style.background = "var(--soft)";
-          input.style.fontWeight = "bold";
-        }
-
-        input.addEventListener("input", (e) => {
-          tableData[rowIndex][colIndex] = e.target.value;
-          renderTablePreviewOnly(); // Actualizar preview sin redibujar inputs
-        });
-        tableSidebarGrid.appendChild(input);
-      });
-    });
-
-    renderTablePreviewOnly();
-  }
-
-  function renderTablePreviewOnly() {
-    previewTable.innerHTML = "";
-    tableData.forEach((row, rowIndex) => {
-      const tr = document.createElement("tr");
-      row.forEach((cellData) => {
-        const cell = document.createElement(rowIndex === 0 ? "th" : "td");
-        cell.textContent = cellData;
-        tr.appendChild(cell);
-      });
-      previewTable.appendChild(tr);
-    });
-  }
-
-  // Botones de control de Tabla
-  document.getElementById("addColBtn").addEventListener("click", () => {
-    tableData.forEach(row => row.push("Dato"));
-    renderTableData();
-  });
-
-  document.getElementById("remColBtn").addEventListener("click", () => {
-    if (tableData[0].length > 1) {
-      tableData.forEach(row => row.pop());
-      renderTableData();
-    }
-  });
-
-  document.getElementById("addRowBtn").addEventListener("click", () => {
-    const newRow = new Array(tableData[0].length).fill("Dato");
-    tableData.push(newRow);
-    renderTableData();
-  });
-
-  document.getElementById("remRowBtn").addEventListener("click", () => {
-    if (tableData.length > 1) {
-      tableData.pop();
-      renderTableData();
-    }
-  });
-
-  renderTableData();
-
 
   // --- LÓGICA DE ALERT BANNERS DINÁMICOS (Página 2) ---
   let alertsData = [
@@ -574,7 +481,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     //  Ocultar el botón si ya hay 2 alertas
     const addBtn = document.getElementById("addAlertBtn");
     if (addBtn) {
-      if (alertsData.length >= 2) {
+      if (alertsData.length >= 3) {
         addBtn.style.display = "none";
       } else {
         addBtn.style.display = "block";
@@ -587,14 +494,14 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   const addAlertBtn = document.getElementById("addAlertBtn");
   if(addAlertBtn) {
     addAlertBtn.addEventListener("click", () => {
-      if (alertsData.length < 2) {
+      if (alertsData.length < 3) {
         alertsData.push({ 
           alertTitle: "NUEVA ALERTA", 
           alertSubtitle: "Motivo", 
           alertAmount: "$0", 
           userRole: "CARGO", 
           userName: "NOMBRE", 
-          userId: "ID" 
+          userId: "CC" 
         });
         renderAlertsData();
       }
@@ -799,124 +706,6 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   });
 
   renderBannerData();
-
-  // --- LÓGICA DE BANNER ADICIONAL EN PÁGINA 2 (ASPECTOS) ---
-  // Reutiliza el mismo diseño "banner-cuatro" de la Página 3, pero es
-  // independiente y opcional: sirve para aprovechar el espacio libre que
-  // queda debajo de las alertas y la tabla cuando hay poco contenido.
-  let page2BannerData = [];
-
-  const page2BannerSidebarGrid = document.getElementById("page2BannerSidebarGrid");
-  const page2BannerPreviewContainer = document.getElementById("page2BannerPreviewContainer");
-
-  function renderPage2BannerData() {
-    if (!page2BannerSidebarGrid) return;
-    page2BannerSidebarGrid.innerHTML = "";
-    page2BannerData.forEach((row, index) => {
-      const editor = document.createElement("div");
-      editor.className = "evidence-row-editor";
-      editor.style.border = "1px solid #d1d5db";
-      editor.style.padding = "10px";
-      editor.style.borderRadius = "6px";
-
-      const removeBtn = document.createElement("button");
-      removeBtn.textContent = "Eliminar Banner";
-      removeBtn.className = "remove-btn";
-      removeBtn.style.marginBottom = "10px";
-      removeBtn.onclick = () => { page2BannerData.splice(index, 1); renderPage2BannerData(); };
-
-      const createField = (labelTxt, key) => {
-         const wrap = document.createElement("div"); wrap.className = "field";
-         wrap.innerHTML = `<label>${labelTxt}</label>`;
-         const inp = document.createElement("input");
-         inp.value = row[key];
-         inp.oninput = (e) => { row[key] = e.target.value; renderPage2BannerPreview(); };
-         wrap.appendChild(inp);
-         return wrap;
-      };
-
-      const split1 = document.createElement("div"); split1.className = "split";
-      split1.append(createField("Punto (Num)", "puntoNum"), createField("Punto (Nombre)", "puntoName"));
-
-      const fCargo = createField("Cargo", "userRole");
-
-      const split2 = document.createElement("div"); split2.className = "split";
-      split2.append(createField("Nombre", "userName"), createField("Documento", "userId"));
-
-      const split3 = document.createElement("div"); split3.className = "split";
-      split3.append(createField("Faltante (Num)", "faltanteNum"), createField("Faltante (Tipo)", "faltanteType"));
-
-      const fValor = createField("Valor Total", "valor");
-
-      editor.append(removeBtn, split1, fCargo, split2, split3, fValor);
-      page2BannerSidebarGrid.appendChild(editor);
-    });
-    renderPage2BannerPreview();
-  }
-
-  function renderPage2BannerPreview() {
-    if (!page2BannerPreviewContainer) return;
-    page2BannerPreviewContainer.innerHTML = "";
-    page2BannerData.forEach(row => {
-      const bannerHtml = `
-        <div class="banner-cuatro">
-          <div class="b4-seccion">
-            <div class="b4-icono" style="color: #003380;">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
-            </div>
-            <div class="b4-textos">
-              <span class="b4-label">PUNTO</span>
-              <strong class="b4-val b4-dark">${row.puntoNum}</strong>
-              <span class="b4-sub">${row.puntoName}</span>
-            </div>
-          </div>
-          <div class="b4-divisor"></div>
-          <div class="b4-seccion">
-            <div class="b4-icono" style="color: #003380;">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            </div>
-            <div class="b4-textos">
-              <span class="b4-label">${row.userRole}</span>
-              <strong class="b4-val b4-dark" style="font-size: 15px;">${row.userName}</strong>
-              <span class="b4-sub" style="font-weight: normal;">${row.userId}</span>
-            </div>
-          </div>
-          <div class="b4-divisor"></div>
-          <div class="b4-seccion">
-            <div class="b4-icono" style="color: #a81c1c;">
-              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M8 6h8M8 10h8M8 14h4" stroke="#fff" stroke-width="2"/></svg>
-            </div>
-            <div class="b4-textos">
-              <span class="b4-label">FALTANTE FÍSICO</span>
-              <strong class="b4-val" style="color: #a81c1c; font-size: 32px;">${row.faltanteNum}</strong>
-              <span class="b4-sub">${row.faltanteType}</span>
-            </div>
-          </div>
-          <div class="b4-divisor"></div>
-          <div class="b4-seccion">
-            <div class="b4-icono" style="color: #1b5e20;">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 5H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H3V7h18v10zm-9-1.5c-2.21 0-4-1.57-4-3.5s1.79-3.5 4-3.5 4 1.57 4 3.5-1.79 3.5-4 3.5zm0-5c-1.1 0-2 .67-2 1.5s.9 1.5 2 1.5 2-.67 2-1.5-.9-1.5-2-1.5z"/></svg>
-            </div>
-            <div class="b4-textos">
-              <span class="b4-label">VALOR TOTAL</span>
-              <strong class="b4-val" style="color: #1b5e20; font-size: 26px;">${row.valor}</strong>
-            </div>
-          </div>
-        </div>
-      `;
-      page2BannerPreviewContainer.insertAdjacentHTML('beforeend', bannerHtml);
-    });
-  }
-
-  const addPage2BannerBtn = document.getElementById("addPage2BannerBtn");
-  if (addPage2BannerBtn) {
-    addPage2BannerBtn.addEventListener("click", () => {
-      page2BannerData.push({ puntoNum: "0", puntoName: "NUEVO", userRole: "CARGO", userName: "NOMBRE", userId: "CC", faltanteNum: "0", faltanteType: "TIPO", valor: "$0" });
-      renderPage2BannerData();
-    });
-  }
-
-  renderPage2BannerData();
 
   // --- LÓGICA DE PÁGINAS DINÁMICAS (MÚLTIPLES TABLAS) ---
   
@@ -1610,7 +1399,7 @@ function renderDynSidebar() {
   // Estado inicial de la Página 6
   let page6Data = {
     enabled: false,
-    title: "ANÁLISIS DE DATOS DETALLADOS",
+    title: "TITULO",
     columns: ["Columna 1", "Columna 2"], // Nombres de las columnas
     rows: [
       ["Dato 1", "Dato 2"] // Valores de las filas (cada fila es un arreglo)

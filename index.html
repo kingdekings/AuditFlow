@@ -226,20 +226,8 @@
   <section id="sec-pag1" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #1d4ed8;">
     <h2 class="group-title" style="color: #1d4ed8;">Portada</h2>
     <div class="field">
-      <label for="coverBackgroundImage">Fondo de la portada</label>
-      <select id="coverBackgroundImage">
-        <option value="">Sin fondo</option>
-        <option value="media/portadas/portada1.png">Portada Memphis</option>
-        <option value="media/portadas/portada2.png">Portada Punto</option>
-        <option value="media/portadas/portada3.png">Portada Auditor</option>
-        <option value="media/portadas/portada4.png">Portada Charla</option>
-        <option value="media/portadas/portada5.png">Portada Reunión</option>
-        <option value="media/portadas/portada6.png">Portada Operativa</option>
-        <option value="media/portadas/portada7.png">Portada Operativa 2</option>
-        <option value="media/portadas/portada8.png">Portada Operativa 3</option>
-        <option value="media/portadas/portada9.png">Portada Operativa 4</option>
-
-      </select>
+      <label for="coverImageUpload">Imagen cuadrada (izquierda)</label>
+      <input id="coverImageUpload" type="file" accept="image/*">
     </div>
     <div class="field">
       <label for="reportTitle">Título</label>
@@ -323,26 +311,6 @@
       <div id="alertsSidebarGrid" style="display: grid; gap: 16px;"></div>
     </div>
 
-    <!-- Controles de la Tabla (trasladados desde la antigua Página 3) -->
-    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3);">
-      <h3 style="font-size: 0.95rem; margin-bottom: 8px; color: #333;">Editor de Tabla</h3>
-      <div style="display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap;">
-        <button class="btn btn-secondary" id="addColBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">+ Columna</button>
-        <button class="btn btn-secondary" id="remColBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">- Columna</button>
-        <button class="btn btn-secondary" id="addRowBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">+ Fila</button>
-        <button class="btn btn-secondary" id="remRowBtn" type="button" style="padding: 6px 10px; font-size: 12px; min-height: auto;">- Fila</button>
-      </div>
-      <div id="tableSidebarGrid" style="display: grid; gap: 6px; overflow-x: auto;"></div>
-    </div>
-
-    <!-- Controles del Banner de 4 Columnas (espacio libre debajo de Alertas/Tabla) -->
-    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(15, 118, 110, 0.3);">
-      <h3 style="font-size: 0.95rem; margin-bottom: 4px; color: #333;">Banner Adicional (espacio libre)</h3>
-      <p style="font-size: 12px; color: #666; margin: 0 0 12px 0;">Opcional. Úsalo para aprovechar el espacio libre que queda debajo de las alertas y la tabla, por ejemplo cuando solo hay una alerta y una fila.</p>
-      <button class="btn btn-secondary" id="addPage2BannerBtn" type="button" style="width: 100%; padding: 8px; margin-bottom: 12px; font-size: 13px;">+ Agregar Banner</button>
-      <div id="page2BannerSidebarGrid" style="display: grid; gap: 16px;"></div>
-    </div>
-
   </section>
 
   <!-- ================= SECCIÓN PÁGINA 3 ================= -->
@@ -416,17 +384,25 @@
       <div class="deck theme-boardroom" id="deck">
         
         <article class="page cover-page" id="coverPage">
-          <header class="topline">
-            <div class="brand-block">
-              <img class="logo" id="previewLogo" src="media/logo.png" alt="Logo de la empresa">
-            </div>
-            <p class="cover-meta">
-              <strong id="previewReportNumber"></strong> | <strong id="previewReportDate"></strong>
-            </p>
-          </header>
-          <h2 class="cover-title" id="previewReportTitle"></h2>
 
-          <div class="cover-grid">
+          <div class="cover-top">
+            <div class="cover-image-wrap">
+              <img class="cover-square-image" id="previewCoverImage" src="media/image1.png" alt="Imagen de portada">
+            </div>
+            <div class="cover-header-text">
+              <p class="cover-meta">
+                <strong id="previewReportNumber"></strong> | <strong id="previewReportDate"></strong>
+              </p>
+              <h2 class="cover-title" id="previewReportTitle"></h2>
+              <p class="cover-elaborado" id="previewElaboradoPor"></p>
+              <div class="cover-objective-block">
+                <h3>Objetivo</h3>
+                <p class="cover-objective-text" id="previewObjective"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="cover-grid cover-grid-3">
         <!-- Tarjeta 1: Procesos -->
         <div class="card polaroid-kpi">
           <div class="kpi-header">
@@ -447,17 +423,7 @@
           <div class="card-value" id="previewDirectors"></div>
         </div>
 
-        <!-- Tarjeta 3: Objetivo -->
-        <div class="card polaroid-kpi">
-          <div class="kpi-header">
-            <!-- Ícono de objetivo -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-            <h3>Objetivo</h3>
-          </div>
-          <p class="card-value" id="previewObjective"></p>
-        </div>
-
-        <!-- Tarjeta 4: Alcance -->
+        <!-- Tarjeta 3: Alcance -->
         <div class="card polaroid-kpi">
           <div class="kpi-header">
             <!-- Ícono de alcance -->
@@ -467,7 +433,6 @@
           <p class="card-value" id="previewScope"></p>
         </div>
       </div>
-      <p class="cover-elaborado" id="previewElaboradoPor"></p>
         </article>
 
 
@@ -520,19 +485,10 @@
                 </div>
               </div>
 
-              <!--FILA INFERIOR: ALERTAS (izquierda) + TABLA (derecha) -->
+              <!--FILA INFERIOR: ALERTAS -->
               <div class="page2-bottom-row" id="page2BottomRow">
                 <div id="alertsPreviewContainer" style="display: flex; flex-direction: column; gap: 15px;"></div>
-
-                <!-- Tabla trasladada desde la Página 3 -->
-                <div class="page2-table-wrap">
-                  <table class="report-table" id="previewTable">
-                  </table>
-                </div>
               </div>
-
-              <!-- Banner adicional: aprovecha el espacio libre debajo de alertas/tabla -->
-              <div id="page2BannerPreviewContainer" style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;"></div>
 
           </div>
 
