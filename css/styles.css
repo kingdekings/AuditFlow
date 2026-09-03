@@ -624,7 +624,7 @@ input:focus, textarea:focus, select:focus {
   min-height: unset;
   height: 100%;
   border: 0;
-  border-top: 4px solid #000000;
+  border-top: 4px solid var(--kpi-number-bg);
   border-radius: 10px;
   padding: 0;
   background: linear-gradient(180deg, #ffffff, var(--mix-soft-38-white, #f4f8fe));
@@ -842,8 +842,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .alert-icon-box svg {
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
 }
 
 .alert-details {
@@ -853,20 +853,20 @@ input:focus, textarea:focus, select:focus {
 
 .alert-title {
   color: #881313; 
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 850;
   margin: 0 0 4px 0;
 }
 
 .alert-subtitle {
   color: #1f2937;
-  font-size: 12px;
+  font-size: 10px;
   margin: 0 0 2px 0;
 }
 
 .alert-amount {
   color: #881313;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
   display: block;
   line-height: 1.1;
@@ -888,8 +888,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .user-avatar svg {
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
 }
 
 .user-info {
@@ -900,14 +900,14 @@ input:focus, textarea:focus, select:focus {
 
 .user-role {
   color: #00205b; 
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 800;
   margin: 0;
 }
 
 .user-name {
   color: #00205b;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 800;
 }
 

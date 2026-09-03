@@ -762,6 +762,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
     {
       id: "page_0",
       title: "Aspectos Normativos",
+      enabled: true,
       tables: [
         {
           title: "PUNTOS SIN AVISO",
@@ -817,6 +818,47 @@ function renderDynSidebar() {
 
       pageHeader.append(titleH3, delPageBtn);
       pageWrapper.appendChild(pageHeader);
+
+      // --- Checkbox para incluir/ocultar esta página en el informe (sin borrar sus datos) ---
+      if (page.enabled === undefined) page.enabled = true;
+
+      const pageToggleWrap = document.createElement("div");
+      pageToggleWrap.style.display = "flex";
+      pageToggleWrap.style.alignItems = "center";
+      pageToggleWrap.style.gap = "10px";
+      pageToggleWrap.style.marginBottom = "15px";
+      pageToggleWrap.style.paddingBottom = "12px";
+      pageToggleWrap.style.borderBottom = "1px dashed rgba(71, 29, 225, 0.3)";
+
+      const pageToggleCheckbox = document.createElement("input");
+      pageToggleCheckbox.type = "checkbox";
+      pageToggleCheckbox.checked = page.enabled;
+      pageToggleCheckbox.style.width = "20px";
+      pageToggleCheckbox.style.height = "20px";
+      pageToggleCheckbox.id = "dynPageToggle_" + page.id;
+
+      const pageToggleLabel = document.createElement("label");
+      pageToggleLabel.textContent = "Incluir esta página en el informe";
+      pageToggleLabel.htmlFor = pageToggleCheckbox.id;
+      pageToggleLabel.style.margin = "0";
+      pageToggleLabel.style.cursor = "pointer";
+      pageToggleLabel.style.fontSize = "13px";
+      pageToggleLabel.style.fontWeight = "bold";
+      pageToggleLabel.style.color = "#334155";
+
+      pageToggleCheckbox.onchange = (e) => {
+        page.enabled = e.target.checked;
+        pageBodyWrap.style.display = page.enabled ? "" : "none";
+        renderDynPreview();
+      };
+
+      pageToggleWrap.append(pageToggleCheckbox, pageToggleLabel);
+      pageWrapper.appendChild(pageToggleWrap);
+
+      // Contenedor de todos los controles de esta página (se oculta si la página está desactivada)
+      const pageBodyWrap = document.createElement("div");
+      pageBodyWrap.style.display = page.enabled ? "" : "none";
+
       // --- Input para el título de la página (Header) ---
       const pageTitleWrap = document.createElement("div");
       pageTitleWrap.style.marginBottom = "15px";
@@ -844,7 +886,7 @@ function renderDynSidebar() {
       };
       
       pageTitleWrap.append(pageTitleLabel, pageTitleInput);
-      pageWrapper.appendChild(pageTitleWrap);
+      pageBodyWrap.appendChild(pageTitleWrap);
       // ---------------------------------------------------------
 
       // 3. Botón estilo "+ Agregar Nueva Evidencia"
@@ -863,7 +905,7 @@ function renderDynSidebar() {
         page.tables.push({ title: "NUEVA TABLA", columns: ["Col 1", "Col 2"], rows: [["", ""]] });
         renderDynamicPages();
       };
-      pageWrapper.appendChild(addTableBtn);
+      pageBodyWrap.appendChild(addTableBtn);
 
       // 4. Tarjetas individuales de cada tabla (Las tarjetas blancas limpias)
       page.tables.forEach((table, tableIndex) => {
@@ -1000,9 +1042,10 @@ function renderDynSidebar() {
         });
 
         tableCard.appendChild(grid);
-        pageWrapper.appendChild(tableCard);
+        pageBodyWrap.appendChild(tableCard);
       });
 
+      pageWrapper.appendChild(pageBodyWrap);
       dynSidebarContainer.appendChild(pageWrapper);
     });
   }
@@ -1015,6 +1058,9 @@ function renderDynSidebar() {
     const defaultIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
 
     dynamicPagesData.forEach(page => {
+      // Si la página está desactivada, no se incluye en el informe
+      if (page.enabled === false) return;
+
       // Crear una nueva hoja (.page)
       const pageDiv = document.createElement("div");
       pageDiv.className = "page";
@@ -1134,6 +1180,7 @@ function renderDynSidebar() {
       dynamicPagesData.push({
         id: "page_" + Date.now(),
         title: "Nueva Página de Tablas",
+        enabled: true,
         tables: []
       });
       renderDynamicPages();
