@@ -475,6 +475,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
       alertTitle: "NOVEDAD IDENTIFICADA",
       alertSubtitle: "Sobrante por",
       alertAmount: "$11.599.470",
+      alertNote: "",
       userRole: "ASESORA DE COMISIÓN",
       userName: "MARIA  SUESCUN",
       userId: "CC 1234567"
@@ -517,12 +518,24 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
       
       const fAmount = createField("Monto", "alertAmount");
 
+      const fNote = document.createElement("div");
+      fNote.className = "field";
+      fNote.innerHTML = `<label>Observación (opcional)</label>`;
+      const noteInput = document.createElement("textarea");
+      noteInput.rows = 2;
+      noteInput.style.width = "100%";
+      noteInput.style.boxSizing = "border-box";
+      noteInput.style.resize = "vertical";
+      noteInput.value = alert.alertNote || "";
+      noteInput.oninput = (e) => { alert.alertNote = e.target.value; renderAlertsPreview(); };
+      fNote.appendChild(noteInput);
+
       const split2 = document.createElement("div"); split2.className = "split";
       split2.append(createField("Cargo", "userRole"), createField("Nombre", "userName"));
       
       const fId = createField("Documento", "userId");
 
-      editor.append(removeBtn, split1, fAmount, split2, fId);
+      editor.append(removeBtn, split1, fAmount, fNote, split2, fId);
       alertsSidebarGrid.appendChild(editor);
     });
 
@@ -547,6 +560,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
           alertTitle: "NUEVA ALERTA", 
           alertSubtitle: "Motivo", 
           alertAmount: "$0", 
+          alertNote: "",
           userRole: "CARGO", 
           userName: "NOMBRE", 
           userId: "CC" 
@@ -573,6 +587,7 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
             <h4 class="alert-title">${alert.alertTitle}</h4>
             <p class="alert-subtitle">${alert.alertSubtitle}</p>
             <strong class="alert-amount">${alert.alertAmount}</strong>
+            ${alert.alertNote ? `<p class="alert-observacion">${alert.alertNote}</p>` : ''}
           </div>
           <div class="alert-divider"></div>
           <div class="alert-user">
