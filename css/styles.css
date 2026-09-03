@@ -12,7 +12,7 @@
   --report-font: Inter, "Segoe UI", Arial, sans-serif;
   --kpi-bg-start: #0b4290;
   --kpi-border: #050075;
-  --kpi-number-bg: #ffe169;
+  --kpi-number-bg: #000000;
   --kpi-title: #06135f;
   --card: rgba(255, 255, 255, 0.88);
   --card-line: rgba(100, 116, 139, 0.24);
@@ -842,8 +842,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .alert-icon-box svg {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
 }
 
 .alert-details {
@@ -853,20 +853,20 @@ input:focus, textarea:focus, select:focus {
 
 .alert-title {
   color: #881313; 
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 850;
   margin: 0 0 4px 0;
 }
 
 .alert-subtitle {
   color: #1f2937;
-  font-size: 10px;
+  font-size: 12px;
   margin: 0 0 2px 0;
 }
 
 .alert-amount {
   color: #881313;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 900;
   display: block;
   line-height: 1.1;
@@ -888,8 +888,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .user-avatar svg {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
 }
 
 .user-info {
@@ -900,14 +900,14 @@ input:focus, textarea:focus, select:focus {
 
 .user-role {
   color: #00205b; 
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   margin: 0;
 }
 
 .user-name {
   color: #00205b;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
 }
 
