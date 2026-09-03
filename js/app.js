@@ -786,8 +786,6 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   renderBannerData();
 
   // --- LÓGICA DE PÁGINAS DINÁMICAS (MÚLTIPLES TABLAS) ---
-  
-  // Estructura inicial: 1 página con 1 tabla de ejemplo
   let dynamicPagesData = [
     {
       id: "page_0",
@@ -917,7 +915,6 @@ function renderDynSidebar() {
       
       pageTitleWrap.append(pageTitleLabel, pageTitleInput);
       pageBodyWrap.appendChild(pageTitleWrap);
-      // ---------------------------------------------------------
 
       // 3. Botón estilo "+ Agregar Nueva Evidencia"
       const addTableBtn = document.createElement("button");
@@ -1521,8 +1518,6 @@ function renderDynSidebar() {
   renderDynamicEvidences();
 
   // --- LÓGICA DE LA PÁGINA 6 (TABLA LIBRE OPCIONAL) ---
-  
-  // Estado inicial de la Página 6
   let page6Data = {
     enabled: false,
     title: "TITULO",
@@ -1794,8 +1789,6 @@ function renderDynSidebar() {
   renderPage6();
 
   // --- LÓGICA DE LA PÁGINA 7 (RECOMENDACIONES - ESTILO MEMPHIS, OPCIONAL) ---
-
-  // Estado inicial de la Página 7
   let page7Data = {
     enabled: false,
     title: "Recomendaciones",

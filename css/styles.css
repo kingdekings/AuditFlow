@@ -470,10 +470,6 @@ input:focus, textarea:focus, select:focus {
   color: #ffffff;
 }
 
-/*
-  El viewBox de cada onda usa exactamente el mismo tamaño que .page (1122 x 794),
-  así el SVG no se estira de forma desigual en X/Y y la curva no queda "chueca".
-*/
 .cover-page::before {
   content: "";
   position: absolute;
@@ -554,7 +550,7 @@ input:focus, textarea:focus, select:focus {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 22px; /* <- sube o baja este número para más/menos espacio entre TODOS los elementos */
+  gap: 22px;
 }
 
 .cover-title {
@@ -1259,11 +1255,6 @@ input:focus, textarea:focus, select:focus {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-/* ================= PÁGINA 7: RECOMENDACIONES (ESTILO MEMPHIS) =================
-   Todos los colores usados aquí (var(--accent), var(--accent-2), var(--soft),
-   var(--kpi-number-bg), var(--kpi-title)...) se controlan desde la pestaña
-   "Estilos" del sidebar, igual que en el resto del informe. */
 
 .page.page7-dynamic {
   position: relative;
