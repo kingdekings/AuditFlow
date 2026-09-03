@@ -404,6 +404,21 @@ const bgImageSelect = document.getElementById("pageBackgroundImage");
   // Ahora se elige desde un menú desplegable con diseños ya cargados en el servidor
   // (carpeta media/), en lugar de subir un archivo desde el equipo.
 
+  // ===== Logo de la empresa (esquina superior derecha de la portada) =====
+  const companyLogoUpload = document.getElementById("companyLogoUpload");
+  const previewCompanyLogo = document.getElementById("previewCompanyLogo");
+  if (companyLogoUpload && previewCompanyLogo) {
+    companyLogoUpload.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        previewCompanyLogo.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
   const coverImageSelect = document.getElementById("coverImageSelect");
   const previewCoverImage = document.getElementById("previewCoverImage");
   if (coverImageSelect && previewCoverImage) {
@@ -1217,7 +1232,8 @@ function renderDynSidebar() {
     'sec-pag3': 'page3Preview',
     'sec-pag4': 'dynamicEvidencesDeckContainer',
     'sec-pag5': 'dynamicPagesDeckContainer',
-    'sec-pag6': 'page6DeckContainer'
+    'sec-pag6': 'page6DeckContainer',
+    'sec-pag7': 'page7DeckContainer'
   };
 
   function scrollPreviewToTab(targetId) {
@@ -1776,5 +1792,239 @@ function renderDynSidebar() {
   }
 
   renderPage6();
+
+  // --- LÓGICA DE LA PÁGINA 7 (RECOMENDACIONES - ESTILO MEMPHIS, OPCIONAL) ---
+
+  // Estado inicial de la Página 7
+  let page7Data = {
+    enabled: false,
+    title: "Recomendaciones",
+    items: [
+      { title: "Fortalecer controles", text: "Implementar revisiones periódicas que aseguren el cumplimiento de los procedimientos establecidos en cada proceso evaluado." },
+      { title: "Actualizar documentación", text: "Mantener actualizados y disponibles los carnet" }
+    ]
+  };
+
+  const p7SidebarContainer = document.getElementById("page7SidebarContainer");
+  const p7DeckContainer = document.getElementById("page7DeckContainer");
+
+  function renderPage7() {
+    renderPage7Sidebar();
+    renderPage7Preview();
+  }
+
+  function renderPage7Sidebar() {
+    if (!p7SidebarContainer) return;
+    p7SidebarContainer.innerHTML = "";
+
+    // 1. Checkbox para activar/desactivar la página
+    const toggleWrap = document.createElement("div");
+    toggleWrap.className = "field";
+    toggleWrap.style.display = "flex";
+    toggleWrap.style.alignItems = "center";
+    toggleWrap.style.gap = "10px";
+    toggleWrap.style.marginBottom = "20px";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = page7Data.enabled;
+    checkbox.style.width = "20px";
+    checkbox.style.height = "20px";
+    checkbox.onchange = (e) => {
+      page7Data.enabled = e.target.checked;
+      renderPage7();
+    };
+
+    const labelToggle = document.createElement("label");
+    labelToggle.textContent = "Incluir Página de Recomendaciones en el informe";
+    labelToggle.style.margin = "0";
+    labelToggle.style.cursor = "pointer";
+    labelToggle.onclick = () => checkbox.click();
+
+    toggleWrap.append(checkbox, labelToggle);
+    p7SidebarContainer.appendChild(toggleWrap);
+
+    // Si no está habilitada, no dibujamos el resto de los controles
+    if (!page7Data.enabled) return;
+
+    // 2. Input para el Título de la página
+    const titleWrap = document.createElement("div");
+    titleWrap.className = "field";
+    titleWrap.innerHTML = `<label>Título de la Página</label>`;
+    const titleInput = document.createElement("input");
+    titleInput.value = page7Data.title;
+    titleInput.oninput = (e) => { page7Data.title = e.target.value; renderPage7Preview(); };
+    titleWrap.appendChild(titleInput);
+    p7SidebarContainer.appendChild(titleWrap);
+
+    // 3. SECCIÓN DE RECOMENDACIONES
+    const listSection = document.createElement("div");
+    listSection.style.marginTop = "10px";
+
+    const listTitle = document.createElement("h4");
+    listTitle.textContent = "Recomendaciones";
+    listTitle.style.marginTop = "0";
+    listTitle.style.color = "#f97316";
+    listSection.appendChild(listTitle);
+
+    page7Data.items.forEach((item, itemIndex) => {
+      const itemBox = document.createElement("div");
+      itemBox.style.border = "1px solid #fed7aa";
+      itemBox.style.background = "#fff7ed";
+      itemBox.style.padding = "10px";
+      itemBox.style.marginBottom = "12px";
+      itemBox.style.borderRadius = "8px";
+
+      const itemHead = document.createElement("div");
+      itemHead.style.display = "flex";
+      itemHead.style.justifyContent = "space-between";
+      itemHead.style.alignItems = "center";
+      itemHead.style.marginBottom = "8px";
+      itemHead.innerHTML = `<strong>Recomendación ${itemIndex + 1}</strong>`;
+
+      const delItemBtn = document.createElement("button");
+      delItemBtn.textContent = "Eliminar";
+      delItemBtn.className = "remove-btn";
+      delItemBtn.style.padding = "2px 8px";
+      delItemBtn.onclick = () => {
+        page7Data.items.splice(itemIndex, 1);
+        renderPage7();
+      };
+      itemHead.appendChild(delItemBtn);
+      itemBox.appendChild(itemHead);
+
+      const titleField = document.createElement("div");
+      titleField.className = "field";
+      titleField.style.marginBottom = "6px";
+      titleField.innerHTML = `<label style="font-size: 11px;">Título</label>`;
+      const titleItemInput = document.createElement("input");
+      titleItemInput.value = item.title;
+      titleItemInput.oninput = (e) => { item.title = e.target.value; renderPage7Preview(); };
+      titleField.appendChild(titleItemInput);
+      itemBox.appendChild(titleField);
+
+      const textField = document.createElement("div");
+      textField.className = "field";
+      textField.innerHTML = `<label style="font-size: 11px;">Descripción</label>`;
+      const textItemInput = document.createElement("textarea");
+      textItemInput.value = item.text;
+      textItemInput.oninput = (e) => { item.text = e.target.value; renderPage7Preview(); };
+      textField.appendChild(textItemInput);
+      itemBox.appendChild(textField);
+
+      listSection.appendChild(itemBox);
+    });
+
+    const addItemBtn = document.createElement("button");
+    addItemBtn.textContent = "+ Agregar Recomendación";
+    addItemBtn.className = "btn";
+    addItemBtn.style.background = "#ffedd5";
+    addItemBtn.style.color = "#f97316";
+    addItemBtn.style.border = "1px solid #f97316";
+    addItemBtn.style.width = "100%";
+    addItemBtn.type = "button";
+    addItemBtn.onclick = () => {
+      page7Data.items.push({ title: "Nueva recomendación", text: "Describe aquí la recomendación." });
+      renderPage7();
+    };
+    listSection.appendChild(addItemBtn);
+
+    p7SidebarContainer.appendChild(listSection);
+  }
+
+  function renderPage7Preview() {
+    if (!p7DeckContainer) return;
+    p7DeckContainer.innerHTML = "";
+
+    if (!page7Data.enabled) return; // Si está desactivada, el contenedor se queda vacío
+
+    // Crear la hoja de la página 7
+    const pageArticle = document.createElement("article");
+    pageArticle.className = "page page7-dynamic";
+
+    // Formas decorativas estilo Memphis (usan las variables de color del sitio)
+    const shapes = document.createElement("div");
+    shapes.className = "memphis-shapes";
+    shapes.innerHTML = `
+      <div class="m-shape m-circle-fill shape-1"></div>
+      <div class="m-shape m-circle-outline shape-2"></div>
+      <div class="m-shape m-square shape-3"></div>
+      <div class="m-shape m-triangle shape-4"></div>
+      <div class="m-shape m-circle-fill shape-5"></div>
+      <div class="m-shape m-bar shape-6"></div>
+      <div class="m-shape m-circle-outline shape-7"></div>
+      <div class="m-shape m-triangle shape-8"></div>
+      <div class="m-shape m-zigzag shape-9" style="bottom: 24px; right: 40px;"></div>
+    `;
+    pageArticle.appendChild(shapes);
+
+    // Contenido (por encima de las formas decorativas)
+    const content = document.createElement("div");
+    content.className = "memphis-content";
+
+    // Header y Título
+    const header = document.createElement("header");
+    header.className = "section-head";
+    const divTitle = document.createElement("div");
+    const h2 = document.createElement("h2");
+    h2.className = "section-title";
+    h2.textContent = page7Data.title;
+    divTitle.appendChild(h2);
+    header.appendChild(divTitle);
+    content.appendChild(header);
+
+    if (page7Data.items.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "memphis-empty-state";
+      empty.textContent = "Agrega recomendaciones desde el panel lateral para mostrarlas aquí.";
+      content.appendChild(empty);
+    } else {
+      const grid = document.createElement("div");
+      grid.className = "memphis-recs-grid";
+
+      page7Data.items.forEach((item, itemIndex) => {
+        const card = document.createElement("div");
+        card.className = "memphis-rec-card";
+
+        const badge = document.createElement("div");
+        badge.className = "memphis-rec-badge";
+        badge.textContent = itemIndex + 1;
+        card.appendChild(badge);
+
+        const cardTitle = document.createElement("h3");
+        cardTitle.className = "memphis-rec-title";
+        cardTitle.textContent = item.title;
+        card.appendChild(cardTitle);
+
+        const cardText = document.createElement("p");
+        cardText.className = "memphis-rec-text";
+        cardText.textContent = item.text;
+        card.appendChild(cardText);
+
+        grid.appendChild(card);
+      });
+
+      content.appendChild(grid);
+    }
+
+    pageArticle.appendChild(content);
+    p7DeckContainer.appendChild(pageArticle);
+
+    // Re-aplicar el fondo seleccionado (igual que en el resto de páginas)
+    const bgImageSelect = document.getElementById("pageBackgroundImage");
+    if (typeof currentCustomBg !== 'undefined' && currentCustomBg) {
+      pageArticle.style.backgroundImage = `url('${currentCustomBg}')`;
+      pageArticle.style.backgroundSize = 'cover';
+      pageArticle.style.backgroundPosition = 'center';
+      pageArticle.style.backgroundRepeat = 'no-repeat';
+    } else if (bgImageSelect && bgImageSelect.value) {
+      pageArticle.style.backgroundImage = `url('${bgImageSelect.value}')`;
+      pageArticle.style.backgroundSize = 'cover';
+      pageArticle.style.backgroundPosition = 'center';
+      pageArticle.style.backgroundRepeat = 'no-repeat';
+    }
+  }
+
+  renderPage7();
 
 });

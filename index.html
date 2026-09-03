@@ -21,6 +21,7 @@
     <button class="tab-btn" data-target="sec-pag4">Evidencia</button>
     <button class="tab-btn" data-target="sec-pag5">Asp. Norm.</button>
     <button class="tab-btn" data-target="sec-pag6">Tabla General</button>
+    <button class="tab-btn" data-target="sec-pag7">Recomendaciones</button>
   </nav>
 
   <!-- ================= SECCIÓN GENERAL (ESTILOS) ================= -->
@@ -223,6 +224,10 @@
   <section id="sec-pag1" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #1d4ed8;">
     <h2 class="group-title" style="color: #1d4ed8;">Portada</h2>
     <div class="field">
+      <label for="companyLogoUpload">Logo de la empresa (esquina superior derecha)</label>
+      <input id="companyLogoUpload" type="file" accept="image/logo">
+    </div>
+    <div class="field">
       <label for="coverImageSelect">Imagen de portada (izquierda)</label>
       <select id="coverImageSelect">
         <option value="media/logo.png">Logo</option>
@@ -421,6 +426,14 @@
     </div>
   </section>
 
+  <!-- ================= SECCIÓN PÁGINA 7 (RECOMENDACIONES) ================= -->
+  <section id="sec-pag7" class="group tab-content" style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; border-left: 4px solid #f97316; margin-top: 15px;">
+    <div class="panel-section">
+      <h2 class="group-title" style="color: #f97316;">Recomendaciones</h2>
+      <div id="page7SidebarContainer"></div>
+    </div>
+  </section>
+
   <!-- Actions -->
   <div class="actions" style="margin-top: 20px;">
     <button class="btn btn-secondary" id="sample" type="button">Cargar ejemplo</button>
@@ -432,6 +445,8 @@
       <div class="deck theme-boardroom" id="deck">
         
         <article class="page cover-page wave-strong" id="coverPage">
+
+          <img id="previewCompanyLogo" class="cover-company-logo" src="media/logo.png" alt="Logo de la empresa">
 
           <div class="cover-top">
             <div class="cover-image-wrap">
@@ -555,6 +570,7 @@
       <div id="dynamicEvidencesDeckContainer"></div>
       <div id="dynamicPagesDeckContainer"></div>
       <div id="page6DeckContainer"></div>
+      <div id="page7DeckContainer"></div>
 
       </div>
     </section>

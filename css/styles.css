@@ -515,6 +515,16 @@ input:focus, textarea:focus, select:focus {
   z-index: 0;
 }
 
+.cover-company-logo {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  z-index: 3;
+}
+
 .cover-top {
   position: relative;
   z-index: 1;
@@ -628,7 +638,7 @@ input:focus, textarea:focus, select:focus {
   border-radius: 10px;
   padding: 0;
   background: linear-gradient(180deg, #ffffff, var(--mix-soft-38-white, #f4f8fe));
-  box-shadow: 0 14px 30px rgba(15, 23, 42, .12);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.747);
   text-align: left;
   overflow: hidden;
 }
@@ -1248,4 +1258,156 @@ input:focus, textarea:focus, select:focus {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= PÁGINA 7: RECOMENDACIONES (ESTILO MEMPHIS) =================
+   Todos los colores usados aquí (var(--accent), var(--accent-2), var(--soft),
+   var(--kpi-number-bg), var(--kpi-title)...) se controlan desde la pestaña
+   "Estilos" del sidebar, igual que en el resto del informe. */
+
+.page.page7-dynamic {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--page-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.memphis-shapes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.memphis-shapes .m-shape {
+  position: absolute;
+}
+
+.memphis-shapes .m-circle-fill {
+  border-radius: 50%;
+}
+
+.memphis-shapes .m-circle-outline {
+  border-radius: 50%;
+  background: transparent !important;
+  border-style: solid;
+}
+
+.memphis-shapes .m-triangle {
+  width: 0;
+  height: 0;
+  background: transparent !important;
+}
+
+.memphis-shapes .m-square {
+  border-radius: 8px;
+}
+
+.memphis-shapes .m-bar {
+  border-radius: 999px;
+}
+
+.memphis-shapes .m-zigzag {
+  width: 130px;
+  height: 26px;
+  background-size: 26px 26px;
+  background-repeat: repeat-x;
+  background-image:
+    linear-gradient(135deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(225deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(315deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(45deg, var(--accent) 25%, transparent 25%);
+  opacity: .85;
+}
+
+.shape-1 { top: -46px; right: 70px; width: 150px; height: 150px; background: var(--soft); }
+.shape-2 { bottom: -60px; left: -40px; width: 200px; height: 200px; border-width: 12px; border-color: var(--accent-2); }
+.shape-3 { top: 70px; left: 46px; width: 46px; height: 46px; background: var(--kpi-number-bg); transform: rotate(14deg); }
+.shape-4 {
+  bottom: 120px; right: 130px;
+  border-left: 32px solid transparent;
+  border-right: 32px solid transparent;
+  border-bottom: 56px solid var(--accent);
+  transform: rotate(-14deg);
+}
+.shape-5 { top: 240px; right: -26px; width: 96px; height: 96px; background: var(--accent-2); opacity: .8; }
+.shape-6 { bottom: 46px; left: 240px; width: 64px; height: 15px; background: var(--kpi-number-bg); transform: rotate(18deg); }
+.shape-7 { top: 26px; left: 320px; width: 34px; height: 34px; border-width: 6px; border-color: var(--kpi-number-bg); }
+.shape-8 {
+  top: 110px; right: 260px;
+  border-left: 18px solid transparent;
+  border-right: 18px solid transparent;
+  border-bottom: 30px solid var(--soft);
+  transform: rotate(20deg);
+}
+
+.memphis-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.memphis-recs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px 26px;
+  margin-top: 14px;
+  align-content: start;
+}
+
+.memphis-rec-card {
+  position: relative;
+  background: #ffffff;
+  border: 3px solid var(--kpi-title);
+  border-radius: 16px;
+  padding: 18px 20px 16px 62px;
+  box-shadow: 7px 7px 0 var(--accent);
+}
+
+.memphis-rec-badge {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--kpi-number-bg);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 18px;
+  border: 3px solid #ffffff;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.18);
+}
+
+.memphis-rec-title {
+  margin: 0 0 6px;
+  font-weight: 900;
+  font-size: calc(16px * var(--title-scale));
+  color: var(--kpi-title);
+  text-transform: uppercase;
+  letter-spacing: .2px;
+}
+
+.memphis-rec-text {
+  margin: 0;
+  font-size: var(--paragraph-size);
+  color: var(--paragraph-color);
+  line-height: 1.45;
+}
+
+.memphis-empty-state {
+  position: relative;
+  z-index: 2;
+  margin-top: 40px;
+  text-align: center;
+  font-size: var(--paragraph-size);
+  color: var(--muted);
 }
